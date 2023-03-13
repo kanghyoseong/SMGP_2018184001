@@ -7,6 +7,7 @@
     tools:context=".MainActivity">
 
     <TextView
+        android:id="@+id/studentNum"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="casual"
@@ -32,5 +33,29 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/pushMeButton"
+        android:onClick="onBtnPushMe"
+        android:layout_width="151dp"
+        android:layout_height="98dp"
+        android:text="Push Me"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/studentNum"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/pushMe2Button"
+        android:onClick="onBtnPushMe2"
+        android:layout_width="174dp"
+        android:layout_height="79dp"
+        android:text="Push Me 2"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/studentNum"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pushMeButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

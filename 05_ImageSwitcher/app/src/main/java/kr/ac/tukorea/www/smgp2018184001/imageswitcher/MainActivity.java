@@ -14,6 +14,8 @@ public class MainActivity extends AppCompatActivity {
     int curPage = 1;
     private ImageView mainImageView;
     private TextView pageTextView;
+    private TextView prevBtn;
+    private TextView nextBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +25,9 @@ public class MainActivity extends AppCompatActivity {
         //setContentView 후에 findViewById 실행 한다.
         mainImageView = findViewById(R.id.mainImageView);
         pageTextView = findViewById(R.id.pageTextView);
+        prevBtn = findViewById(R.id.prevBtn);
+        nextBtn = findViewById(R.id.nextBtn);
+        prevBtn.setEnabled(false);
     }
 
     public void onBtnPrev(View view) {
@@ -50,5 +55,8 @@ public class MainActivity extends AppCompatActivity {
         int resId = IMG_RES_IDS[curPage - 1];
         mainImageView.setImageResource(resId);
         pageTextView.setText(curPage + " / " + IMG_RES_IDS.length);
+
+        prevBtn.setEnabled(curPage > 1);
+        nextBtn.setEnabled(curPage < IMG_RES_IDS.length);
     }
 }

@@ -13,6 +13,7 @@
         tools:context=".MainActivity">
 
         <Button
+            android:id="@+id/prevBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="prev"
@@ -27,9 +28,10 @@
             android:text="1 / 5"
             android:textSize="24sp" />
         <Button
+            android:id="@+id/nextBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="right"
+            android:text="next"
             android:onClick="onBtnNext"/>
     </LinearLayout>
     <ImageView

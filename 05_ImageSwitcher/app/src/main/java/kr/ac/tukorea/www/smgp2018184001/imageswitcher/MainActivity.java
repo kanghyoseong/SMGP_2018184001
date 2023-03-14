@@ -6,6 +6,8 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,8 +16,8 @@ public class MainActivity extends AppCompatActivity {
     int curPage = 1;
     private ImageView mainImageView;
     private TextView pageTextView;
-    private TextView prevBtn;
-    private TextView nextBtn;
+    private ImageButton prevBtn;
+    private ImageButton nextBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

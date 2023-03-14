@@ -12,12 +12,14 @@
         android:orientation="horizontal"
         tools:context=".MainActivity">
 
-        <Button
+        <ImageButton
+            android:background="@mipmap/prev"
             android:id="@+id/prevBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:text="prev"
-            android:onClick="onBtnPrev"/>
+            android:onClick="onBtnPrev"
+            android:scaleType="fitCenter"/>
         <TextView
             android:id="@+id/pageTextView"
             android:layout_width="wrap_content"
@@ -26,13 +28,15 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:text="1 / 5"
-            android:textSize="24sp" />
-        <Button
+            android:textSize="40sp" />
+        <ImageButton
+            android:background="@mipmap/next"
             android:id="@+id/nextBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:text="next"
-            android:onClick="onBtnNext"/>
+            android:onClick="onBtnNext"
+            android:scaleType="fitCenter"/>
     </LinearLayout>
     <ImageView
         android:id="@+id/mainImageView"

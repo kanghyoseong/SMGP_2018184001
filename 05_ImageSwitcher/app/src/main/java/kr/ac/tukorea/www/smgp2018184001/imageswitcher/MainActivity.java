@@ -40,14 +40,15 @@ public class MainActivity extends AppCompatActivity {
             R.mipmap.cat_2,
             R.mipmap.cat_3,
             R.mipmap.cat_4,
-            R.mipmap.cat_5
+            R.mipmap.cat_5,
+            R.mipmap.cat_6,
     };
 
     private void setPage(int page){
-        if(page < 1 || page > 5) return;
+        if(page < 1 || page > IMG_RES_IDS.length) return;
         curPage = page;
         int resId = IMG_RES_IDS[curPage - 1];
         mainImageView.setImageResource(resId);
-        pageTextView.setText(curPage + " / 5");
+        pageTextView.setText(curPage + " / " + IMG_RES_IDS.length);
     }
 }

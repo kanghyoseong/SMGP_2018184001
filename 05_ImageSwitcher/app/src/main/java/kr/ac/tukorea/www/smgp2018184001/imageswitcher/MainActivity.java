@@ -9,7 +9,7 @@ import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static final String TAG = "MainActivity";
+    public static final String TAG = MainActivity.class.getSimpleName();//MainActivity 클래스 Simple 이름
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

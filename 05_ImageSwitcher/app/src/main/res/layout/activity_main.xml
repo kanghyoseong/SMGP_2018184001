@@ -17,7 +17,6 @@
             android:id="@+id/prevBtn"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:text="prev"
             android:onClick="onBtnPrev"
             android:scaleType="fitCenter"/>
         <TextView
@@ -34,7 +33,6 @@
             android:id="@+id/nextBtn"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:text="next"
             android:onClick="onBtnNext"
             android:scaleType="fitCenter"/>
     </LinearLayout>

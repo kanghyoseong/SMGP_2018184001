@@ -5,11 +5,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 
 import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
+    private static final int[] resIds = new int[]{
+            R.mipmap.card_as, R.mipmap.card_2c, R.mipmap.card_3d, R.mipmap.card_4h,
+            R.mipmap.card_5s, R.mipmap.card_jc, R.mipmap.card_kd, R.mipmap.card_qh,
+            R.mipmap.card_as, R.mipmap.card_2c, R.mipmap.card_3d, R.mipmap.card_4h,
+            R.mipmap.card_5s, R.mipmap.card_jc, R.mipmap.card_kd, R.mipmap.card_qh,
+    };
     private static final int[] BUTTON_IDS = new int[]{
         R.id.card_00, R.id.card_01, R.id.card_02, R.id.card_03,
         R.id.card_10, R.id.card_11, R.id.card_12, R.id.card_13,
@@ -35,11 +42,37 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        for(int i = 0; i < BUTTON_IDS.length; i++) {
+            ImageButton btn = findViewById(BUTTON_IDS[i]);
+            btn.setTag(resIds[i]);
+        }
     }
-
+    private ImageButton previousImgButton; // 마지막으로 눌렀던 버튼
     public void onBtnCard(View view) {
         Log.d(TAG, "Card ID = " + view.getId());
         int cardIndex = getIndexWithId(view.getId());
         Log.d(TAG, "Card Index = " + cardIndex);
+
+        ImageButton btn = (ImageButton) view;
+        if(btn == previousImgButton){
+            return;
+        }
+        int resId = (Integer)btn.getTag();
+        btn.setImageResource(resId);
+
+        if(previousImgButton != null){
+            int prevResId = (Integer)previousImgButton.getTag();
+
+            if(resId == prevResId){
+                btn.setVisibility(View.INVISIBLE);
+                previousImgButton.setVisibility((View.INVISIBLE));
+                previousImgButton = null;
+                return;
+            }
+            else{
+                previousImgButton.setImageResource(R.mipmap.card_blue_back);
+            }
+        }
+        previousImgButton = btn;
     }
 }

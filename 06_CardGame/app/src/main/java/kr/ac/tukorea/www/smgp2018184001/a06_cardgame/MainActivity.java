@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.HashMap;
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -53,8 +54,17 @@ public class MainActivity extends AppCompatActivity {
         startGame();
     }
 
-    private void startGame(){
+    private void startGame() {
         setFlips(0);
+
+        Random r = new Random();
+        for (int i = 0; i < resIds.length; i++) {
+            int t = r.nextInt(resIds.length);
+            int id = resIds[t];
+            resIds[t] = resIds[i];
+            resIds[i] = id;
+        }
+
         for (int i = 0; i < BUTTON_IDS.length; i++) {
             ImageButton btn = findViewById(BUTTON_IDS[i]);
             btn.setTag(resIds[i]);
@@ -77,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
         ImageButton btn = (ImageButton) view;
         if (btn == previousImgButton) {
             //같은 카드가 눌리면 Toast를 보여준다.
-            Toast.makeText(this, "Same Card", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.same_card_toast, Toast.LENGTH_SHORT).show();
             return;
         }
         int resId = (Integer) btn.getTag();
@@ -105,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setFlips(int flips) {
         this.flips = flips;
-        scoreTextView.setText("Flips: " + flips);
+        scoreTextView.setText(getString(R.string.score_flips_fmt, flips));
     }
 
     public void onBtnRestart(View view) {
@@ -114,16 +124,16 @@ public class MainActivity extends AppCompatActivity {
 
     private void askRetry() {
         new AlertDialog.Builder(this)
-                .setTitle("Restart")
-                .setMessage("Do you really want to restart the game?")
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                .setTitle(R.string.restart_dlg_title)
+                .setMessage(R.string.restart_dlg_msg)
+                .setPositiveButton(R.string.common_yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         Log.d(TAG, "Restart Here");
                         startGame();
                     }
                 })
-                .setNegativeButton("No", null)
+                .setNegativeButton(R.string.common_no, null)
                 .create()
                 .show();
     }

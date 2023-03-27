@@ -78,4 +78,7 @@ public class MainActivity extends AppCompatActivity {
                 "😊" : "☹";
         reactionTextView.setText(emoji);
     }
+
+    public void onBtnNewActivity(View view) {
+    }
 }

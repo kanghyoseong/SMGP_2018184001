@@ -63,7 +63,7 @@ public class GameView extends View {
         rect = new Rect(paddingLeft, paddingTop, getWidth() - paddingRight, getHeight() - paddingBottom);
         ovalRect = new RectF(rect.left, rect.top, rect.right, rect.bottom);
 
-        outlinePaint.setStrokeWidth(contentWidth/100f);
+        outlinePaint.setStrokeWidth(2);
     }
 
     @Override
@@ -78,20 +78,29 @@ public class GameView extends View {
         super.onDraw(canvas);
 
         canvas.drawRect(rect, paint);
+        int hw = rect.width() / 2, hh = rect.height() / 2;
+
+        canvas.save();
+        setCanvasRect(canvas, rect.left+hw/3, rect.top+hw/3, hw, hh);
         drawSmiley(canvas);
+        canvas.restore();
+
+        canvas.save();
+        setCanvasRect(canvas, rect.left+hw, rect.top+hh, hw/2, hh/2);
+        drawSmiley(canvas);
+        canvas.restore();
     }
-    private void drawSmiley(Canvas canvas){
-        canvas.drawOval(ovalRect, facePaint);
-        canvas.drawOval(ovalRect, outlinePaint);
 
-        float x1 = ovalRect.centerX() - ovalRect.width() / 6;
-        float x2 = ovalRect.centerX() + ovalRect.width() / 6;
-        float y1 = ovalRect.centerY() - ovalRect.height() / 6;
-        float y2 = ovalRect.centerY() + ovalRect.height() / 6;
-        float r = x1 / 10;
+    private void setCanvasRect(Canvas canvas, float left, float top, float width, float height) {
+        Log.i(TAG, "setCanvasRect(" + left + "," + top + "," + width + "," + height + ")");
+        canvas.translate(left, top);
+        canvas.scale(width / 100f, height / 100f);
+    }
 
-        canvas.drawCircle(x1, y1, r, outlinePaint);
-        canvas.drawCircle(x2, y1, r, outlinePaint);
-        canvas.drawArc(x1, y1, x2, y2, 0, 180, false, outlinePaint);
+    private void drawSmiley(Canvas canvas) {
+        canvas.drawOval(0, 0, 100, 100, facePaint);
+        canvas.drawCircle(30, 40, 7, outlinePaint);
+        canvas.drawCircle(70, 40, 7, outlinePaint);
+        canvas.drawArc(20, 20, 80, 80, 30, 120, false, outlinePaint);
     }
 }

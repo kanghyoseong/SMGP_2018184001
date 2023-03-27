@@ -6,15 +6,21 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.text.TextPaint;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 /**
  * TODO: document your custom view class.
  */
 public class GameView extends View {
+    private static final String TAG = GameView.class.getSimpleName();
+    private Paint paint, facePaint, outlinePaint;
+    private Rect rect;
+    private RectF ovalRect;
 
     public GameView(Context context) {
         super(context);
@@ -32,14 +38,20 @@ public class GameView extends View {
     }
 
     private void init(AttributeSet attrs, int defStyle) {
+        paint = new Paint();
+        paint.setColor(Color.BLUE);
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setStrokeWidth(20);
+
+        facePaint = new Paint();
+        facePaint.setColor(Color.YELLOW);
+
+        outlinePaint = new Paint();
+        outlinePaint.setColor(Color.BLACK);
+        outlinePaint.setStyle(Paint.Style.STROKE);
     }
 
-    @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
-
-        // TODO: consider storing these as member variables to reduce
-        // allocations per draw cycle.
+    private void calcSize() {
         int paddingLeft = getPaddingLeft();
         int paddingTop = getPaddingTop();
         int paddingRight = getPaddingRight();
@@ -48,12 +60,38 @@ public class GameView extends View {
         int contentWidth = getWidth() - paddingLeft - paddingRight;
         int contentHeight = getHeight() - paddingTop - paddingBottom;
 
-        Paint paint = new Paint();
-        paint.setColor(Color.BLUE);
-        paint.setStyle(Paint.Style.STROKE);
-        paint.setStrokeWidth(20);
+        rect = new Rect(paddingLeft, paddingTop, getWidth() - paddingRight, getHeight() - paddingBottom);
+        ovalRect = new RectF(rect.left, rect.top, rect.right, rect.bottom);
 
-        Rect rect = new Rect(paddingLeft, paddingTop, getWidth()-paddingRight, getHeight()-paddingBottom);
+        outlinePaint.setStrokeWidth(contentWidth/100f);
+    }
+
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+        Log.d(TAG, "onSizeChanged:" + w + "," + h);
+        calcSize();
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+
         canvas.drawRect(rect, paint);
+        drawSmiley(canvas);
+    }
+    private void drawSmiley(Canvas canvas){
+        canvas.drawOval(ovalRect, facePaint);
+        canvas.drawOval(ovalRect, outlinePaint);
+
+        float x1 = ovalRect.centerX() - ovalRect.width() / 6;
+        float x2 = ovalRect.centerX() + ovalRect.width() / 6;
+        float y1 = ovalRect.centerY() - ovalRect.height() / 6;
+        float y2 = ovalRect.centerY() + ovalRect.height() / 6;
+        float r = x1 / 10;
+
+        canvas.drawCircle(x1, y1, r, outlinePaint);
+        canvas.drawCircle(x2, y1, r, outlinePaint);
+        canvas.drawArc(x1, y1, x2, y2, 0, 180, false, outlinePaint);
     }
 }

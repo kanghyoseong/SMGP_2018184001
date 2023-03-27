@@ -2,6 +2,7 @@ package kr.ac.tukorea.www.smgp2018184001.a07_morecontrols;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -80,5 +81,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onBtnNewActivity(View view) {
+        Intent intent = new Intent(this, AnotherActivity.class);
+        startActivity(intent);
     }
 }

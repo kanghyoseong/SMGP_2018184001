@@ -52,4 +52,10 @@
         android:layout_marginVertical="8dp"
         android:onClick="onBtnDoIt"
         />
+    <kr.ac.tukorea.www.smgp2018184001.a07_morecontrols.GameView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:padding="20dp"
+        />
 </LinearLayout>

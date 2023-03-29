@@ -3,13 +3,11 @@ plugins {
 }
 
 android {
-    namespace 'kr.ac.tukorea.www.smgp2018184001.a07_morecontrols'
+    namespace 'kr.ac.tukorea.www.smgp2018184001.a08_samplegame'
     compileSdk 33
-    viewBinding{
-        enabled = true
-    }
+
     defaultConfig {
-        applicationId "kr.ac.tukorea.www.smgp2018184001.a07_morecontrols"
+        applicationId "kr.ac.tukorea.www.smgp2018184001.a08_samplegame"
         minSdk 24
         targetSdk 33
         versionCode 1

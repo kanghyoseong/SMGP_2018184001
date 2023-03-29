@@ -16,13 +16,16 @@ import android.util.Log;
 import android.view.Choreographer;
 import android.view.View;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 /**
  * TODO: document your custom view class.
  */
 public class GameView extends View implements Choreographer.FrameCallback {
     private float scale;
     private static final String TAG = GameView.class.getSimpleName();
-    private Ball ball;
+    private ArrayList<Ball> balls = new ArrayList<>();
 
     public GameView(Context context) {
         super(context);
@@ -50,7 +53,12 @@ public class GameView extends View implements Choreographer.FrameCallback {
         Bitmap soccerBitmap = BitmapFactory.decodeResource(res, R.mipmap.soccer_ball_240);
         Ball.setBitmap(soccerBitmap);
 
-        ball = new Ball(0.04f, 0.06f);
+        Random r = new Random();
+        for (int i = 0; i < 10; i++) {
+            float dx = r.nextFloat() * 0.05f + 0.03f;
+            float dy = r.nextFloat() * 0.05f + 0.03f;
+            balls.add(new Ball(dx, dy));
+        }
 
         Choreographer.getInstance().postFrameCallback(this);
     }
@@ -65,14 +73,17 @@ public class GameView extends View implements Choreographer.FrameCallback {
     }
 
     private void update() {
-        ball.update();
-
+        for (Ball ball : balls) {
+            ball.update();
+        }
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         canvas.scale(scale, scale); // width의 1/10을 canvas의 크기로 정함
-        ball.draw(canvas);
+        for (Ball ball : balls) {
+            ball.draw(canvas);
+        }
     }
 }

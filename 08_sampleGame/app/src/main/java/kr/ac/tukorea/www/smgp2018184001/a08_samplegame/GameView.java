@@ -14,6 +14,7 @@ import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Choreographer;
+import android.view.MotionEvent;
 import android.view.View;
 
 import java.util.ArrayList;
@@ -26,6 +27,7 @@ public class GameView extends View implements Choreographer.FrameCallback {
     private float scale;
     private static final String TAG = GameView.class.getSimpleName();
     private ArrayList<Ball> balls = new ArrayList<>();
+    private Fighter fighter;
 
     public GameView(Context context) {
         super(context);
@@ -52,6 +54,8 @@ public class GameView extends View implements Choreographer.FrameCallback {
         Resources res = getResources();
         Bitmap soccerBitmap = BitmapFactory.decodeResource(res, R.mipmap.soccer_ball_240);
         Ball.setBitmap(soccerBitmap);
+        Bitmap fighterBitmap = BitmapFactory.decodeResource(res, R.mipmap.plane_240);
+        Fighter.setBitmap(fighterBitmap);
 
         Random r = new Random();
         for (int i = 0; i < 10; i++) {
@@ -59,6 +63,7 @@ public class GameView extends View implements Choreographer.FrameCallback {
             float dy = r.nextFloat() * 0.05f + 0.03f;
             balls.add(new Ball(dx, dy));
         }
+        fighter = new Fighter();
 
         Choreographer.getInstance().postFrameCallback(this);
     }
@@ -76,6 +81,7 @@ public class GameView extends View implements Choreographer.FrameCallback {
         for (Ball ball : balls) {
             ball.update();
         }
+        fighter.update();
     }
 
     @Override
@@ -85,5 +91,20 @@ public class GameView extends View implements Choreographer.FrameCallback {
         for (Ball ball : balls) {
             ball.draw(canvas);
         }
+        fighter.draw(canvas);
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        int action = event.getAction();
+        switch (action) {
+            case MotionEvent.ACTION_DOWN:
+            case MotionEvent.ACTION_MOVE:
+                float x = (float) event.getX() / scale;
+                float y = (float) event.getY() / scale;
+                fighter.setPosition(x, y);
+                return true;
+        }
+        return super.onTouchEvent(event);
     }
 }

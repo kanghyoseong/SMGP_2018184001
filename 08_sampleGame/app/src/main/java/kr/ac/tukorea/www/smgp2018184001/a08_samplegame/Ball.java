@@ -4,7 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.RectF;
 
-public class Ball {
+public class Ball implements IGameObject {
     private static Bitmap bitmap;
     private RectF dstRect = new RectF();
     private float dx, dy;

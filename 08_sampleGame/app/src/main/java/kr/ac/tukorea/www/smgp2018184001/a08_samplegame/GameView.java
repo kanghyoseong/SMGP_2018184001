@@ -26,7 +26,7 @@ import java.util.Random;
 public class GameView extends View implements Choreographer.FrameCallback {
     private float scale;
     private static final String TAG = GameView.class.getSimpleName();
-    private ArrayList<Ball> balls = new ArrayList<>();
+    private ArrayList<IGameObject> objects = new ArrayList<>();
     private Fighter fighter;
 
     public GameView(Context context) {
@@ -61,9 +61,10 @@ public class GameView extends View implements Choreographer.FrameCallback {
         for (int i = 0; i < 10; i++) {
             float dx = r.nextFloat() * 0.05f + 0.03f;
             float dy = r.nextFloat() * 0.05f + 0.03f;
-            balls.add(new Ball(dx, dy));
+            objects.add(new Ball(dx, dy));
         }
         fighter = new Fighter();
+        objects.add(fighter);
 
         Choreographer.getInstance().postFrameCallback(this);
     }
@@ -78,20 +79,18 @@ public class GameView extends View implements Choreographer.FrameCallback {
     }
 
     private void update() {
-        for (Ball ball : balls) {
-            ball.update();
+        for (IGameObject gobj : objects) {
+            gobj.update();
         }
-        fighter.update();
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         canvas.scale(scale, scale); // width의 1/10을 canvas의 크기로 정함
-        for (Ball ball : balls) {
-            ball.draw(canvas);
+        for (IGameObject gobj : objects) {
+            gobj.draw(canvas);
         }
-        fighter.draw(canvas);
     }
 
     @Override

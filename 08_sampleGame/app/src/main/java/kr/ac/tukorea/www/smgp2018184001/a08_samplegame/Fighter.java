@@ -4,7 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.RectF;
 
-public class Fighter {
+public class Fighter implements IGameObject{
     private static final float RADIUS = 1.25f;
     private static Bitmap bitmap;
     private RectF dstRect = new RectF();

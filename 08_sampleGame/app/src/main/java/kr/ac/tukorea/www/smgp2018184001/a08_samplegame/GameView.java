@@ -3,6 +3,8 @@ package kr.ac.tukorea.www.smgp2018184001.a08_samplegame;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.Choreographer;
 import android.view.MotionEvent;
@@ -15,6 +17,7 @@ public class GameView extends View implements Choreographer.FrameCallback {
     public static float scale;
     public static Resources res;
     private static final String TAG = GameView.class.getSimpleName();
+    protected Paint fpsPaint = new Paint();
 
     public GameView(Context context) {
         super(context);
@@ -40,6 +43,9 @@ public class GameView extends View implements Choreographer.FrameCallback {
     private void init(AttributeSet attrs, int defStyle) {
         GameView.res = getResources();
         Choreographer.getInstance().postFrameCallback(this);
+
+        fpsPaint.setColor(Color.BLUE);
+        fpsPaint.setTextSize(100f);
     }
 
     private long previousNanos;
@@ -60,8 +66,13 @@ public class GameView extends View implements Choreographer.FrameCallback {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        canvas.save();
         canvas.scale(scale, scale); // width의 1/10을 canvas의 크기로 정함
         BaseScene.getTopScene().draw(canvas);
+        canvas.restore();// canvas.scale() 사용한것을 복구
+
+        int fps = (int) (1.0f / BaseScene.frameTime);
+        canvas.drawText("FPS: " + fps, 100f, 200f, fpsPaint);
     }
 
     @Override

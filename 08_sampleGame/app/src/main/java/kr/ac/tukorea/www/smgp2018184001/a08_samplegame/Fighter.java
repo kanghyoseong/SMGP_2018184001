@@ -1,6 +1,7 @@
 package kr.ac.tukorea.www.smgp2018184001.a08_samplegame;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.RectF;
 
@@ -15,6 +16,9 @@ public class Fighter implements IGameObject{
         x = 5.0f;
         y = 13.25f;
         dstRect.set(x - RADIUS, y, x + RADIUS, y + 2 * RADIUS);
+        if (bitmap == null) {// static이라 1번만 실행됨
+            bitmap = BitmapFactory.decodeResource(GameView.res, R.mipmap.plane_240);
+        }
     }
 
     public static void setBitmap(Bitmap bitmap) {

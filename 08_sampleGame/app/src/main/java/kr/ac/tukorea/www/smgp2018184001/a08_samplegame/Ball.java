@@ -1,6 +1,7 @@
 package kr.ac.tukorea.www.smgp2018184001.a08_samplegame;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.RectF;
 
@@ -13,10 +14,9 @@ public class Ball implements IGameObject {
         this.dx = dx;
         this.dy = dy;
         dstRect.set(0, 0, 2.5f, 2.5f);
-    }
-
-    public static void setBitmap(Bitmap bitmap) {
-        Ball.bitmap = bitmap;
+        if (bitmap == null) {// static이라 1번만 실행됨
+            bitmap = BitmapFactory.decodeResource(GameView.res, R.mipmap.soccer_ball_240);
+        }
     }
 
     public void update() {

@@ -1,7 +1,6 @@
 package kr.ac.tukorea.www.smgp2018184001.a08_samplegame;
 
 import android.graphics.Canvas;
-import android.graphics.Paint;
 import android.view.MotionEvent;
 
 import java.util.ArrayList;
@@ -24,7 +23,7 @@ public class BaseScene {
         return objects.size();
     }
 
-    public void update() {
+    public void update(long nanos) {
         for (IGameObject gobj : objects) {
             gobj.update();
         }

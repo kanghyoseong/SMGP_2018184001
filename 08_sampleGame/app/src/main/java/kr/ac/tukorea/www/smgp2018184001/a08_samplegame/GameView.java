@@ -2,23 +2,11 @@ package kr.ac.tukorea.www.smgp2018184001.a08_samplegame;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.content.res.TypedArray;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.RectF;
-import android.graphics.drawable.Drawable;
-import android.text.TextPaint;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.Choreographer;
 import android.view.MotionEvent;
 import android.view.View;
-
-import java.util.ArrayList;
-import java.util.Random;
 
 /**
  * TODO: document your custom view class.
@@ -55,16 +43,12 @@ public class GameView extends View implements Choreographer.FrameCallback {
     }
 
     @Override
-    public void doFrame(long l) {
-        update();
+    public void doFrame(long nanos) {
+        BaseScene.getTopScene().update(nanos);
         invalidate();
         if (isShown()) {
             Choreographer.getInstance().postFrameCallback(this);
         }
-    }
-
-    private void update() {
-        BaseScene.getTopScene().update();
     }
 
     @Override

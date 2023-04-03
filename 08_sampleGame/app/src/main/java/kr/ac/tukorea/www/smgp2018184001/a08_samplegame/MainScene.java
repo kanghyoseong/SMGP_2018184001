@@ -1,7 +1,5 @@
 package kr.ac.tukorea.www.smgp2018184001.a08_samplegame;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.view.MotionEvent;
 
 import java.util.Random;

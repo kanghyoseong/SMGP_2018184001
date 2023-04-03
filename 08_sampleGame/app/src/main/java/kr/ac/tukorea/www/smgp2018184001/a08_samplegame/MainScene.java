@@ -10,8 +10,8 @@ public class MainScene extends BaseScene {
     public MainScene() {
         Random r = new Random();
         for (int i = 0; i < 10; i++) {
-            float dx = r.nextFloat() * 0.05f + 0.03f;
-            float dy = r.nextFloat() * 0.05f + 0.03f;
+            float dx = r.nextFloat() * 5f + 3f; // 초당 움직이는 속도
+            float dy = r.nextFloat() * 5f + 3f; // 초당 움직이는 속도
             add(new Ball(dx, dy));
         }
         fighter = new Fighter();

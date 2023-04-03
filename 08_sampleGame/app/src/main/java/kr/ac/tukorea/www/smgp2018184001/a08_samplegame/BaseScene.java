@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class BaseScene {
     private static ArrayList<BaseScene> stack = new ArrayList<>();
     private ArrayList<IGameObject> objects = new ArrayList<>();
-    private float frameTime;
+    public static float frameTime;
 
     public static BaseScene getTopScene() {
         return stack.get(stack.size() - 1); // Array List 이니까 맨 끝에 있는 Scene을 가져온다.
@@ -26,7 +26,7 @@ public class BaseScene {
     }
 
     public void update(long elapsedNanos) {
-        this.frameTime = elapsedNanos / 1_000_000_000f;
+        frameTime = elapsedNanos / 1_000_000_000f;
         Log.d(null, "FrameTime: " + String.valueOf(frameTime) + 's');
         for (IGameObject gobj : objects) {
             gobj.update();

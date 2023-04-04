@@ -4,11 +4,13 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.RectF;
+import android.util.Log;
 
 public class Fighter implements IGameObject {
     private static final float RADIUS = 1.25f;
-    private static Bitmap bitmap;
+    private static Bitmap bitmap, targetBitmap;
     private RectF dstRect = new RectF();
+    private RectF targetRect = new RectF();
     private float x, y; // 현재 위치
     private float tx, ty; // 목표 위치, touch event로 받는다.
     private float dx, dy; // 초당 속도
@@ -22,6 +24,7 @@ public class Fighter implements IGameObject {
         dstRect.set(x - RADIUS, y - RADIUS, x + RADIUS, y + RADIUS);
         if (bitmap == null) {// static이라 1번만 실행됨
             bitmap = BitmapFactory.decodeResource(GameView.res, R.mipmap.plane_240);
+            targetBitmap = BitmapFactory.decodeResource(GameView.res, R.mipmap.target);
         }
     }
 
@@ -49,6 +52,12 @@ public class Fighter implements IGameObject {
         canvas.rotate(angle, x, y);
         canvas.drawBitmap(bitmap, null, dstRect, null);
         canvas.restore();
+        Log.d(null, String.valueOf(dx)+", "+String.valueOf(dy));
+        if (dx != 0 || dy != 0) {
+            float r = 1.0f;
+            targetRect.set(tx - r, ty - r, tx + r, ty + r);
+            canvas.drawBitmap(targetBitmap, null, targetRect, null);
+        }
     }
 
     public void setTargetPosition(float tx, float ty) {

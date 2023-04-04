@@ -102,7 +102,6 @@ public class GameView extends View implements Choreographer.FrameCallback {
         }
     }
 
-
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         boolean handled = BaseScene.getTopScene().onTouchEvent(event);

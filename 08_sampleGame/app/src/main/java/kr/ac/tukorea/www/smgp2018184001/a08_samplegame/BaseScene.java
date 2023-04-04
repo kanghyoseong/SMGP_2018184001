@@ -12,7 +12,11 @@ public class BaseScene {
     public static float frameTime;
 
     public static BaseScene getTopScene() {
-        return stack.get(stack.size() - 1); // Array List 이니까 맨 끝에 있는 Scene을 가져온다.
+        int top = stack.size() - 1;
+        if (top < 0) {
+            return null;
+        }
+        return stack.get(top); // Array List 이니까 맨 끝에 있는 Scene을 가져온다.
     }
 
     public int pushScene() {

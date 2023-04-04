@@ -89,12 +89,17 @@ public class GameView extends View implements Choreographer.FrameCallback {
         canvas.save();
         canvas.translate(x_offset, y_offset);
         canvas.scale(scale, scale); // width의 1/10을 canvas의 크기로 정함
-        BaseScene.getTopScene().draw(canvas);
+        BaseScene scene = BaseScene.getTopScene();
+        if (scene != null) {
+            scene.draw(canvas);
+        }
         canvas.drawRect(0, 0, game_width, game_height, borderPaint);
         canvas.restore();// canvas.scale() 사용한것을 복구
 
-        int fps = (int) (1.0f / BaseScene.frameTime);
-        canvas.drawText("FPS: " + fps, 100f, 200f, fpsPaint);
+        if (BaseScene.frameTime > 0) {
+            int fps = (int) (1.0f / BaseScene.frameTime);
+            canvas.drawText("FPS: " + fps, 100f, 200f, fpsPaint);
+        }
     }
 
     @Override

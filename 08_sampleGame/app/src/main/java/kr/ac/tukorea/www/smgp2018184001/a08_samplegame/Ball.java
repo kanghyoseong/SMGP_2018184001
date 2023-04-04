@@ -5,18 +5,13 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.RectF;
 
-public class Ball implements IGameObject {
-    private static Bitmap bitmap;
-    private RectF dstRect = new RectF();
+public class Ball extends Sprite {
     private float dx, dy;
 
     public Ball(float dx, float dy) {
+        super(R.mipmap.soccer_ball_240, 2.0f, 2.0f, 2.5f, 2.5f);
         this.dx = dx;
         this.dy = dy;
-        dstRect.set(0, 0, 2.5f, 2.5f);
-        if (bitmap == null) {// static이라 1번만 실행됨
-            bitmap = BitmapFactory.decodeResource(GameView.res, R.mipmap.soccer_ball_240);
-        }
     }
 
     public void update() {
@@ -39,9 +34,5 @@ public class Ball implements IGameObject {
                 dy = -dy;
             }
         }
-    }
-
-    public void draw(Canvas canvas) {
-        canvas.drawBitmap(bitmap, null, dstRect, null);
     }
 }

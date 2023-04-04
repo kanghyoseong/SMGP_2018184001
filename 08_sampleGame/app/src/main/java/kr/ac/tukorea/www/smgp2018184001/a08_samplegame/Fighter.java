@@ -6,30 +6,21 @@ import android.graphics.Canvas;
 import android.graphics.RectF;
 import android.util.Log;
 
-public class Fighter implements IGameObject {
+public class Fighter extends Sprite {
     private static final float RADIUS = 1.25f;
-    private static Bitmap bitmap, targetBitmap;
-    private RectF dstRect = new RectF();
+    private static Bitmap targetBitmap;
     private RectF targetRect = new RectF();
-    private float x, y; // 현재 위치
     private float tx, ty; // 목표 위치, touch event로 받는다.
     private float dx, dy; // 초당 속도
     private static float SPEED = 10.0f;
     private float angle;
 
     public Fighter() {
-        x = tx = 5.0f;
-        y = ty = 13.25f;
+        super(R.mipmap.plane_240, 4.5f, 12.0f, 2 * RADIUS, 2 * RADIUS);
+        tx = x;
+        ty = y;
         dx = dy = 0;
-        dstRect.set(x - RADIUS, y - RADIUS, x + RADIUS, y + RADIUS);
-        if (bitmap == null) {// static이라 1번만 실행됨
-            bitmap = BitmapFactory.decodeResource(GameView.res, R.mipmap.plane_240);
-            targetBitmap = BitmapFactory.decodeResource(GameView.res, R.mipmap.target);
-        }
-    }
-
-    public static void setBitmap(Bitmap bitmap) {
-        Fighter.bitmap = bitmap;
+        targetBitmap = BitmapFactory.decodeResource(GameView.res, R.mipmap.target);
     }
 
     public void update() {
@@ -44,7 +35,7 @@ public class Fighter implements IGameObject {
             y = ty;
             dy = 0;
         }
-        dstRect.set(x - RADIUS, y - RADIUS, x + RADIUS, y + RADIUS);
+        fixDstRect();
     }
 
     public void draw(Canvas canvas) {
@@ -52,7 +43,6 @@ public class Fighter implements IGameObject {
         canvas.rotate(angle, x, y);
         canvas.drawBitmap(bitmap, null, dstRect, null);
         canvas.restore();
-        Log.d(null, String.valueOf(dx)+", "+String.valueOf(dy));
         if (dx != 0 || dy != 0) {
             float r = 1.0f;
             targetRect.set(tx - r, ty - r, tx + r, ty + r);
@@ -69,8 +59,5 @@ public class Fighter implements IGameObject {
         this.dx = (float) (SPEED * Math.cos(radian));
         this.dy = (float) (SPEED * Math.sin(radian));
         angle = (float) Math.toDegrees(radian) + 90;
-        //dstRect.set(x - RADIUS, y - RADIUS, x + RADIUS, y + RADIUS);
-        //this.x = x;
-        //this.y = y;
     }
 }

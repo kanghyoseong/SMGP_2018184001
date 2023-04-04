@@ -1,10 +1,8 @@
 package kr.ac.tukorea.www.smgp2018184001.a08_samplegame;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.RectF;
-import android.util.Log;
 
 public class Fighter extends Sprite {
     private static final float RADIUS = 1.25f;
@@ -20,7 +18,7 @@ public class Fighter extends Sprite {
         tx = x;
         ty = y;
         dx = dy = 0;
-        targetBitmap = BitmapFactory.decodeResource(GameView.res, R.mipmap.target);
+        targetBitmap = BitmapPool.get(R.mipmap.target);
     }
 
     public void update() {

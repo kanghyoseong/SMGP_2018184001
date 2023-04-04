@@ -1,10 +1,5 @@
 package kr.ac.tukorea.www.smgp2018184001.a08_samplegame;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.RectF;
-
 public class Ball extends Sprite {
     private float dx, dy;
 

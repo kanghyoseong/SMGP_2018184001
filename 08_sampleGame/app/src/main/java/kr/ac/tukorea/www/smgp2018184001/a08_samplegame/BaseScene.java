@@ -27,7 +27,7 @@ public class BaseScene {
 
     public void update(long elapsedNanos) {
         frameTime = elapsedNanos / 1_000_000_000f;
-        Log.d(null, "FrameTime: " + String.valueOf(frameTime) + 's');
+        //Log.d(null, "FrameTime: " + String.valueOf(frameTime) + 's');
         for (IGameObject gobj : objects) {
             gobj.update();
         }

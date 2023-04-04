@@ -15,9 +15,13 @@ import android.view.View;
  */
 public class GameView extends View implements Choreographer.FrameCallback {
     public static float scale;
+    public static float game_width = 9.0f;
+    public static float game_height = 16.0f;
+    public static int x_offset, y_offset;
     public static Resources res;
     private static final String TAG = GameView.class.getSimpleName();
-    protected Paint fpsPaint = new Paint();
+    protected Paint fpsPaint;
+    protected Paint borderPaint;
 
     public GameView(Context context) {
         super(context);
@@ -37,15 +41,31 @@ public class GameView extends View implements Choreographer.FrameCallback {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        scale = w / 10.0f;
+        float view_ratio = (float) w / (float) h;
+        float game_ratio = game_width / game_height;
+        if (view_ratio > game_ratio) {//가로가 더 크다
+            x_offset = (int) ((w - h * game_ratio) / 2);
+            y_offset = 0;
+            scale = h / game_height;
+        } else {
+            x_offset = 0;
+            y_offset = (int) ((h - w / game_ratio) / 2);
+            scale = w / game_width;
+        }
     }
 
     private void init(AttributeSet attrs, int defStyle) {
         GameView.res = getResources();
         Choreographer.getInstance().postFrameCallback(this);
 
+        fpsPaint = new Paint();
         fpsPaint.setColor(Color.BLUE);
         fpsPaint.setTextSize(100f);
+
+        borderPaint = new Paint();
+        borderPaint.setColor(Color.RED);
+        borderPaint.setStyle(Paint.Style.STROKE);
+        borderPaint.setStrokeWidth(0.1f);
     }
 
     private long previousNanos;
@@ -67,8 +87,10 @@ public class GameView extends View implements Choreographer.FrameCallback {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         canvas.save();
+        canvas.translate(x_offset, y_offset);
         canvas.scale(scale, scale); // width의 1/10을 canvas의 크기로 정함
         BaseScene.getTopScene().draw(canvas);
+        canvas.drawRect(0, 0, game_width, game_height, borderPaint);
         canvas.restore();// canvas.scale() 사용한것을 복구
 
         int fps = (int) (1.0f / BaseScene.frameTime);

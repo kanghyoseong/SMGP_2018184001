@@ -8,6 +8,7 @@ public class MainScene extends BaseScene {
     private Fighter fighter;
 
     public MainScene() {
+        Metrics.setGameSize(10,10);
         Random r = new Random();
         for (int i = 0; i < 10; i++) {
             float dx = r.nextFloat() * 5f + 3f; // 초당 움직이는 속도
@@ -19,7 +20,7 @@ public class MainScene extends BaseScene {
     }
 
     public boolean onTouchEvent(MotionEvent event) {
-        float scale = GameView.scale;
+        float scale = Metrics.scale;
         int action = event.getAction();
         switch (action) {
             case MotionEvent.ACTION_DOWN:

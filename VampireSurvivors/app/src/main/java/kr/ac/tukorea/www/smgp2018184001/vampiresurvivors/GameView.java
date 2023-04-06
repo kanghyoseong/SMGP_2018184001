@@ -33,7 +33,8 @@ public class GameView extends View implements Choreographer.FrameCallback {
 
     private void init(AttributeSet attrs, int defStyle) {
         res = getResources();
-        player = new Player(5, 8, 4, 4, R.mipmap.player_anim_4x1, 4, 1);
+        player = new Player(5, 8, 4, 4,
+                R.mipmap.player_anim_4x1, 4, 1, 0.2f);
 
         Choreographer.getInstance().postFrameCallback(this);
     }

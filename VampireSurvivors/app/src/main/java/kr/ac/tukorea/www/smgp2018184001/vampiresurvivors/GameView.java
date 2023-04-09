@@ -15,6 +15,7 @@ public class GameView extends View implements Choreographer.FrameCallback {
     private Player player;
     private long previousNanos = 0;
     public static float frameTime = 0;
+    private float scale;
 
     public GameView(Context context) {
         super(context);
@@ -31,9 +32,28 @@ public class GameView extends View implements Choreographer.FrameCallback {
         init(attrs, defStyle);
     }
 
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+        float viewRatio = (float) w / (float) h;
+        //Log.d(TAG, "Ratio: " + String.valueOf(viewRatio));
+        if (viewRatio < 1) { // h > w
+            scale = w;
+            player.setPos(0.5f, h / scale / 2.f);
+            //Log.d(TAG, "w: " + String.valueOf(w) + ", h: " + String.valueOf(h) + ", Scale: " + String.valueOf(scale));
+            //Log.d(TAG, String.valueOf(h / scale / 2.f));
+        } else { // h <= w
+            scale = h;
+            player.setPos(w / scale / 2.f, 0.5f);
+            //Log.d(TAG, "w: " + String.valueOf(w) + ", h: " + String.valueOf(h) + ", Scale: " + String.valueOf(scale));
+            //Log.d(TAG, String.valueOf(w / scale / 2.f));
+        }
+
+    }
+
     private void init(AttributeSet attrs, int defStyle) {
         res = getResources();
-        player = new Player(5, 8, 4, 4,
+        player = new Player(5, 5, 0.12f, 0.12f,
                 R.mipmap.player_anim_4x1, 4, 1, 0.2f);
 
         Choreographer.getInstance().postFrameCallback(this);
@@ -47,7 +67,7 @@ public class GameView extends View implements Choreographer.FrameCallback {
             update(frameTime);
         }
         previousNanos = curNanos;
-        Log.d(TAG, "FrameTime: " + String.valueOf(frameTime));
+        //Log.d(TAG, "FrameTime: " + String.valueOf(frameTime));
         invalidate();
         if (isShown()) {
             Choreographer.getInstance().postFrameCallback(this);
@@ -55,14 +75,13 @@ public class GameView extends View implements Choreographer.FrameCallback {
     }
 
     private void update(float frameTime) {
-        player.move(1.f, 0);
+        //player.move(1.f, 0);
         player.update(frameTime);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        float scale = getWidth() / 9.0f;
         canvas.scale(scale, scale);
         player.draw(canvas);
     }

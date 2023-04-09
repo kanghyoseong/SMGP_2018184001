@@ -34,6 +34,12 @@ public class Player {
         sprite.draw(canvas);
     }
 
+    public void setPos(float x, float y){
+        posX = x;
+        posY = y;
+        reconstructRect();
+    }
+
     public void move(float dx, float dy) {
         posX += dx * GameView.frameTime;
         posY += dy * GameView.frameTime;

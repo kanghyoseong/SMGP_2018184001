@@ -26,6 +26,16 @@
 ### UI
 <img width="100%" src="https://user-images.githubusercontent.com/104414105/229295083-47867948-6524-4297-a082-48f361bf73e0.png"/>
 
+### 화면 비율
+<img width="90%" src="https://user-images.githubusercontent.com/104414105/230758991-b4972e62-dc23-4ab2-8347-069e63d93bea.png"/>
+
+* 화면의 크기는 1 x 1이다.
+* 플레이어의 크기는 0.12 x 0.12이다.
+* 플레이어는 항상 화면 중앙에 있다.
+* 플레이어 이동시 배경이 움직인다.
+* 화면 비율이 달라져도 1x1의 화면은 무조건 보이게 한다.
+* 그 밖의 화면은 게임 배경으로 채운다.
+
 ### 플레이어
 <img width="20%" src="https://user-images.githubusercontent.com/104414105/229296160-cae3c5cf-ca7f-4cc7-aae6-3deb92785c0b.png"/>
 

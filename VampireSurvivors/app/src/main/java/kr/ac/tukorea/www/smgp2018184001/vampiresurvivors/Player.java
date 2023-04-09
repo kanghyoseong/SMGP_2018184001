@@ -14,8 +14,9 @@ public class Player {
     private int level = 1;
     private int expToLevelUp = 5;
     private int expToLevelUp_increment = 10;
-    private int hp = 20;
-    private int hp_increment = 2;
+    private int curHp = 20;
+    private int maxHp = 20;
+    private int maxHp_increment = 2;
     private float movementSpeed = 1.0f;
     //private Item items[];
 

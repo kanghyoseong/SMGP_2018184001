@@ -84,6 +84,62 @@
 * 3번째 웨이브 마다 새로운 종류의 적이 생성된다. 
 * 처음 생성되는 적의 수는 종류 당 15이고 다음 웨이브에서 5씩 추가된다.
 
+## Class
+### Class Sprite
+
+#### 변수
+|  자료형   |             이름             |                                      설명
+|----------|------------------------------|--------------------------------------------------------------------------------------------
+|__Bitmap__|__bitmapFrame[]__             |애니메이션을 위한 비트맵들, 한 장의 애니메이션 스프라이트를 spriteCount만큼 쪼개서 배열로 저장한다.
+|__int__   |__curFrame__                  |현재 프레임 숫자, 1부터 시작한다.
+|__int__   |__frameCount__                |프레임 총 개수
+|__float__ |__secToNextFrame__            |다음 프레임으로 넘어가는데 걸리는 시간
+|__int__   |__spriteCountX, spriteCountY__|입력된 스프라이트 이미지가 나눠져 있는 개수
+|__float__ |__elapsedTime__               |프레임이 넘어간 후 지난 시간. 이것이 secToNextFrame보다 크면 다음 프레임으로 넘어간다.
+|__RectF__ |__dstRect__                   |그림을 그리기 위한 Rect, Player의 RectF와 같은 객체를 가리킨다.
+
+#### 함수
+|               이름                                             |                           설명                  
+|----------------------------------------------------------------|----------------------------------------------------------------------
+|__public void update(float eTime)__                             |elapsedTime을 증가시킨 뒤 secToNextFrame보다 크면 다음 프레임으로 넘어간다.
+|__public void draw(Canvas canvas)__                             |dstRect 크기만큼 bitmapFrame에서 curFrame 그림을 꺼내어 그린다.
+|__private void toNextFrame()__                                  |curFrame을 증가시키고 frameCount보다 크면 1로 초기화 시킨다.
+|__public void setBitmapList(int resId, int countX, int countY)__|리소스를 countX, countY 만큼 분리시킨 뒤 bitmapFrame에 저장한다.
+|__public void setDstRect(RectF rect)__                          |Sprite의 dstRect가 rect를 가리키도록 한다.
+
+### Class Player
+
+#### 변수
+Sprite Animation
+|  자료형  |       이름      |                설명                  
+|----------|----------------|--------------------------------------
+|__Sprite__|__sprite__      |플레이어 애니메이션 이미지
+|__RectF__ |__dstRect__     |플레이어를 그리거나 충돌을 판정할때 사용
+|__float__ |__posX, posY__  |플레이어의 화면상 위치
+|__float__ |__sizeX, sizeY__|플레이어의 화면상 크기
+
+Game Information
+|  자료형  |           이름           |               설명
+|---------|--------------------------|--------------------------------
+|__int__  |__level__                 |현재 레벨
+|__int__  |__expToLevelUp__          |레벨업을 하기위해 필요한 경험치 양
+|__int__  |__expToLevelUp_increment__|레벨업시 expToLevelUp의 증가량
+|__int__  |__curHp__                 |현재 HP
+|__int__  |__maxHp__                 |최대 HP
+|__int__  |__maxHp_increment__       |레벨업시 maxHp의 증가량
+|__float__|__movementSpeed__         |이동속도
+|__Item__ |__items[]__               |가지고 있는 아이템
+
+#### 함수
+|              이름                      |                           설명                  
+|----------------------------------------|----------------------------------------------------------------------
+|__public void draw(Canvas canvas)__     |sprite.draw()를 호출한다. (애니메이션 스프라이트를 그린다.)
+|__public void setPos(float x, float y)__|posX, posY를 x, y로 설정하고 dstRect를 재설정한다.
+|__public void move(float dx, float dy)__|dx, dy와 frameTime을 곱하여 posX, posY에 더한다. 그리고 dstRect를 재설정한다.
+|__private void reconstructRect()__      |dstRect를 posX, posY위치에 sizeX, sizeY 크기가 되도록 설정한다.
+|__public void update(float eTime)__     |sprite.update()를 호출한다.
+
+
 ## 일정
 |기간|시작일|내용|
 |-----|------|-----------|

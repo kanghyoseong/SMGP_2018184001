@@ -13,9 +13,10 @@ public class GameView extends View implements Choreographer.FrameCallback {
     private static final String TAG = GameView.class.getSimpleName();
     public static Resources res;
     private Player player;
+    private Joystick joystick;
     private long previousNanos = 0;
     public static float frameTime = 0;
-    private float scale;
+    public static float scale;
 
     public GameView(Context context) {
         super(context);
@@ -55,6 +56,7 @@ public class GameView extends View implements Choreographer.FrameCallback {
         res = getResources();
         player = new Player(5, 5, 0.12f, 0.12f,
                 R.mipmap.player_anim_4x1, 4, 1, 0.2f);
+        joystick = new Joystick();
 
         Choreographer.getInstance().postFrameCallback(this);
     }
@@ -77,6 +79,7 @@ public class GameView extends View implements Choreographer.FrameCallback {
     private void update(float frameTime) {
         //player.move(1.f, 0);
         player.update(frameTime);
+        joystick.update(player);
     }
 
     @Override
@@ -84,6 +87,7 @@ public class GameView extends View implements Choreographer.FrameCallback {
         super.onDraw(canvas);
         canvas.scale(scale, scale);
         player.draw(canvas);
+        joystick.draw(canvas);
     }
 
     @Override
@@ -91,7 +95,14 @@ public class GameView extends View implements Choreographer.FrameCallback {
         int action = event.getAction();
         switch (action) {
             case MotionEvent.ACTION_DOWN:
-                movePlayer(100, 0);
+                joystick.touchDown(event.getX(), event.getY());
+                return true;
+            case MotionEvent.ACTION_MOVE:
+                joystick.drag(event.getX(), event.getY());
+                return true;
+            case MotionEvent.ACTION_UP:
+                joystick.touchUp();
+                return true;
         }
         return super.onTouchEvent(event);
     }

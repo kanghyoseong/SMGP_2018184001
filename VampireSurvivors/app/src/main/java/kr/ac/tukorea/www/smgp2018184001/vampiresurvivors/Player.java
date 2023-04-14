@@ -17,7 +17,7 @@ public class Player {
     private int curHp = 20;
     private int maxHp = 20;
     private int maxHp_increment = 2;
-    private float movementSpeed = 1.0f;
+    private float movementSpeed = 0.5f;
     //private Item items[];
 
     public Player(float posX, float posY, float sizeX, float sizeY,
@@ -35,15 +35,15 @@ public class Player {
         sprite.draw(canvas);
     }
 
-    public void setPos(float x, float y){
+    public void setPos(float x, float y) {
         posX = x;
         posY = y;
         reconstructRect();
     }
 
     public void move(float dx, float dy) {
-        posX += dx * GameView.frameTime;
-        posY += dy * GameView.frameTime;
+        posX += movementSpeed * dx * GameView.frameTime;
+        posY += movementSpeed * dy * GameView.frameTime;
         reconstructRect();
     }
 

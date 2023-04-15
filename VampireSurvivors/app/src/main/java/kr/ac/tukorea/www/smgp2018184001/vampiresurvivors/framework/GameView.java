@@ -27,6 +27,7 @@ public class GameView extends View implements Choreographer.FrameCallback {
     private long previousNanos = 0;
     public static float frameTime = 0;
     private Paint borderPaint;
+    private Paint fpsPaint;
 
 
     public GameView(Context context) {
@@ -74,6 +75,10 @@ public class GameView extends View implements Choreographer.FrameCallback {
                 R.mipmap.background);
 
         if (BuildConfig.DEBUG) {
+            fpsPaint = new Paint();
+            fpsPaint.setColor(Color.WHITE);
+            fpsPaint.setTextSize(100.0f);
+
             borderPaint = new Paint();
             borderPaint.setColor(Color.RED);
             borderPaint.setStyle(Paint.Style.STROKE);
@@ -118,6 +123,10 @@ public class GameView extends View implements Choreographer.FrameCallback {
             canvas.drawRect(0, 0, Metrics.game_width, Metrics.game_height, borderPaint);
         }
         canvas.restore();
+        if (BuildConfig.DEBUG && frameTime > 0) {
+            int fps = (int) (1.0f / frameTime);
+            canvas.drawText("FPS: " + fps, 100f, 150f, fpsPaint);
+        }
     }
 
     @Override

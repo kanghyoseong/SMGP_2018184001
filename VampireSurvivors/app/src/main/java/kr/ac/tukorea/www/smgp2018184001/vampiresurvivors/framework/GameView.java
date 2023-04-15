@@ -22,7 +22,6 @@ public class GameView extends View implements Choreographer.FrameCallback {
     private Joystick joystick;
     private long previousNanos = 0;
     public static float frameTime = 0;
-    public static float scale;
 
     public GameView(Context context) {
         super(context);
@@ -45,13 +44,13 @@ public class GameView extends View implements Choreographer.FrameCallback {
         float viewRatio = (float) w / (float) h;
         //Log.d(TAG, "Ratio: " + String.valueOf(viewRatio));
         if (viewRatio < 1) { // h > w
-            scale = w;
-            player.setPos(0.5f, h / scale / 2.f);
+            Metrics.scale = w;
+            player.setPos(0.5f, h / Metrics.scale / 2.f);
             //Log.d(TAG, "w: " + String.valueOf(w) + ", h: " + String.valueOf(h) + ", Scale: " + String.valueOf(scale));
             //Log.d(TAG, String.valueOf(h / scale / 2.f));
         } else { // h <= w
-            scale = h;
-            player.setPos(w / scale / 2.f, 0.5f);
+            Metrics.scale = h;
+            player.setPos(w / Metrics.scale / 2.f, 0.5f);
             //Log.d(TAG, "w: " + String.valueOf(w) + ", h: " + String.valueOf(h) + ", Scale: " + String.valueOf(scale));
             //Log.d(TAG, String.valueOf(w / scale / 2.f));
         }
@@ -94,7 +93,7 @@ public class GameView extends View implements Choreographer.FrameCallback {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        canvas.scale(scale, scale);
+        canvas.scale(Metrics.scale, Metrics.scale);
         background.draw(canvas);
         player.draw(canvas);
         joystick.draw(canvas);

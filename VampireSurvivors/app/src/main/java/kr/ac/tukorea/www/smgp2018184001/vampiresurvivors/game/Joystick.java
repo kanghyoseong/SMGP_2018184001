@@ -5,6 +5,7 @@ import android.graphics.Paint;
 import android.util.Log;
 
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.GameView;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.Metrics;
 
 public class Joystick {
     private float posX, posY, oldX, oldY, curX, curY;
@@ -34,13 +35,13 @@ public class Joystick {
 
     public void touchDown(float x, float y) {
         isTouchDown = true;
-        posX = oldX = curX = x / GameView.scale;
-        posY = oldY = curY = y / GameView.scale;
+        posX = oldX = curX = x / Metrics.scale;
+        posY = oldY = curY = y / Metrics.scale;
     }
 
     public void drag(float x, float y) {
-        float offsetX = x / GameView.scale - posX;
-        float offsetY = y / GameView.scale - posY;
+        float offsetX = x / Metrics.scale - posX;
+        float offsetY = y / Metrics.scale - posY;
         length = (float) Math.sqrt((double) ((offsetX * offsetX) + (offsetY * offsetY)));
         //Log.d(null, "length: "+length);
         dirX = offsetX / length;
@@ -54,8 +55,8 @@ public class Joystick {
             speed_multiplier = 1.0f;
             Log.d(null, "curX: " + curX);
         } else {
-            curX = x / GameView.scale;
-            curY = y / GameView.scale;
+            curX = x / Metrics.scale;
+            curY = y / Metrics.scale;
             speed_multiplier = length / dragLimit;
         }
     }

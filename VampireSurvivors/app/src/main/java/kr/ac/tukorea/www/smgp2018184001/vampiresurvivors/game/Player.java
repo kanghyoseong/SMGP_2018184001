@@ -1,7 +1,10 @@
-package kr.ac.tukorea.www.smgp2018184001.vampiresurvivors;
+package kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game;
 
 import android.graphics.Canvas;
 import android.graphics.RectF;
+
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.GameView;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.Sprite;
 
 public class Player {
     // Sprite Animation

@@ -1,13 +1,16 @@
-package kr.ac.tukorea.www.smgp2018184001.vampiresurvivors;
+package kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework;
 
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.Choreographer;
 import android.view.MotionEvent;
 import android.view.View;
+
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.R;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.Joystick;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.Player;
 
 public class GameView extends View implements Choreographer.FrameCallback {
     private static final String TAG = GameView.class.getSimpleName();

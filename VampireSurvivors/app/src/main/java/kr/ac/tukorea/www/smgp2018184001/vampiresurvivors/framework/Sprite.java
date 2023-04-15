@@ -1,9 +1,11 @@
-package kr.ac.tukorea.www.smgp2018184001.vampiresurvivors;
+package kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.RectF;
+
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.GameView;
 
 public class Sprite {
     private Bitmap bitmapFrame[];

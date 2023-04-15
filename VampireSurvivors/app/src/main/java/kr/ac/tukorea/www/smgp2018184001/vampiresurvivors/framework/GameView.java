@@ -42,22 +42,22 @@ public class GameView extends View implements Choreographer.FrameCallback {
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
         float viewRatio = (float) w / (float) h;
-        //Log.d(TAG, "Ratio: " + String.valueOf(viewRatio));
-        if (viewRatio < 1) { // h > w
-            Metrics.scale = w;
+        float gameRatio = Metrics.game_width / Metrics.game_height;
+        if (viewRatio < gameRatio) { // viewRatio의 세로가 더 클 때
+            Metrics.x_offset = 0;
+            Metrics.y_offset = (int) ((h - w) / gameRatio) / 2;
+            Metrics.scale = w / Metrics.game_width;
             player.setPos(0.5f, h / Metrics.scale / 2.f);
-            //Log.d(TAG, "w: " + String.valueOf(w) + ", h: " + String.valueOf(h) + ", Scale: " + String.valueOf(scale));
-            //Log.d(TAG, String.valueOf(h / scale / 2.f));
-        } else { // h <= w
-            Metrics.scale = h;
+        } else { // viewRatio의 가로가 더 클 때
+            Metrics.x_offset = (int) ((w - h) * gameRatio) / 2;
+            Metrics.y_offset = 0;
+            Metrics.scale = h / Metrics.game_height;
             player.setPos(w / Metrics.scale / 2.f, 0.5f);
-            //Log.d(TAG, "w: " + String.valueOf(w) + ", h: " + String.valueOf(h) + ", Scale: " + String.valueOf(scale));
-            //Log.d(TAG, String.valueOf(w / scale / 2.f));
         }
-
     }
 
     private void init(AttributeSet attrs, int defStyle) {
+        Metrics.setGameSize(1, 1);
         res = getResources();
         player = new Player(0, 0, 0.12f, 0.12f,
                 R.mipmap.player_anim_4x1, 4, 1, 0.2f);

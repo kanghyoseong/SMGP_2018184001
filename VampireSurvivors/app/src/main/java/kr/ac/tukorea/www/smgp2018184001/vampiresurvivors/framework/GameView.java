@@ -3,6 +3,7 @@ package kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
+import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.Choreographer;
 import android.view.MotionEvent;
@@ -16,6 +17,7 @@ public class GameView extends View implements Choreographer.FrameCallback {
     private static final String TAG = GameView.class.getSimpleName();
     public static Resources res;
     private Player player;
+    private Sprite background;
     private Joystick joystick;
     private long previousNanos = 0;
     public static float frameTime = 0;
@@ -60,6 +62,10 @@ public class GameView extends View implements Choreographer.FrameCallback {
         player = new Player(5, 5, 0.12f, 0.12f,
                 R.mipmap.player_anim_4x1, 4, 1, 0.2f);
         joystick = new Joystick();
+        background = new Sprite(R.mipmap.background);
+        RectF bgRect = new RectF();
+        bgRect.set(-4, -4, 4, 4);
+        background.setDstRect(bgRect);
 
         Choreographer.getInstance().postFrameCallback(this);
     }
@@ -89,6 +95,7 @@ public class GameView extends View implements Choreographer.FrameCallback {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         canvas.scale(scale, scale);
+        background.draw(canvas);
         player.draw(canvas);
         joystick.draw(canvas);
     }

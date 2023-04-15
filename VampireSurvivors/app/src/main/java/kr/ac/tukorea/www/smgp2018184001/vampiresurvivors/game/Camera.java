@@ -2,6 +2,7 @@ package kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game;
 
 import android.util.Log;
 
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.Metrics;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.Object;
 
 public class Camera extends Object {
@@ -12,8 +13,8 @@ public class Camera extends Object {
     }
 
     public void update(Player player) {
-        posX = player.getPosX() - 0.5f;
-        posY = player.getPosY() - 0.5f;
+        posX = player.getPosX() - Metrics.game_width * 0.5f;
+        posY = player.getPosY() - Metrics.game_height * 0.5f;
         //Log.d(TAG, "posX: " + posX + ", posY: " + posY);
     }
 }

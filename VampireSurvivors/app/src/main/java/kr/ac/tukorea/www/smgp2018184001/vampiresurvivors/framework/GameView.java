@@ -3,15 +3,19 @@ package kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.Choreographer;
 import android.view.MotionEvent;
 import android.view.View;
 
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.BuildConfig;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.R;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.Camera;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.Joystick;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.Player;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.SpriteSize;
 
 public class GameView extends View implements Choreographer.FrameCallback {
     private static final String TAG = GameView.class.getSimpleName();
@@ -22,6 +26,8 @@ public class GameView extends View implements Choreographer.FrameCallback {
     private Joystick joystick;
     private long previousNanos = 0;
     public static float frameTime = 0;
+    private Paint borderPaint;
+
 
     public GameView(Context context) {
         super(context);
@@ -45,25 +51,34 @@ public class GameView extends View implements Choreographer.FrameCallback {
         float gameRatio = Metrics.game_width / Metrics.game_height;
         if (viewRatio < gameRatio) { // viewRatio의 세로가 더 클 때
             Metrics.x_offset = 0;
-            Metrics.y_offset = (int) ((h - w) / gameRatio) / 2;
+            Metrics.y_offset = (int) (h - w / gameRatio) / 2;
             Metrics.scale = w / Metrics.game_width;
-            player.setPos(0.5f, h / Metrics.scale / 2.f);
         } else { // viewRatio의 가로가 더 클 때
-            Metrics.x_offset = (int) ((w - h) * gameRatio) / 2;
+            Metrics.x_offset = (int) (w - h * gameRatio) / 2;
             Metrics.y_offset = 0;
             Metrics.scale = h / Metrics.game_height;
-            player.setPos(w / Metrics.scale / 2.f, 0.5f);
         }
+        //Log.d(TAG, "x_offset: "+Metrics.x_offset+", y_offset"+Metrics.y_offset);
     }
 
     private void init(AttributeSet attrs, int defStyle) {
         Metrics.setGameSize(1, 1);
         res = getResources();
-        player = new Player(0, 0, 0.12f, 0.12f,
+        player = new Player(0, 0,
+                SpriteSize.PLAYER_SIZE, SpriteSize.PLAYER_SIZE,
                 R.mipmap.player_anim_4x1, 4, 1, 0.2f);
         camera = new Camera(player);
         joystick = new Joystick();
-        background = new Object(0, 0, 8.0f, 8.0f, R.mipmap.background);
+        background = new Object(0, 0,
+                SpriteSize.BACKGROUND_SIZE, SpriteSize.BACKGROUND_SIZE,
+                R.mipmap.background);
+
+        if (BuildConfig.DEBUG) {
+            borderPaint = new Paint();
+            borderPaint.setColor(Color.RED);
+            borderPaint.setStyle(Paint.Style.STROKE);
+            borderPaint.setStrokeWidth(0.02f);
+        }
 
         Choreographer.getInstance().postFrameCallback(this);
     }
@@ -93,10 +108,16 @@ public class GameView extends View implements Choreographer.FrameCallback {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        canvas.save();
+        canvas.translate(Metrics.x_offset, Metrics.y_offset);
         canvas.scale(Metrics.scale, Metrics.scale);
         background.draw(canvas);
         player.draw(canvas);
         joystick.draw(canvas);
+        if (BuildConfig.DEBUG) {
+            canvas.drawRect(0, 0, Metrics.game_width, Metrics.game_height, borderPaint);
+        }
+        canvas.restore();
     }
 
     @Override

@@ -28,20 +28,20 @@ public class Joystick {
         if (isTouchDown && length > 0.01f) {
             float moveX = dirX * speed_multiplier;
             float moveY = dirY * speed_multiplier;
-            Log.d(null, "moveX: " + moveX + ", moveY: " + moveY);
+            //Log.d(null, "moveX: " + moveX + ", moveY: " + moveY);
             player.move(moveX, moveY);
         }
     }
 
     public void touchDown(float x, float y) {
         isTouchDown = true;
-        posX = oldX = curX = x / Metrics.scale;
-        posY = oldY = curY = y / Metrics.scale;
+        posX = oldX = curX = Metrics.toGameX(x);
+        posY = oldY = curY = Metrics.toGameY(y);
     }
 
     public void drag(float x, float y) {
-        float offsetX = x / Metrics.scale - posX;
-        float offsetY = y / Metrics.scale - posY;
+        float offsetX = Metrics.toGameX(x) - posX;
+        float offsetY = Metrics.toGameY(y) - posY;
         length = (float) Math.sqrt((double) ((offsetX * offsetX) + (offsetY * offsetY)));
         //Log.d(null, "length: "+length);
         dirX = offsetX / length;
@@ -53,10 +53,9 @@ public class Joystick {
             curX = posX + dirX * dragLimit;
             curY = posY + dirY * dragLimit;
             speed_multiplier = 1.0f;
-            Log.d(null, "curX: " + curX);
         } else {
-            curX = x / Metrics.scale;
-            curY = y / Metrics.scale;
+            curX = Metrics.toGameX(x);
+            curY = Metrics.toGameY(y);
             speed_multiplier = length / dragLimit;
         }
     }
@@ -68,8 +67,8 @@ public class Joystick {
 
     public void draw(Canvas canvas) {
         if (isTouchDown) {
-            canvas.drawCircle(posX, posY, 0.1f, paint_joystickBackground);
-            canvas.drawCircle(curX, curY, 0.05f, paint_joystickHandle);
+            canvas.drawCircle(posX, posY, SpriteSize.JOYSTICK_BACKGROUND_SIZE, paint_joystickBackground);
+            canvas.drawCircle(curX, curY, SpriteSize.JOYSTICK_HANDLE_SIZE, paint_joystickHandle);
         }
     }
 }

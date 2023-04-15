@@ -16,6 +16,13 @@ public class Sprite {
     private float elapsedTime = 0;
     private RectF dstRect;
 
+    public Sprite(int resId) {
+        this.secToNextFrame = -1;
+        this.spriteCountX = 1;
+        this.spriteCountY = 1;
+        setBitmap(resId);
+    }
+
     public Sprite(int resId, int spriteCountX, int spriteCountY, float secToNextFrame) {
         this.secToNextFrame = secToNextFrame;
         this.spriteCountX = spriteCountX;
@@ -24,10 +31,12 @@ public class Sprite {
     }
 
     public void update(float eTime) {
-        elapsedTime += eTime;
-        if (elapsedTime > secToNextFrame) {
-            toNextFrame();
-            elapsedTime = 0;
+        if (secToNextFrame > 0) {
+            elapsedTime += eTime;
+            if (elapsedTime > secToNextFrame) {
+                toNextFrame();
+                elapsedTime = 0;
+            }
         }
     }
 
@@ -38,6 +47,11 @@ public class Sprite {
     private void toNextFrame() {
         curFrame++;
         if (curFrame > frameCount) curFrame = 1;
+    }
+
+    public void setBitmap(int resId) {
+        bitmapFrame = new Bitmap[1];
+        bitmapFrame[0] = BitmapFactory.decodeResource(GameView.res, resId);
     }
 
     public void setBitmapList(int resId, int countX, int countY) {

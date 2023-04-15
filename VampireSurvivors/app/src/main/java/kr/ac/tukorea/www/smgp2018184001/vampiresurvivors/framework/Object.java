@@ -19,6 +19,18 @@ public class Object {
     }
 
     public Object(float posX, float posY, float sizeX, float sizeY,
+                  int resId) {
+        this.posX = posX;
+        this.posY = posY;
+        this.sizeX = sizeX;
+        this.sizeY = sizeY;
+        sprite = new Sprite(resId);
+        dstRect = new RectF();
+        reconstructRect();
+        sprite.setDstRect(dstRect);
+    }
+
+    public Object(float posX, float posY, float sizeX, float sizeY,
                   int resId, int spriteCountX, int spriteCountY, float secToNextFrame) {
         this.posX = posX;
         this.posY = posY;
@@ -44,13 +56,30 @@ public class Object {
 
     protected void reconstructRect() {
         if (dstRect != null) {
-            dstRect.set(posX - sizeX / 2, posY - sizeY / 2, posX + sizeX / 2, posY + sizeY / 2);
+            if (GameView.camera != null) {
+                float x = GameView.camera.getPosX();
+                float y = GameView.camera.getPosY();
+                dstRect.set(posX - sizeX / 2 - x, posY - sizeY / 2 - y,
+                        posX + sizeX / 2 - x, posY + sizeY / 2 - y);
+            } else {
+                dstRect.set(posX - sizeX / 2, posY - sizeY / 2,
+                        posX + sizeX / 2, posY + sizeY / 2);
+            }
         }
     }
 
     public void update(float eTime) {
         if (sprite != null) {
             sprite.update(eTime);
+            reconstructRect();
         }
+    }
+
+    public float getPosX() {
+        return posX;
+    }
+
+    public float getPosY() {
+        return posY;
     }
 }

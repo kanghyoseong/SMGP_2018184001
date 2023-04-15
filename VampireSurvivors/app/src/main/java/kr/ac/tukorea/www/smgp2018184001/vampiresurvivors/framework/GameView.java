@@ -3,13 +3,13 @@ package kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
-import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.Choreographer;
 import android.view.MotionEvent;
 import android.view.View;
 
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.R;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.Camera;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.Joystick;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.Player;
 
@@ -17,7 +17,8 @@ public class GameView extends View implements Choreographer.FrameCallback {
     private static final String TAG = GameView.class.getSimpleName();
     public static Resources res;
     private Player player;
-    private Sprite background;
+    public static Camera camera;
+    private Object background;
     private Joystick joystick;
     private long previousNanos = 0;
     public static float frameTime = 0;
@@ -59,13 +60,11 @@ public class GameView extends View implements Choreographer.FrameCallback {
 
     private void init(AttributeSet attrs, int defStyle) {
         res = getResources();
-        player = new Player(5, 5, 0.12f, 0.12f,
+        player = new Player(0, 0, 0.12f, 0.12f,
                 R.mipmap.player_anim_4x1, 4, 1, 0.2f);
+        camera = new Camera(player);
         joystick = new Joystick();
-        background = new Sprite(R.mipmap.background);
-        RectF bgRect = new RectF();
-        bgRect.set(-4, -4, 4, 4);
-        background.setDstRect(bgRect);
+        background = new Object(0, 0, 8.0f, 8.0f, R.mipmap.background);
 
         Choreographer.getInstance().postFrameCallback(this);
     }
@@ -86,8 +85,9 @@ public class GameView extends View implements Choreographer.FrameCallback {
     }
 
     private void update(float frameTime) {
-        //player.move(1.f, 0);
         player.update(frameTime);
+        camera.update(player);
+        background.update(frameTime);
         joystick.update(player);
     }
 
@@ -115,9 +115,5 @@ public class GameView extends View implements Choreographer.FrameCallback {
                 return true;
         }
         return super.onTouchEvent(event);
-    }
-
-    public void movePlayer(int dx, int dy) {
-        player.move(dx, dy);
     }
 }

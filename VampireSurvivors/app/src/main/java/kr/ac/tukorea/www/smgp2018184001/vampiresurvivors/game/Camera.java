@@ -1,8 +1,5 @@
 package kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game;
 
-import android.graphics.RectF;
-import android.util.Log;
-
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.Metrics;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.Object;
 
@@ -17,13 +14,13 @@ public class Camera extends Object {
     public void update(Player player) {
         float newX = player.getPosX() - Metrics.game_width * 0.5f;
         float newY = player.getPosY() - Metrics.game_height * 0.5f;
-        //Log.d(TAG, "posX: " + posX + ", posY: " + posY);
-        if (newX - Metrics.game_width / 2 > boundary.left &&
-                newX + Metrics.game_width / 2 < boundary.right) {
+        //Log.d(TAG, "newX: " + newX + ", newY: " + newY);
+        if (player.getPosX() - Metrics.game_width * 0.5f > boundary.left &&
+                player.getPosX() + Metrics.game_width * 0.5f < boundary.right) {
             posX = newX;
         }
-        if (newY - Metrics.game_height / 2 > boundary.top &&
-                newY + Metrics.game_height / 2 < boundary.bottom) {
+        if (player.getPosY() - Metrics.game_height * 0.5f - Metrics.y_offset / Metrics.scale > boundary.top &&
+                player.getPosY() + Metrics.game_height * 0.5f + Metrics.y_offset / Metrics.scale < boundary.bottom) {
             posY = newY;
         }
     }

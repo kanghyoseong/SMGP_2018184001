@@ -8,7 +8,6 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.Object;
 
 public class Camera extends Object {
     private static final String TAG = Camera.class.getSimpleName();
-    RectF boundary;
 
     public Camera(Player player) {
         super(player.getPosX(), player.getPosY());
@@ -27,12 +26,5 @@ public class Camera extends Object {
                 newY + Metrics.game_height / 2 < boundary.bottom) {
             posY = newY;
         }
-    }
-
-    void setBoundary() {
-        boundary = new RectF(-SpriteSize.BACKGROUND_SIZE / 2,
-                -SpriteSize.BACKGROUND_SIZE / 2,
-                SpriteSize.BACKGROUND_SIZE / 2,
-                SpriteSize.BACKGROUND_SIZE / 2);
     }
 }

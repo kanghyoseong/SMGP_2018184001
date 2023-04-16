@@ -3,12 +3,15 @@ package kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework;
 import android.graphics.Canvas;
 import android.graphics.RectF;
 
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.SpriteSize;
+
 public class Object {
     protected Sprite sprite;
     protected AnimatedSprite aSprite;
     protected RectF dstRect;
     protected float sizeX, sizeY;
     protected float posX, posY;
+    protected RectF boundary;
 
     public Object(float posX, float posY) {
         this.posX = posX;
@@ -39,6 +42,7 @@ public class Object {
         dstRect = new RectF();
         reconstructRect();
         aSprite.setDstRect(dstRect);
+        setBoundary(); // 움직이는 물체에만 필요하다.
     }
 
     public void setPos(float x, float y) {
@@ -86,5 +90,12 @@ public class Object {
 
     public float getPosY() {
         return posY;
+    }
+
+    protected void setBoundary() {
+        boundary = new RectF(-SpriteSize.BACKGROUND_SIZE / 2,
+                -SpriteSize.BACKGROUND_SIZE / 2,
+                SpriteSize.BACKGROUND_SIZE / 2,
+                SpriteSize.BACKGROUND_SIZE / 2);
     }
 }

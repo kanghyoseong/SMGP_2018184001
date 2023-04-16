@@ -1,6 +1,9 @@
 package kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game;
 
+import android.util.Log;
+
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.GameView;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.Metrics;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.Object;
 
 public class Player extends Object {
@@ -26,8 +29,17 @@ public class Player extends Object {
         this.dx = dx;
         this.dy = dy;
         aSprite.setIsDirLeft(dx < 0);
-        posX += movementSpeed * dx * GameView.frameTime;
-        posY += movementSpeed * dy * GameView.frameTime;
+        float newX = posX + movementSpeed * dx * GameView.frameTime;
+        float newY = posY + movementSpeed * dy * GameView.frameTime;
+        //Log.d(TAG, "posX: " + posX + ", posY: " + posY);
+        if (newX - sizeX / 2 > boundary.left &&
+                newX + sizeX / 2 < boundary.right) {
+            posX = newX;
+        }
+        if (newY - sizeY / 2 > boundary.top &&
+                newY + sizeY / 2 < boundary.bottom) {
+            posY = newY;
+        }
         reconstructRect();
     }
 }

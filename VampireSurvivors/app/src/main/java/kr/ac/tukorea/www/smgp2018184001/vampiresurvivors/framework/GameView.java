@@ -29,6 +29,7 @@ public class GameView extends View implements Choreographer.FrameCallback {
     public static float frameTime = 0;
     private Paint borderPaint;
     private Paint fpsPaint;
+    private boolean isRunning = true;
 
 
     public GameView(Context context) {
@@ -70,7 +71,7 @@ public class GameView extends View implements Choreographer.FrameCallback {
                 SpriteSize.PLAYER_SIZE, SpriteSize.PLAYER_SIZE,
                 R.mipmap.player_anim_4x1, 4, 1, 0.2f);
         player.aSprite.makeInvertedBitmap();
-        bat=new Object(0, 0, 0.1f, 0.1f, R.mipmap.bat, 2, 2, 0.1f);
+        bat = new Object(0, 0, 0.1f, 0.1f, R.mipmap.bat, 2, 2, 0.1f);
         bat.aSprite.makeInvertedBitmap();
         camera = new Camera(player);
         joystick = new Joystick();
@@ -102,7 +103,7 @@ public class GameView extends View implements Choreographer.FrameCallback {
         previousNanos = curNanos;
         //Log.d(TAG, "FrameTime: " + String.valueOf(frameTime));
         invalidate();
-        if (isShown()) {
+        if (isRunning) {
             Choreographer.getInstance().postFrameCallback(this);
         }
     }
@@ -150,5 +151,18 @@ public class GameView extends View implements Choreographer.FrameCallback {
                 return true;
         }
         return super.onTouchEvent(event);
+    }
+
+    public void pauseGame() {
+        isRunning = false;
+    }
+
+    public void resumeGame() {
+        if (isRunning) {
+            return;
+        }
+        isRunning = true;
+        previousNanos = 0;
+        Choreographer.getInstance().postFrameCallback(this);
     }
 }

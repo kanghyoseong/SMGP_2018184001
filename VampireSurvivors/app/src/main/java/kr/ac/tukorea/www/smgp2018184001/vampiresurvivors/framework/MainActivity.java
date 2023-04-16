@@ -1,16 +1,33 @@
 package kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 
-import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.R;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
+    private GameView gameView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        gameView = new GameView(this);
+        setContentView(gameView);
+    }
+
+    @Override
+    protected void onPause() {
+        gameView.pauseGame();
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        gameView.resumeGame();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }

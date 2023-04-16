@@ -4,6 +4,7 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.GameView;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.Object;
 
 public class Player extends Object {
+    float dx = 0, dy = 0;
 
     // Game Information
     private int level = 1;
@@ -22,6 +23,8 @@ public class Player extends Object {
     }
 
     public void move(float dx, float dy) {
+        this.dx = dx;
+        this.dy = dy;
         posX += movementSpeed * dx * GameView.frameTime;
         posY += movementSpeed * dy * GameView.frameTime;
         reconstructRect();

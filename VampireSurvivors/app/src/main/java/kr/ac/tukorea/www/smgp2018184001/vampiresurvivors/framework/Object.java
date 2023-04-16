@@ -5,6 +5,7 @@ import android.graphics.RectF;
 
 public class Object {
     protected Sprite sprite;
+    protected AnimatedSprite aSprite;
     protected RectF dstRect;
     protected float sizeX, sizeY;
     protected float posX, posY;
@@ -14,8 +15,6 @@ public class Object {
         this.posY = posY;
         this.sizeX = 0;
         this.sizeY = 0;
-        sprite = null;
-        dstRect = null;
     }
 
     public Object(float posX, float posY, float sizeX, float sizeY,
@@ -36,10 +35,10 @@ public class Object {
         this.posY = posY;
         this.sizeX = sizeX;
         this.sizeY = sizeY;
-        sprite = new Sprite(resId, spriteCountX, spriteCountY, secToNextFrame);
+        aSprite = new AnimatedSprite(resId, spriteCountX, spriteCountY, secToNextFrame);
         dstRect = new RectF();
         reconstructRect();
-        sprite.setDstRect(dstRect);
+        aSprite.setDstRect(dstRect);
     }
 
     public void setPos(float x, float y) {
@@ -49,29 +48,35 @@ public class Object {
     }
 
     public void draw(Canvas canvas) {
+        reconstructRect();
         if (sprite != null) {
             sprite.draw(canvas);
+        } else if (aSprite != null) {
+            aSprite.draw(canvas);
         }
     }
 
     protected void reconstructRect() {
         if (dstRect != null) {
+            float left = posX - sizeX / 2;
+            float top = posY - sizeY / 2;
+            float right = posX + sizeX / 2;
+            float bottom = posY + sizeY / 2;
             if (GameView.camera != null) {
                 float x = GameView.camera.getPosX();
                 float y = GameView.camera.getPosY();
-                dstRect.set(posX - sizeX / 2 - x, posY - sizeY / 2 - y,
-                        posX + sizeX / 2 - x, posY + sizeY / 2 - y);
+                dstRect.set(left - x, top - y,
+                        right - x, bottom - y);
             } else {
-                dstRect.set(posX - sizeX / 2, posY - sizeY / 2,
-                        posX + sizeX / 2, posY + sizeY / 2);
+                dstRect.set(left, top,
+                        right, bottom);
             }
         }
     }
 
     public void update(float eTime) {
-        if (sprite != null) {
-            sprite.update(eTime);
-            reconstructRect();
+        if (aSprite != null) {
+            aSprite.update(eTime);
         }
     }
 

@@ -3,14 +3,18 @@ package kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Matrix;
 
 public class AnimatedSprite extends Sprite {
     private Bitmap bitmapFrame[];
+    private Bitmap bitmapFrame_inverted[];
     private int curFrame = 1; // starts from 1
-    private int frameCount = 1;
+    private int frameCount = 0;
     private float secToNextFrame;
     int spriteCountX, spriteCountY;
+    int spriteWidth, spriteHeight;
     private float elapsedTime = 0;
+    private boolean isDirLeft = true; // 모든 애니메이션 스프라이트가 보는 방향은 왼쪽이어야 한다.
 
     public AnimatedSprite(int resId, int spriteCountX, int spriteCountY, float secToNextFrame) {
         super();
@@ -32,7 +36,11 @@ public class AnimatedSprite extends Sprite {
 
     @Override
     public void draw(Canvas canvas) {
-        canvas.drawBitmap(bitmapFrame[curFrame - 1], null, dstRect, null);
+        if (isDirLeft) {
+            canvas.drawBitmap(bitmapFrame[curFrame - 1], null, dstRect, null);
+        } else {
+            canvas.drawBitmap(bitmapFrame_inverted[curFrame - 1], null, dstRect, null);
+        }
     }
 
     private void toNextFrame() {
@@ -44,14 +52,29 @@ public class AnimatedSprite extends Sprite {
         frameCount = countX * countY;
         Bitmap bitmap = BitmapFactory.decodeResource(GameView.res, resId);
         bitmapFrame = new Bitmap[frameCount];
-        int width = bitmap.getWidth() / countX;
-        int height = bitmap.getHeight() / countY;
+        spriteWidth = bitmap.getWidth() / countX;
+        spriteHeight = bitmap.getHeight() / countY;
         int count = 0;
         for (int y = 0; y < countY; y++) {
             for (int x = 0; x < countX; x++) {
-                bitmapFrame[count] = Bitmap.createBitmap(bitmap, x * width, y * height, width, height);
+                bitmapFrame[count] = Bitmap.createBitmap(bitmap, x * spriteWidth, y * spriteHeight, spriteWidth, spriteHeight);
                 count++;
             }
         }
+    }
+
+    public void makeInvertedBitmap() {
+        bitmapFrame_inverted = new Bitmap[frameCount];
+        if (bitmapFrame != null) {
+            for (int i = 0; i < frameCount; i++) {
+                Matrix matrix = new Matrix();
+                matrix.postScale(-1, 1);
+                bitmapFrame_inverted[i] = Bitmap.createBitmap(bitmapFrame[i], 0, 0, spriteWidth, spriteHeight, matrix, true);
+            }
+        }
+    }
+
+    public void setIsDirLeft(boolean isDirLeft) {
+        this.isDirLeft = isDirLeft;
     }
 }

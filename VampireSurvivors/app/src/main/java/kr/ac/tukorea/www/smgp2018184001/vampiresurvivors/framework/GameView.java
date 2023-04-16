@@ -69,7 +69,9 @@ public class GameView extends View implements Choreographer.FrameCallback {
         player = new Player(0, 0,
                 SpriteSize.PLAYER_SIZE, SpriteSize.PLAYER_SIZE,
                 R.mipmap.player_anim_4x1, 4, 1, 0.2f);
+        player.aSprite.makeInvertedBitmap();
         bat=new Object(0, 0, 0.1f, 0.1f, R.mipmap.bat, 2, 2, 0.1f);
+        bat.aSprite.makeInvertedBitmap();
         camera = new Camera(player);
         joystick = new Joystick();
         background = new Object(0, 0,

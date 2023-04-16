@@ -25,6 +25,7 @@ public class Player extends Object {
     public void move(float dx, float dy) {
         this.dx = dx;
         this.dy = dy;
+        aSprite.setIsDirLeft(dx < 0);
         posX += movementSpeed * dx * GameView.frameTime;
         posY += movementSpeed * dy * GameView.frameTime;
         reconstructRect();

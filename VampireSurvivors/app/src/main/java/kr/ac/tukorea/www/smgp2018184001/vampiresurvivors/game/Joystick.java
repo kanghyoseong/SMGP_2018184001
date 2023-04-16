@@ -21,7 +21,7 @@ public class Joystick {
         paint_joystickBackground = new Paint();
         paint_joystickBackground.setColor(0xbbaaaaaa);
         paint_joystickHandle = new Paint();
-        paint_joystickHandle.setColor(0xff888888);
+        paint_joystickHandle.setColor(0xff666666);
     }
 
     public void update(Player player) {

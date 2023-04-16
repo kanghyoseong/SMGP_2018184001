@@ -21,6 +21,7 @@ public class GameView extends View implements Choreographer.FrameCallback {
     private static final String TAG = GameView.class.getSimpleName();
     public static Resources res;
     private Player player;
+    private Object bat;
     public static Camera camera;
     private Object background;
     private Joystick joystick;
@@ -68,6 +69,7 @@ public class GameView extends View implements Choreographer.FrameCallback {
         player = new Player(0, 0,
                 SpriteSize.PLAYER_SIZE, SpriteSize.PLAYER_SIZE,
                 R.mipmap.player_anim_4x1, 4, 1, 0.2f);
+        bat=new Object(0, 0, 0.1f, 0.1f, R.mipmap.bat, 2, 2, 0.1f);
         camera = new Camera(player);
         joystick = new Joystick();
         background = new Object(0, 0,
@@ -106,6 +108,7 @@ public class GameView extends View implements Choreographer.FrameCallback {
     private void update(float frameTime) {
         player.update(frameTime);
         camera.update(player);
+        bat.update(frameTime);
         background.update(frameTime);
         joystick.update(player);
     }
@@ -118,6 +121,7 @@ public class GameView extends View implements Choreographer.FrameCallback {
         canvas.scale(Metrics.scale, Metrics.scale);
         background.draw(canvas);
         player.draw(canvas);
+        bat.draw(canvas);
         joystick.draw(canvas);
         if (BuildConfig.DEBUG) {
             canvas.drawRect(0, 0, Metrics.game_width, Metrics.game_height, borderPaint);

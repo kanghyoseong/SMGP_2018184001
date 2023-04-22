@@ -28,8 +28,8 @@ public class Enemy extends Character {
             float dy = target.getPosY() - posY;
             float length = (float) Math.sqrt(dx * dx + dy * dy);
             if (length > 0.01f) {
-                dx = movementSpeed * dx / length;
-                dy = movementSpeed * dy / length;
+                dx = dx / length;
+                dy = dy / length;
                 move(dx, dy);
             }
         }

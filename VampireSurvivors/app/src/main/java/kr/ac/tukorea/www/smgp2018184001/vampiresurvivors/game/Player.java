@@ -12,11 +12,13 @@ public class Player extends Character {
     private int expToLevelUp = 5;
     private int expToLevelUp_increment = 10;
     private int maxHp_increment = 2;
+    public static float PLAYER_MOVEMENTSPEED = 0.5f;
     //private Item items[];
 
     public Player(float posX, float posY, float sizeX, float sizeY,
                   int resId, int spriteCountX, int spriteCountY, float secToNextFrame) {
         super(posX, posY, sizeX, sizeY,
                 resId, spriteCountX, spriteCountY, secToNextFrame);
+        movementSpeed = PLAYER_MOVEMENTSPEED;
     }
 }

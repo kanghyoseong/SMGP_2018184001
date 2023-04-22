@@ -7,7 +7,7 @@ public class Character extends Object {
     protected float dx = 0, dy = 0;
     protected int curHp = 20;
     protected int maxHp = 20;
-    protected float movementSpeed = 0.5f;
+    protected float movementSpeed;
 
     public Character(float posX, float posY, float sizeX, float sizeY,
                      int resId, int spriteCountX, int spriteCountY, float secToNextFrame) {

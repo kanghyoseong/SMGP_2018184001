@@ -14,7 +14,7 @@ public class Bat extends Enemy {
                 resId, spriteCountX, spriteCountY, secToNextFrame);
         maxHp = curHp = 1;
         atk = 1;
-        movementSpeed = 0.5f;
+        movementSpeed = Player.PLAYER_MOVEMENTSPEED * 0.5f;
         atkType = AtkType.MELEE;
         dropExp = 1;
         spawnWave = 1;

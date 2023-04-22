@@ -74,11 +74,11 @@ public class GameView extends View implements Choreographer.FrameCallback {
                 SpriteSize.PLAYER_SIZE, SpriteSize.PLAYER_SIZE,
                 R.mipmap.player_anim_4x1, 4, 1, 0.2f);
         player.aSprite.makeInvertedBitmap();
-        player.setcolliderSize(SpriteSize.PLAYER_SIZE*0.6f, SpriteSize.PLAYER_SIZE*0.8f);
-        bat = new Bat(0, 0, 0.1f, 0.1f, R.mipmap.bat, 2, 2, 0.1f);
+        player.setcolliderSize(SpriteSize.PLAYER_SIZE * 0.6f, SpriteSize.PLAYER_SIZE * 0.8f);
+        bat = new Bat(0, 0, SpriteSize.BAT_SIZE, SpriteSize.BAT_SIZE, R.mipmap.bat, 2, 2, 0.1f);
         bat.aSprite.makeInvertedBitmap();
         bat.setTarget(player);
-        bat.setcolliderSize(0.05f, 0.05f);
+        bat.setcolliderSize(SpriteSize.BAT_SIZE * 0.6f, SpriteSize.BAT_SIZE * 0.6f);
         camera = new Camera(player);
         joystick = new Joystick();
         background = new Object(0, 0,

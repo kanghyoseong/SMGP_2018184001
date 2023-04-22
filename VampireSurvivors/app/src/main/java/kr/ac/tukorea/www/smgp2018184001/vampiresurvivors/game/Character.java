@@ -10,7 +10,7 @@ public class Character extends Object {
     protected float movementSpeed = 0.5f;
 
     public Character(float posX, float posY, float sizeX, float sizeY,
-                  int resId, int spriteCountX, int spriteCountY, float secToNextFrame) {
+                     int resId, int spriteCountX, int spriteCountY, float secToNextFrame) {
         super(posX, posY, sizeX, sizeY,
                 resId, spriteCountX, spriteCountY, secToNextFrame);
     }

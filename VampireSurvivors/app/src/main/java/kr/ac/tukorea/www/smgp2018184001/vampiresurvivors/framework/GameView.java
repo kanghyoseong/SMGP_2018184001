@@ -22,7 +22,7 @@ public class GameView extends View implements Choreographer.FrameCallback {
     private static final String TAG = GameView.class.getSimpleName();
     public static Resources res;
     private Player player;
-    private Object bat;
+    private Enemy bat;
     public static Camera camera;
     private Object background;
     private Joystick joystick;
@@ -74,6 +74,7 @@ public class GameView extends View implements Choreographer.FrameCallback {
         player.aSprite.makeInvertedBitmap();
         bat = new Enemy(0, 0, 0.1f, 0.1f, R.mipmap.bat, 2, 2, 0.1f);
         bat.aSprite.makeInvertedBitmap();
+        bat.setTarget(player);
         camera = new Camera(player);
         joystick = new Joystick();
         background = new Object(0, 0,

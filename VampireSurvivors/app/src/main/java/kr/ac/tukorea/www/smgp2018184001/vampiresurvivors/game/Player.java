@@ -7,11 +7,14 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.Metrics;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.Object;
 
 public class Player extends Character {
+    private static final String TAG = Player.class.getSimpleName();
     // Game Information
     private int level = 1;
     private int expToLevelUp = 5;
     private int expToLevelUp_increment = 10;
     private int maxHp_increment = 2;
+    private float elapsedInvincibleTime = 0;
+    private float INVINCIBLETIME = 1f;
     public static float PLAYER_MOVEMENTSPEED = 0.5f;
     //private Item items[];
 
@@ -20,5 +23,25 @@ public class Player extends Character {
         super(posX, posY, sizeX, sizeY,
                 resId, spriteCountX, spriteCountY, secToNextFrame);
         movementSpeed = PLAYER_MOVEMENTSPEED;
+    }
+
+    @Override
+    public void update(float eTime) {
+        super.update(eTime);
+        if(elapsedInvincibleTime > 0) {
+            elapsedInvincibleTime -= eTime;
+        }
+    }
+
+    public void getDamage(int damage){
+        if(elapsedInvincibleTime <= 0) {
+            curHp -= damage;
+            Log.d(TAG, "HP: " + curHp);
+            elapsedInvincibleTime = INVINCIBLETIME;
+            if(curHp <= 0){
+                // Game Over
+                Log.d(TAG, "Game Over");
+            }
+        }
     }
 }

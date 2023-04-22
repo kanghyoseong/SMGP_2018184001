@@ -29,7 +29,8 @@ public class GameView extends View implements Choreographer.FrameCallback {
     private Joystick joystick;
     private long previousNanos = 0;
     public static float frameTime = 0;
-    private Paint borderPaint;
+    public static Paint borderPaint;
+    public static Paint colliderPaint;
     private Paint fpsPaint;
     private boolean isRunning = true;
 
@@ -73,9 +74,11 @@ public class GameView extends View implements Choreographer.FrameCallback {
                 SpriteSize.PLAYER_SIZE, SpriteSize.PLAYER_SIZE,
                 R.mipmap.player_anim_4x1, 4, 1, 0.2f);
         player.aSprite.makeInvertedBitmap();
+        player.setcolliderSize(SpriteSize.PLAYER_SIZE*0.6f, SpriteSize.PLAYER_SIZE*0.8f);
         bat = new Bat(0, 0, 0.1f, 0.1f, R.mipmap.bat, 2, 2, 0.1f);
         bat.aSprite.makeInvertedBitmap();
         bat.setTarget(player);
+        bat.setcolliderSize(0.05f, 0.05f);
         camera = new Camera(player);
         joystick = new Joystick();
         background = new Object(0, 0,
@@ -90,7 +93,12 @@ public class GameView extends View implements Choreographer.FrameCallback {
             borderPaint = new Paint();
             borderPaint.setColor(Color.RED);
             borderPaint.setStyle(Paint.Style.STROKE);
-            borderPaint.setStrokeWidth(0.02f);
+            borderPaint.setStrokeWidth(0.01f);
+
+            colliderPaint = new Paint();
+            colliderPaint.setColor(Color.YELLOW);
+            colliderPaint.setStyle(Paint.Style.STROKE);
+            colliderPaint.setStrokeWidth(0.005f);
         }
 
         Choreographer.getInstance().postFrameCallback(this);

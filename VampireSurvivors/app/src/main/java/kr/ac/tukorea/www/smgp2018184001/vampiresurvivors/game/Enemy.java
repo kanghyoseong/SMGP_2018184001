@@ -2,17 +2,13 @@ package kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game;
 
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.Object;
 
-enum AtkType{
-    MELEE, RANGE
-}
-
 public class Enemy extends Character {
-    private int atk;
-    private AtkType atkType;
-    private int dropExp;
-    private int spawnWave;
+    protected int atk;
+    protected AtkType atkType;
+    protected int dropExp;
+    protected int spawnWave;
 
-    private Object target = null;
+    protected Object target = null;
 
     public Enemy(float posX, float posY, float sizeX, float sizeY,
                  int resId, int spriteCountX, int spriteCountY, float secToNextFrame) {

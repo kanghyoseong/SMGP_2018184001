@@ -17,12 +17,13 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.Enemy;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.Joystick;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.Player;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.SpriteSize;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.enemy.Bat;
 
 public class GameView extends View implements Choreographer.FrameCallback {
     private static final String TAG = GameView.class.getSimpleName();
     public static Resources res;
     private Player player;
-    private Enemy bat;
+    private Bat bat;
     public static Camera camera;
     private Object background;
     private Joystick joystick;
@@ -72,7 +73,7 @@ public class GameView extends View implements Choreographer.FrameCallback {
                 SpriteSize.PLAYER_SIZE, SpriteSize.PLAYER_SIZE,
                 R.mipmap.player_anim_4x1, 4, 1, 0.2f);
         player.aSprite.makeInvertedBitmap();
-        bat = new Enemy(0, 0, 0.1f, 0.1f, R.mipmap.bat, 2, 2, 0.1f);
+        bat = new Bat(0, 0, 0.1f, 0.1f, R.mipmap.bat, 2, 2, 0.1f);
         bat.aSprite.makeInvertedBitmap();
         bat.setTarget(player);
         camera = new Camera(player);

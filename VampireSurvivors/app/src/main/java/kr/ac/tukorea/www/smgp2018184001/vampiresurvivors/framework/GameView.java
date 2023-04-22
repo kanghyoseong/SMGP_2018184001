@@ -13,6 +13,7 @@ import android.view.View;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.BuildConfig;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.R;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.Camera;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.Enemy;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.Joystick;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.Player;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.SpriteSize;
@@ -71,7 +72,7 @@ public class GameView extends View implements Choreographer.FrameCallback {
                 SpriteSize.PLAYER_SIZE, SpriteSize.PLAYER_SIZE,
                 R.mipmap.player_anim_4x1, 4, 1, 0.2f);
         player.aSprite.makeInvertedBitmap();
-        bat = new Object(0, 0, 0.1f, 0.1f, R.mipmap.bat, 2, 2, 0.1f);
+        bat = new Enemy(0, 0, 0.1f, 0.1f, R.mipmap.bat, 2, 2, 0.1f);
         bat.aSprite.makeInvertedBitmap();
         camera = new Camera(player);
         joystick = new Joystick();

@@ -23,6 +23,10 @@ public class Enemy extends Character {
     @Override
     public void update(float eTime) {
         super.update(eTime);
+        followTarget();
+    }
+
+    private void followTarget() {
         if (target != null) {
             float dx = target.getPosX() - posX;
             float dy = target.getPosY() - posY;

@@ -11,6 +11,8 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.BuildConfig;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.EnemyGenerator;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.MainScene;
 
 public class GameView extends View implements Choreographer.FrameCallback {
     private static final String TAG = GameView.class.getSimpleName();
@@ -61,7 +63,7 @@ public class GameView extends View implements Choreographer.FrameCallback {
         if (BuildConfig.DEBUG) {
             fpsPaint = new Paint();
             fpsPaint.setColor(Color.WHITE);
-            fpsPaint.setTextSize(100.0f);
+            fpsPaint.setTextSize(90.0f);
 
             borderPaint = new Paint();
             borderPaint.setColor(Color.RED);
@@ -110,7 +112,10 @@ public class GameView extends View implements Choreographer.FrameCallback {
         canvas.restore();
         if (BuildConfig.DEBUG && frameTime > 0) {
             int fps = (int) (1.0f / frameTime);
-            canvas.drawText("FPS: " + fps, 100f, 150f, fpsPaint);
+            int wave = EnemyGenerator.wave;
+            float time = EnemyGenerator.elapsedTime;
+            canvas.drawText("FPS: " + fps + ", Wave: " + wave + ", Time: " + time
+                    , 100f, 150f, fpsPaint);
         }
     }
 

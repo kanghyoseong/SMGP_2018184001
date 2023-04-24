@@ -7,9 +7,11 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.Enemy;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.Player;
 
 public class Bat extends Enemy {
+    public static int maxNum = 15;
+    public static int spawnWave = 1;
 
     public Bat(float posX, float posY, float sizeX, float sizeY,
-                 int resId, int spriteCountX, int spriteCountY, float secToNextFrame) {
+               int resId, int spriteCountX, int spriteCountY, float secToNextFrame) {
         super(posX, posY, sizeX, sizeY,
                 resId, spriteCountX, spriteCountY, secToNextFrame);
         maxHp = curHp = 1;
@@ -17,6 +19,5 @@ public class Bat extends Enemy {
         movementSpeed = Player.PLAYER_MOVEMENTSPEED * 0.5f;
         atkType = AtkType.MELEE;
         dropExp = 1;
-        spawnWave = 1;
     }
 }

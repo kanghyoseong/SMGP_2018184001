@@ -1,16 +1,21 @@
 package kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework;
 
+import android.graphics.Canvas;
 import android.graphics.RectF;
 
+import java.util.ArrayList;
+
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.Enemy;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.MainScene;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.Player;
 
-public class CollisionChecker {
-    public void update() {
-        Player p = GameView.getPlayer();
+public class CollisionChecker implements IGameObject {
+    @Override
+    public void update(float eTime) {
+        Player p = BaseScene.getTopScene().getPlayer();
         if (p != null && p.isInvincible()) {
-            Enemy e = GameView.getBat();
-            if (e != null) {
+            ArrayList<Enemy> enemies = ((MainScene) BaseScene.getTopScene()).enemies;
+            for (Enemy e : enemies) {
                 if (collides(p, e)) {
                     p.getDamage(e.getAtk());
                 }
@@ -27,5 +32,9 @@ public class CollisionChecker {
         if (r1.top > r2.bottom) return false;
         if (r1.bottom < r2.top) return false;
         return true;
+    }
+
+    @Override
+    public void draw(Canvas canvas) {
     }
 }

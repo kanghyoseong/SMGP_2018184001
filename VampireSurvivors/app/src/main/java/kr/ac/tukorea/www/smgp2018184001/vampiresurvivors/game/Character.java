@@ -5,6 +5,7 @@ import android.graphics.RectF;
 import android.util.Log;
 
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.BuildConfig;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.BaseScene;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.GameView;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.ICollidable;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.Object;
@@ -14,7 +15,7 @@ public class Character extends Object implements ICollidable {
     protected int curHp = 20;
     protected int maxHp = 20;
     protected float movementSpeed;
-    RectF colliderRect = new RectF();
+    private RectF colliderRect = new RectF();
     float colliderSizeX = 0;
     float colliderSizeY = 0;
 
@@ -22,6 +23,7 @@ public class Character extends Object implements ICollidable {
                      int resId, int spriteCountX, int spriteCountY, float secToNextFrame) {
         super(posX, posY, sizeX, sizeY,
                 resId, spriteCountX, spriteCountY, secToNextFrame);
+        aSprite.makeInvertedBitmap();
     }
 
     @Override
@@ -29,9 +31,12 @@ public class Character extends Object implements ICollidable {
         super.draw(canvas);
         if (BuildConfig.DEBUG) {
             RectF collider = new RectF(colliderRect);
-            collider.offset(-GameView.camera.getPosX(),
-                    -GameView.camera.getPosY());
-            canvas.drawRect(collider, GameView.colliderPaint);
+            Camera camera = BaseScene.getTopScene().getCamera();
+            if (camera != null) {
+                collider.offset(-camera.getPosX(),
+                        -camera.getPosY());
+                canvas.drawRect(collider, GameView.colliderPaint);
+            }
         }
     }
 

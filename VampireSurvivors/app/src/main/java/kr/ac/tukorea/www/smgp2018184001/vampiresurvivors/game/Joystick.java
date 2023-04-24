@@ -4,10 +4,11 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.util.Log;
 
-import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.GameView;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.BaseScene;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.IGameObject;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.Metrics;
 
-public class Joystick {
+public class Joystick implements IGameObject {
     private float posX, posY, oldX, oldY, curX, curY;
     private float dirX, dirY;
     private float length;
@@ -24,12 +25,16 @@ public class Joystick {
         paint_joystickHandle.setColor(0xff666666);
     }
 
-    public void update(Player player) {
-        if (isTouchDown && length > 0.01f) {
-            float moveX = dirX * speed_multiplier;
-            float moveY = dirY * speed_multiplier;
-            //Log.d(null, "moveX: " + moveX + ", moveY: " + moveY);
-            player.move(moveX, moveY);
+    @Override
+    public void update(float eTime) {
+        Player player = BaseScene.getTopScene().getPlayer();
+        if (player != null) {
+            if (isTouchDown && length > 0.01f) {
+                float moveX = dirX * speed_multiplier;
+                float moveY = dirY * speed_multiplier;
+                //Log.d(null, "moveX: " + moveX + ", moveY: " + moveY);
+                player.move(moveX, moveY);
+            }
         }
     }
 

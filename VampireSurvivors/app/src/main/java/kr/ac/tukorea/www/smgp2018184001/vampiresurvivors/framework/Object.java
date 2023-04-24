@@ -3,9 +3,10 @@ package kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework;
 import android.graphics.Canvas;
 import android.graphics.RectF;
 
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.Camera;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.SpriteSize;
 
-public class Object {
+public class Object implements IGameObject {
     protected Sprite sprite;
     protected AnimatedSprite aSprite;
     protected RectF dstRect;
@@ -66,14 +67,18 @@ public class Object {
             float top = posY - sizeY / 2;
             float right = posX + sizeX / 2;
             float bottom = posY + sizeY / 2;
-            if (GameView.camera != null) {
-                float x = GameView.camera.getPosX();
-                float y = GameView.camera.getPosY();
-                dstRect.set(left - x, top - y,
-                        right - x, bottom - y);
-            } else {
-                dstRect.set(left, top,
-                        right, bottom);
+            BaseScene scene = BaseScene.getTopScene();
+            if (scene != null) {
+                Camera camera = scene.getCamera();
+                if (camera != null) {
+                    float x = camera.getPosX();
+                    float y = camera.getPosY();
+                    dstRect.set(left - x, top - y,
+                            right - x, bottom - y);
+                } else {
+                    dstRect.set(left, top,
+                            right, bottom);
+                }
             }
         }
     }

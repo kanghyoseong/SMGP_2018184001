@@ -4,6 +4,8 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.MainScene;
+
 public class MainActivity extends AppCompatActivity {
     private GameView gameView;
 
@@ -12,6 +14,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         gameView = new GameView(this);
         setContentView(gameView);
+
+        new MainScene().pushScene();
     }
 
     @Override
@@ -28,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
+        BaseScene.popAll();
         super.onDestroy();
     }
 }

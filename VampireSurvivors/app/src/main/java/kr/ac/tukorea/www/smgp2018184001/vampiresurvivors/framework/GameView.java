@@ -11,29 +11,16 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.BuildConfig;
-import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.R;
-import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.Camera;
-import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.Joystick;
-import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.Player;
-import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.SpriteSize;
-import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.enemy.Bat;
 
 public class GameView extends View implements Choreographer.FrameCallback {
     private static final String TAG = GameView.class.getSimpleName();
     public static Resources res;
-    public static Player player;
-    public static Bat bat;
-    public static Camera camera;
-    private Object background;
-    private Joystick joystick;
     private long previousNanos = 0;
     public static float frameTime = 0;
     public static Paint borderPaint;
     public static Paint colliderPaint;
     private Paint fpsPaint;
     private boolean isRunning = true;
-    private CollisionChecker collisionChecker = new CollisionChecker();
-
 
     public GameView(Context context) {
         super(context);
@@ -70,20 +57,6 @@ public class GameView extends View implements Choreographer.FrameCallback {
     private void init(AttributeSet attrs, int defStyle) {
         Metrics.setGameSize(1, 1);
         res = getResources();
-        player = new Player(0, 0,
-                SpriteSize.PLAYER_SIZE, SpriteSize.PLAYER_SIZE,
-                R.mipmap.player_anim_4x1, 4, 1, 0.2f);
-        player.aSprite.makeInvertedBitmap();
-        player.setcolliderSize(SpriteSize.PLAYER_SIZE * 0.6f, SpriteSize.PLAYER_SIZE * 0.8f);
-        bat = new Bat(0, 0, SpriteSize.BAT_SIZE, SpriteSize.BAT_SIZE, R.mipmap.bat, 2, 2, 0.1f);
-        bat.aSprite.makeInvertedBitmap();
-        bat.setTarget(player);
-        bat.setcolliderSize(SpriteSize.BAT_SIZE * 0.6f, SpriteSize.BAT_SIZE * 0.6f);
-        camera = new Camera(player);
-        joystick = new Joystick();
-        background = new Object(0, 0,
-                SpriteSize.BACKGROUND_SIZE, SpriteSize.BACKGROUND_SIZE,
-                R.mipmap.background);
 
         if (BuildConfig.DEBUG) {
             fpsPaint = new Paint();
@@ -109,7 +82,8 @@ public class GameView extends View implements Choreographer.FrameCallback {
         if (previousNanos != 0) {
             long elapsedNanos = curNanos - previousNanos;
             frameTime = elapsedNanos / 1_000_000_000f;
-            update(frameTime);
+            BaseScene scene = BaseScene.getTopScene();
+            scene.update(frameTime);
         }
         previousNanos = curNanos;
         //Log.d(TAG, "FrameTime: " + String.valueOf(frameTime));
@@ -119,14 +93,6 @@ public class GameView extends View implements Choreographer.FrameCallback {
         }
     }
 
-    private void update(float frameTime) {
-        player.update(frameTime);
-        camera.update(player);
-        bat.update(frameTime);
-        background.update(frameTime);
-        joystick.update(player);
-        collisionChecker.update();
-    }
 
     @Override
     protected void onDraw(Canvas canvas) {
@@ -134,10 +100,10 @@ public class GameView extends View implements Choreographer.FrameCallback {
         canvas.save();
         canvas.translate(Metrics.x_offset, Metrics.y_offset);
         canvas.scale(Metrics.scale, Metrics.scale);
-        background.draw(canvas);
-        player.draw(canvas);
-        bat.draw(canvas);
-        joystick.draw(canvas);
+        BaseScene scene = BaseScene.getTopScene();
+        if (scene != null) {
+            scene.draw(canvas);
+        }
         if (BuildConfig.DEBUG) {
             canvas.drawRect(0, 0, Metrics.game_width, Metrics.game_height, borderPaint);
         }
@@ -150,17 +116,9 @@ public class GameView extends View implements Choreographer.FrameCallback {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        int action = event.getAction();
-        switch (action) {
-            case MotionEvent.ACTION_DOWN:
-                joystick.touchDown(event.getX(), event.getY());
-                return true;
-            case MotionEvent.ACTION_MOVE:
-                joystick.drag(event.getX(), event.getY());
-                return true;
-            case MotionEvent.ACTION_UP:
-                joystick.touchUp();
-                return true;
+        boolean handled = BaseScene.getTopScene().onTouchEvent(event);
+        if (handled) {
+            return true;
         }
         return super.onTouchEvent(event);
     }
@@ -176,13 +134,5 @@ public class GameView extends View implements Choreographer.FrameCallback {
         isRunning = true;
         previousNanos = 0;
         Choreographer.getInstance().postFrameCallback(this);
-    }
-
-    public static Player getPlayer() {
-        return player;
-    }
-
-    public static Bat getBat() {
-        return bat;
     }
 }

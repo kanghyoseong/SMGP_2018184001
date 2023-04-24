@@ -2,10 +2,6 @@ package kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game;
 
 import android.util.Log;
 
-import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.GameView;
-import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.Metrics;
-import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.Object;
-
 public class Player extends Character {
     private static final String TAG = Player.class.getSimpleName();
     // Game Information
@@ -28,20 +24,27 @@ public class Player extends Character {
     @Override
     public void update(float eTime) {
         super.update(eTime);
-        if(elapsedInvincibleTime > 0) {
+        if (elapsedInvincibleTime > 0) {
             elapsedInvincibleTime -= eTime;
+        } else {
+            aSprite.setIsInvincible(false);
         }
     }
 
-    public void getDamage(int damage){
-        if(elapsedInvincibleTime <= 0) {
+    public void getDamage(int damage) {
+        if (isInvincible()) {
+            aSprite.setIsInvincible(true);
             curHp -= damage;
             Log.d(TAG, "HP: " + curHp);
             elapsedInvincibleTime = INVINCIBLETIME;
-            if(curHp <= 0){
+            if (curHp <= 0) {
                 // Game Over
                 Log.d(TAG, "Game Over");
             }
         }
+    }
+
+    public boolean isInvincible() {
+        return elapsedInvincibleTime <= 0;
     }
 }

@@ -6,6 +6,7 @@ import android.graphics.RectF;
 import java.util.ArrayList;
 
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.Enemy;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.EnemyGenerator;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.MainScene;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.Player;
 
@@ -14,7 +15,7 @@ public class CollisionChecker implements IGameObject {
     public void update(float eTime) {
         Player p = BaseScene.getTopScene().getPlayer();
         if (p != null && p.isInvincible()) {
-            ArrayList<Enemy> enemies = ((MainScene) BaseScene.getTopScene()).enemies;
+            ArrayList<Enemy> enemies = EnemyGenerator.enemies;
             for (Enemy e : enemies) {
                 if (collides(p, e)) {
                     p.getDamage(e.getAtk());

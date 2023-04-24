@@ -1,11 +1,14 @@
 package kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework;
 
 import android.graphics.Canvas;
+import android.os.Handler;
 import android.view.MotionEvent;
 
 import java.util.ArrayList;
 
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.Camera;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.Enemy;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.EnemyGenerator;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.Player;
 
 public class BaseScene {
@@ -13,6 +16,7 @@ public class BaseScene {
     protected ArrayList<IGameObject> objs = new ArrayList<>();
     protected Player player;
     protected Camera camera;
+    protected Handler hander = new Handler();
 
     public void update(float frameTime) {
         for (IGameObject obj : objs) {
@@ -51,7 +55,12 @@ public class BaseScene {
     }
 
     public int add(IGameObject obj) {
-        objs.add(obj);
+        hander.post(new Runnable() {
+            @Override
+            public void run() {
+                objs.add(obj);
+            }
+        });
         return objs.size();
     }
 

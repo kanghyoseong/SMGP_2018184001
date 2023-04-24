@@ -39,9 +39,7 @@ public class EnemyGenerator implements IGameObject {
         Player player = scene.getPlayer();
         if (player != null) {
             for (int i = 0; i < Bat.maxNum; i++) {
-                Bat bat = new Bat(i * 0.2f, 0, SpriteSize.BAT_SIZE, SpriteSize.BAT_SIZE, R.mipmap.bat, 2, 2, 0.1f);
-                bat.setTarget(player);
-                bat.setcolliderSize(SpriteSize.BAT_SIZE * 0.6f, SpriteSize.BAT_SIZE * 0.6f);
+                Bat bat = new Bat(i * 0.2f, 0, player);
                 scene.add(bat);
                 addEnemy(bat);
             }

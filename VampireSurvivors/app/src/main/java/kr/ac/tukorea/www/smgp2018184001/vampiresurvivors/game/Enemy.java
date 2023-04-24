@@ -11,9 +11,10 @@ public class Enemy extends Character {
     protected Object target = null;
 
     public Enemy(float posX, float posY, float sizeX, float sizeY,
-                 int resId, int spriteCountX, int spriteCountY, float secToNextFrame) {
+                 int resId, int spriteCountX, int spriteCountY, float secToNextFrame, Object target) {
         super(posX, posY, sizeX, sizeY,
                 resId, spriteCountX, spriteCountY, secToNextFrame);
+        setTarget(target);
     }
 
     public void setTarget(Object target) {

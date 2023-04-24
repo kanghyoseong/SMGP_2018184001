@@ -38,4 +38,8 @@ public class Enemy extends Character {
             }
         }
     }
+
+    public int getAtk() {
+        return atk;
+    }
 }

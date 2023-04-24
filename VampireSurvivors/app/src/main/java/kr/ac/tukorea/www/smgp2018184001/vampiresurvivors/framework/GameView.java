@@ -13,7 +13,6 @@ import android.view.View;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.BuildConfig;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.R;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.Camera;
-import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.Enemy;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.Joystick;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.Player;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.SpriteSize;
@@ -22,8 +21,8 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.enemy.Bat;
 public class GameView extends View implements Choreographer.FrameCallback {
     private static final String TAG = GameView.class.getSimpleName();
     public static Resources res;
-    private Player player;
-    private Bat bat;
+    public static Player player;
+    public static Bat bat;
     public static Camera camera;
     private Object background;
     private Joystick joystick;
@@ -33,6 +32,7 @@ public class GameView extends View implements Choreographer.FrameCallback {
     public static Paint colliderPaint;
     private Paint fpsPaint;
     private boolean isRunning = true;
+    private CollisionChecker collisionChecker = new CollisionChecker();
 
 
     public GameView(Context context) {
@@ -125,6 +125,7 @@ public class GameView extends View implements Choreographer.FrameCallback {
         bat.update(frameTime);
         background.update(frameTime);
         joystick.update(player);
+        collisionChecker.update();
     }
 
     @Override
@@ -175,5 +176,13 @@ public class GameView extends View implements Choreographer.FrameCallback {
         isRunning = true;
         previousNanos = 0;
         Choreographer.getInstance().postFrameCallback(this);
+    }
+
+    public static Player getPlayer() {
+        return player;
+    }
+
+    public static Bat getBat() {
+        return bat;
     }
 }

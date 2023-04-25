@@ -15,9 +15,6 @@ public class Character extends Object implements ICollidable {
     protected int curHp = 20;
     protected int maxHp = 20;
     protected float movementSpeed;
-    private RectF colliderRect = new RectF();
-    float colliderSizeX = 0;
-    float colliderSizeY = 0;
 
     public Character(float posX, float posY, float sizeX, float sizeY,
                      int resId, int spriteCountX, int spriteCountY, float secToNextFrame) {
@@ -63,28 +60,5 @@ public class Character extends Object implements ICollidable {
     public void setPos(float x, float y) {
         super.setPos(x, y);
         reconstructColliderRect();
-    }
-
-    @Override
-    public void setcolliderSize(float sizeX, float sizeY) {
-        this.colliderSizeX = sizeX;
-        this.colliderSizeY = sizeY;
-        reconstructColliderRect();
-    }
-
-    @Override
-    public RectF getcolliderRect() {
-        return colliderRect;
-    }
-
-    @Override
-    public void reconstructColliderRect() {
-        if (colliderRect != null) {
-            float left = posX - colliderSizeX / 2;
-            float top = posY - colliderSizeY / 2;
-            float right = posX + colliderSizeX / 2;
-            float bottom = posY + colliderSizeY / 2;
-            colliderRect.set(left, top, right, bottom);
-        }
     }
 }

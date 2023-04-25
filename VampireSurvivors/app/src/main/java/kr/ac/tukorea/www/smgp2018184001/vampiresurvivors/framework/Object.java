@@ -10,7 +10,9 @@ public class Object implements IGameObject {
     protected Sprite sprite;
     protected AnimatedSprite aSprite;
     protected RectF dstRect;
+    protected RectF colliderRect;
     protected float sizeX, sizeY;
+    protected float colliderSizeX, colliderSizeY;
     protected float posX, posY;
     protected RectF boundary;
 
@@ -29,6 +31,7 @@ public class Object implements IGameObject {
         this.sizeY = sizeY;
         sprite = new Sprite(resId);
         dstRect = new RectF();
+        colliderRect = new RectF();
         reconstructRect();
         sprite.setDstRect(dstRect);
     }
@@ -41,6 +44,7 @@ public class Object implements IGameObject {
         this.sizeY = sizeY;
         aSprite = new AnimatedSprite(resId, spriteCountX, spriteCountY, secToNextFrame);
         dstRect = new RectF();
+        colliderRect = new RectF();
         reconstructRect();
         aSprite.setDstRect(dstRect);
         setBoundary(); // 움직이는 물체에만 필요하다.
@@ -102,5 +106,25 @@ public class Object implements IGameObject {
                 -SpriteSize.BACKGROUND_SIZE / 2,
                 SpriteSize.BACKGROUND_SIZE / 2,
                 SpriteSize.BACKGROUND_SIZE / 2);
+    }
+
+    public void setcolliderSize(float sizeX, float sizeY) {
+        this.colliderSizeX = sizeX;
+        this.colliderSizeY = sizeY;
+        reconstructColliderRect();
+    }
+
+    public RectF getcolliderRect() {
+        return colliderRect;
+    }
+
+    public void reconstructColliderRect() {
+        if (colliderRect != null) {
+            float left = posX - colliderSizeX / 2;
+            float top = posY - colliderSizeY / 2;
+            float right = posX + colliderSizeX / 2;
+            float bottom = posY + colliderSizeY / 2;
+            colliderRect.set(left, top, right, bottom);
+        }
     }
 }

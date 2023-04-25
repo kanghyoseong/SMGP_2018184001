@@ -10,6 +10,10 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.R;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.BaseScene;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.IGameObject;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.enemy.Bat;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.enemy.Ghost;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.enemy.LizardPawn;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.enemy.Mantichana;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.enemy.Skeleton;
 
 public class EnemyGenerator implements IGameObject {
     public static ArrayList<Enemy> enemies = new ArrayList<>(); // 임시
@@ -38,10 +42,22 @@ public class EnemyGenerator implements IGameObject {
     private void spawnEnemy(BaseScene scene) {
         Player player = scene.getPlayer();
         if (player != null) {
-            for (int i = 0; i < Bat.maxNum; i++) {
+            for (int i = 0; i < 1; i++) {
                 Bat bat = new Bat(i * 0.2f, 0, player);
+                Skeleton skeleton = new Skeleton(0.2f, 0, player);
+                Ghost ghost = new Ghost(0.4f, 0, player);
+                LizardPawn lp = new LizardPawn(0.6f, 0, player);
+                Mantichana mc = new Mantichana(0.8f, 0, player);
                 scene.add(bat);
+                scene.add(skeleton);
+                scene.add(ghost);
+                scene.add(lp);
+                scene.add(mc);
                 addEnemy(bat);
+                addEnemy(skeleton);
+                addEnemy(ghost);
+                addEnemy(lp);
+                addEnemy(mc);
             }
         }
     }

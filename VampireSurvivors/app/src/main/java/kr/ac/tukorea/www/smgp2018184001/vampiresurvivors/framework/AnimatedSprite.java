@@ -68,7 +68,7 @@ public class AnimatedSprite extends Sprite {
 
     public void setBitmapList(int resId, int countX, int countY) {
         frameCount = countX * countY;
-        Bitmap bitmap = BitmapFactory.decodeResource(GameView.res, resId);
+        Bitmap bitmap = BitmapFactory.decodeResource(GameView.res, resId, opts);
         bitmapFrame = new Bitmap[frameCount];
         spriteWidth = bitmap.getWidth() / countX;
         spriteHeight = bitmap.getHeight() / countY;

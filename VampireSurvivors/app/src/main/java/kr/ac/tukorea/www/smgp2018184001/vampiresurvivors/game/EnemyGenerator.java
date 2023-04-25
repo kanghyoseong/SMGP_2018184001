@@ -8,6 +8,8 @@ import java.util.ArrayList;
 
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.R;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.BaseScene;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.IAttackable;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.ICollidable;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.IGameObject;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.enemy.Bat;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.enemy.Ghost;
@@ -16,8 +18,8 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.enemy.Mantichana;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.enemy.Skeleton;
 
 public class EnemyGenerator implements IGameObject {
-    public static ArrayList<Enemy> enemies = new ArrayList<>(); // 임시
-    private Handler hander = new Handler();
+    public static ArrayList<ICollidable> enemies = new ArrayList<>(); // 임시
+    private static Handler hander = new Handler();
     public static int wave = 0;
     protected static final float TIME_TO_NEXT_WAVE = 30.0f;
     protected final int ENEMY_PER_WAVE_INCREMENT = 5;
@@ -62,7 +64,7 @@ public class EnemyGenerator implements IGameObject {
         }
     }
 
-    private void addEnemy(Enemy enemy) {
+    public static void addEnemy(ICollidable enemy) {
         hander.post(new Runnable() {
             @Override
             public void run() {

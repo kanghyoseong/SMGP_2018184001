@@ -15,10 +15,14 @@ public class CollisionChecker implements IGameObject {
     public void update(float eTime) {
         Player p = BaseScene.getTopScene().getPlayer();
         if (p != null && p.isInvincible()) {
-            ArrayList<Enemy> enemies = EnemyGenerator.enemies;
-            for (Enemy e : enemies) {
+            ArrayList<ICollidable> enemies = EnemyGenerator.enemies;
+            for (ICollidable e : enemies) {
                 if (collides(p, e)) {
-                    p.getDamage(e.getAtk());
+                    if(e instanceof IAttackable) {
+                        p.getDamage(((IAttackable)e).getAtk());
+                    }
+                    // else 아이템 이라면
+                    // 아이템 습득
                 }
             }
         }

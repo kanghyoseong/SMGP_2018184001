@@ -1,8 +1,9 @@
 package kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game;
 
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.IAttackable;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.Object;
 
-public class Enemy extends Character {
+public class Enemy extends Character implements IAttackable {
     protected int atk;
     protected AtkType atkType;
     protected int dropExp;
@@ -40,6 +41,7 @@ public class Enemy extends Character {
         }
     }
 
+    @Override
     public int getAtk() {
         return atk;
     }

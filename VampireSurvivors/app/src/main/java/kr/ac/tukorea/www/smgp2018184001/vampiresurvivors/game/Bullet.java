@@ -16,6 +16,7 @@ public class Bullet extends Object implements IAttackable, ICollidable {
     private float dx, dy;
     private float movementSpeed;
     private int atk;
+    private float degrees;
 
     public Bullet(float posX, float posY) {
         super(posX, posY, SpriteSize.BULLET_SIZE, SpriteSize.BULLET_SIZE,
@@ -32,11 +33,14 @@ public class Bullet extends Object implements IAttackable, ICollidable {
 
     @Override
     public void draw(Canvas canvas) {
-        super.draw(canvas);
-        if (BuildConfig.DEBUG) {
-            RectF collider = new RectF(colliderRect);
-            Camera camera = BaseScene.getTopScene().getCamera();
-            if (camera != null) {
+        canvas.save();
+        Camera camera = BaseScene.getTopScene().getCamera();
+        if (camera != null) {
+            canvas.rotate(degrees, posX - camera.getPosX(), posY - camera.getPosY());
+            super.draw(canvas);
+            canvas.restore();
+            if (BuildConfig.DEBUG) {
+                RectF collider = new RectF(colliderRect);
                 collider.offset(-camera.getPosX(),
                         -camera.getPosY());
                 canvas.drawRect(collider, GameView.colliderPaint);
@@ -70,6 +74,8 @@ public class Bullet extends Object implements IAttackable, ICollidable {
     public void setDir(float dx, float dy) {
         this.dx = dx;
         this.dy = dy;
+        double radian = Math.atan2(dy, dx);
+        degrees = (float) Math.toDegrees(radian);
     }
 
     public void setAtk(int atk) {

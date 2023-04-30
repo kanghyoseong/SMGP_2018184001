@@ -12,7 +12,6 @@ public class Camera extends Object implements IGameObject {
 
     public Camera(Player player) {
         super(player.getPosX(), player.getPosY());
-        setBoundary();
     }
 
     @Override

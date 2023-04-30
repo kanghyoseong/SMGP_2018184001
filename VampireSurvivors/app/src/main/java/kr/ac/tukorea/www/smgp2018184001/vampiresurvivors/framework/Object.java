@@ -14,7 +14,14 @@ public class Object implements IGameObject {
     protected float sizeX, sizeY;
     protected float colliderSizeX, colliderSizeY;
     protected float posX, posY;
-    protected RectF boundary;
+    public static RectF boundary;
+
+    static {
+        boundary = new RectF(-SpriteSize.BACKGROUND_SIZE / 2,
+                -SpriteSize.BACKGROUND_SIZE / 2,
+                SpriteSize.BACKGROUND_SIZE / 2,
+                SpriteSize.BACKGROUND_SIZE / 2);
+    }
 
     public Object(float posX, float posY) {
         this.posX = posX;
@@ -47,7 +54,6 @@ public class Object implements IGameObject {
         colliderRect = new RectF();
         reconstructRect();
         aSprite.setDstRect(dstRect);
-        setBoundary(); // 움직이는 물체에만 필요하다.
     }
 
     public void setPos(float x, float y) {
@@ -99,13 +105,6 @@ public class Object implements IGameObject {
 
     public float getPosY() {
         return posY;
-    }
-
-    protected void setBoundary() {
-        boundary = new RectF(-SpriteSize.BACKGROUND_SIZE / 2,
-                -SpriteSize.BACKGROUND_SIZE / 2,
-                SpriteSize.BACKGROUND_SIZE / 2,
-                SpriteSize.BACKGROUND_SIZE / 2);
     }
 
     public void setcolliderSize(float sizeX, float sizeY) {

@@ -28,6 +28,11 @@ public class MainScene extends BaseScene {
         player.setcolliderSize(SpriteSize.PLAYER_SIZE * 0.6f, SpriteSize.PLAYER_SIZE * 0.8f);
         add(player);
 
+        Item item = new Item(0, 0, SpriteSize.WHIP_SIZE_X, SpriteSize.WHIP_SIZE_Y, R.mipmap.whip,
+                1, 6, 0.02f);
+        item.setcolliderSize(SpriteSize.WHIP_SIZE_X, SpriteSize.WHIP_SIZE_Y);
+        add(item);
+
         camera = new Camera(player);
         add(camera);
 

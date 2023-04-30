@@ -5,6 +5,7 @@ import android.graphics.RectF;
 
 import java.util.ArrayList;
 
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.Bullet;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.Enemy;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.EnemyGenerator;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.MainScene;
@@ -13,13 +14,19 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.Player;
 public class CollisionChecker implements IGameObject {
     @Override
     public void update(float eTime) {
-        Player p = BaseScene.getTopScene().getPlayer();
+        BaseScene scene = BaseScene.getTopScene();
+        if (scene == null) return;
+        Player p = scene.getPlayer();
         if (p != null && p.isInvincible()) {
             ArrayList<ICollidable> enemies = EnemyGenerator.enemies;
             for (ICollidable e : enemies) {
                 if (collides(p, e)) {
-                    if(e instanceof IAttackable) {
-                        p.getDamage(((IAttackable)e).getAtk());
+                    if (e instanceof IAttackable) {
+                        p.getDamage(((IAttackable) e).getAtk());
+                        if (e instanceof Bullet) {
+                            EnemyGenerator.removeEnemy(e);
+                            scene.remove((Object) e);
+                        }
                     }
                     // else 아이템 이라면
                     // 아이템 습득

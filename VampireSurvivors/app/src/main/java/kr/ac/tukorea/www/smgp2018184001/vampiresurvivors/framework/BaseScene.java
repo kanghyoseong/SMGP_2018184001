@@ -64,6 +64,16 @@ public class BaseScene {
         return objs.size();
     }
 
+    public int remove(IGameObject obj) {
+        hander.post(new Runnable() {
+            @Override
+            public void run() {
+                objs.remove(obj);
+            }
+        });
+        return objs.size();
+    }
+
     public Player getPlayer() {
         return player;
     }

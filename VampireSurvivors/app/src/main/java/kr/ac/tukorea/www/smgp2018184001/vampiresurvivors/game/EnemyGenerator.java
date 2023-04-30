@@ -73,6 +73,15 @@ public class EnemyGenerator implements IGameObject {
         });
     }
 
+    public static void removeEnemy(ICollidable enemy) {
+        hander.post(new Runnable() {
+            @Override
+            public void run() {
+                enemies.remove(enemy);
+            }
+        });
+    }
+
     @Override
     public void draw(Canvas canvas) {
     }

@@ -68,7 +68,8 @@ public class Bullet extends Object implements IAttackable, ICollidable {
     }
 
     private void remove() {
-        Log.d(null, "Remove Bullet");
+        EnemyGenerator.removeEnemy(this);
+        BaseScene.getTopScene().remove(this);
     }
 
     public void setDir(float dx, float dy) {

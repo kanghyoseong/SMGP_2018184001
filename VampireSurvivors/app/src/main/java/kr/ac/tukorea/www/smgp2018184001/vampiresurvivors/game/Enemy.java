@@ -7,7 +7,7 @@ public class Enemy extends Character implements IAttackable {
     protected int atk;
     protected AtkType atkType;
     protected int dropExp;
-    protected int spawnWave;
+    protected EEnemyType type;
 
     protected Object target = null;
 

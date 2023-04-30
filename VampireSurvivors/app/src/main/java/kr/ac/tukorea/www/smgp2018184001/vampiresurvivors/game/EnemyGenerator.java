@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.R;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.BaseScene;
@@ -19,11 +20,20 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.enemy.Skeleton;
 
 public class EnemyGenerator implements IGameObject {
     public static ArrayList<ICollidable> enemies = new ArrayList<>(); // 임시
+    public static HashMap<EEnemyType, Integer> enemyWave = new HashMap<>();
     private static Handler hander = new Handler();
     public static int wave = 0;
     protected static final float TIME_TO_NEXT_WAVE = 30.0f;
     protected final int ENEMY_PER_WAVE_INCREMENT = 5;
     public static float elapsedTime = TIME_TO_NEXT_WAVE * 0.9f;
+
+    public EnemyGenerator() {
+        enemyWave.put(EEnemyType.Bat, 1);
+        enemyWave.put(EEnemyType.Skeleton, 4);
+        enemyWave.put(EEnemyType.Ghost, 7);
+        enemyWave.put(EEnemyType.Mantichana, 10);
+        enemyWave.put(EEnemyType.LizardPawn, 13);
+    }
 
     @Override
     public void update(float eTime) {
@@ -34,9 +44,6 @@ public class EnemyGenerator implements IGameObject {
             BaseScene scene = BaseScene.getTopScene();
             if (scene != null) {
                 spawnEnemy(scene);
-                if (Bat.spawnWave > wave) {
-                    Bat.maxNum += ENEMY_PER_WAVE_INCREMENT;
-                }
             }
         }
     }
@@ -44,23 +51,12 @@ public class EnemyGenerator implements IGameObject {
     private void spawnEnemy(BaseScene scene) {
         Player player = scene.getPlayer();
         if (player != null) {
-            for (int i = 0; i < 1; i++) {
-                Bat bat = new Bat(i * 0.2f, 0, player);
-                Skeleton skeleton = new Skeleton(0.2f, 0, player);
-                Ghost ghost = new Ghost(0.4f, 0, player);
-                LizardPawn lp = new LizardPawn(0.6f, 0, player);
-                Mantichana mc = new Mantichana(0.8f, 0, player);
-                scene.add(bat);
-                scene.add(skeleton);
-                scene.add(ghost);
-                scene.add(lp);
-                scene.add(mc);
-                addEnemy(bat);
-                addEnemy(skeleton);
-                addEnemy(ghost);
-                addEnemy(lp);
-                addEnemy(mc);
-            }
+            enemyWave.entrySet().iterator().forEachRemaining((entry) -> {
+                Log.d(null, "Key: " + entry.getKey() + ", value: " + entry.getValue());
+            });
+            Bat bat = new Bat(0, 0, player);
+            scene.add(bat);
+            addEnemy(bat);
         }
     }
 

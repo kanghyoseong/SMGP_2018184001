@@ -7,14 +7,13 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.BaseScene;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.Object;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.AtkType;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.Bullet;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.EEnemyType;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.Enemy;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.EnemyGenerator;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.Player;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.SpriteSize;
 
 public class Ghost extends Enemy {
-    public static int maxNum = 15;
-    public static int spawnWave = 7;
     private float elapsedShootTime = 0;
     private float SHOOT_COOLTIME = 2f;
 
@@ -27,6 +26,7 @@ public class Ghost extends Enemy {
         atkType = AtkType.RANGE;
         dropExp = 5;
         setcolliderSize(SpriteSize.GHOST_SIZE * 0.6f, SpriteSize.GHOST_SIZE * 0.8f);
+        type = EEnemyType.Ghost;
     }
 
     @Override

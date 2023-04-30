@@ -5,13 +5,12 @@ import android.util.Log;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.R;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.Object;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.AtkType;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.EEnemyType;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.Enemy;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.Player;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.SpriteSize;
 
 public class LizardPawn extends Enemy {
-    public static int maxNum = 15;
-    public static int spawnWave = 13;
 
     public LizardPawn(float posX, float posY, Object target) {
         super(posX, posY, SpriteSize.LIZARDPAWN_SIZE, SpriteSize.LIZARDPAWN_SIZE,
@@ -22,5 +21,6 @@ public class LizardPawn extends Enemy {
         atkType = AtkType.MELEE;
         dropExp = 10;
         setcolliderSize(SpriteSize.LIZARDPAWN_SIZE * 0.6f, SpriteSize.LIZARDPAWN_SIZE * 0.8f);
+        type = EEnemyType.LizardPawn;
     }
 }

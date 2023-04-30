@@ -2,10 +2,8 @@ package kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game;
 
 import android.graphics.Canvas;
 import android.graphics.RectF;
-import android.util.Log;
 
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.BuildConfig;
-import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.R;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.BaseScene;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.GameView;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.IAttackable;
@@ -18,9 +16,9 @@ public class Bullet extends Object implements IAttackable, ICollidable {
     private int atk;
     private float degrees;
 
-    public Bullet(float posX, float posY) {
+    public Bullet(float posX, float posY, int resId, int spriteCountX, int spriteCountY) {
         super(posX, posY, SpriteSize.BULLET_SIZE, SpriteSize.BULLET_SIZE,
-                R.mipmap.bullet_ghost, 2, 1, 0.1f);
+                resId, spriteCountX, spriteCountY, 0.1f);
         movementSpeed = Player.PLAYER_MOVEMENTSPEED * 0.4f;
         setcolliderSize(SpriteSize.BULLET_SIZE * 0.6f, SpriteSize.BULLET_SIZE * 0.6f);
     }

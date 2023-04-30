@@ -12,7 +12,8 @@ public class Skeleton extends EnemyRange {
 
     public Skeleton(float posX, float posY, Object target) {
         super(posX, posY, SpriteSize.SKELETON_SIZE, SpriteSize.SKELETON_SIZE,
-                R.mipmap.skeleton, 2, 2, 0.1f, target);
+                R.mipmap.skeleton, 2, 2, 0.1f, target,
+                R.mipmap.bullet_skeleton, 3, 3);
         maxHp = curHp = 15;
         atk = 2;
         movementSpeed = Player.PLAYER_MOVEMENTSPEED * 0.3f;

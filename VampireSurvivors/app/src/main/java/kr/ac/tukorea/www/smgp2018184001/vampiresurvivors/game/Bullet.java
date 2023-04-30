@@ -67,7 +67,7 @@ public class Bullet extends Object implements IAttackable, ICollidable {
         reconstructColliderRect();
     }
 
-    private void remove() {
+    public void remove() {
         EnemyGenerator.removeEnemy(this);
         BaseScene.getTopScene().remove(this);
     }

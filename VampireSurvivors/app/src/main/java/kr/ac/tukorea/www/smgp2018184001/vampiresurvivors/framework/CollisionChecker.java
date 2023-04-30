@@ -24,8 +24,7 @@ public class CollisionChecker implements IGameObject {
                     if (e instanceof IAttackable) {
                         p.getDamage(((IAttackable) e).getAtk());
                         if (e instanceof Bullet) {
-                            EnemyGenerator.removeEnemy(e);
-                            scene.remove((Object) e);
+                            ((Bullet) e).remove();
                         }
                     }
                     // else 아이템 이라면

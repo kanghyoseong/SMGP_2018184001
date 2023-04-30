@@ -6,12 +6,13 @@ import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 
-import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.R;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.BaseScene;
-import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.IAttackable;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.ICollidable;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.IGameObject;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.Metrics;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.Object;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.enemy.Bat;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.enemy.Ghost;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.enemy.LizardPawn;
@@ -58,22 +59,25 @@ public class EnemyGenerator implements IGameObject {
                 spawnNum = spawnNum >= 0 ? spawnNum += INITIAL_NUM_OF_ENEMY : 0;
                 Log.d(null, "Spawn: " + entry.getKey() + ", count: " + spawnNum);
                 Enemy e = null;
+                float posX, posY;
                 for (int i = 0; i < spawnNum; i++) {
+                    posX = getRandomPos(true);
+                    posY = getRandomPos(false);
                     switch (entry.getKey()) {
                         case Bat:
-                            e = new Bat(i * 0.1f, 0, player);
+                            e = new Bat(posX, posY, player);
                             break;
                         case Skeleton:
-                            e = new Skeleton(i * 0.1f, 0, player);
+                            e = new Skeleton(posX, posY, player);
                             break;
                         case Ghost:
-                            e = new Ghost(i * 0.1f, 0, player);
+                            e = new Ghost(posX, posY, player);
                             break;
                         case Mantichana:
-                            e = new Mantichana(i * 0.1f, 0, player);
+                            e = new Mantichana(posX, posY, player);
                             break;
                         case LizardPawn:
-                            e = new LizardPawn(i * 0.1f, 0, player);
+                            e = new LizardPawn(posX, posY, player);
                             break;
                         default:
                             break;
@@ -103,6 +107,30 @@ public class EnemyGenerator implements IGameObject {
                 enemies.remove(enemy);
             }
         });
+    }
+
+    private float getRandomPos(boolean isPosX) {
+        Player player = BaseScene.getTopScene().getPlayer();
+        Random rand = new Random();
+        float pos;
+        if (isPosX) {
+            pos = rand.nextFloat() * (Object.boundary.right - Object.boundary.left) + Object.boundary.left;
+            float min = player.getPosX() - Metrics.game_width;
+            float max = player.getPosX() + Metrics.game_width;
+            if (pos > min && pos < max) {
+                if (pos < player.getPosX()) pos = min;
+                else pos = max;
+            }
+        } else {
+            pos = rand.nextFloat() * (Object.boundary.bottom - Object.boundary.top) + Object.boundary.top;
+            float min = player.getPosY() - Metrics.game_height;
+            float max = player.getPosY() + Metrics.game_height;
+            if (pos > min && pos < max) {
+                if (pos < player.getPosY()) pos = min;
+                else pos = max;
+            }
+        }
+        return pos;
     }
 
     @Override

@@ -26,6 +26,8 @@ public class EnemyGenerator implements IGameObject {
     protected static final float TIME_TO_NEXT_WAVE = 30.0f;
     protected final int ENEMY_PER_WAVE_INCREMENT = 5;
     public static float elapsedTime = TIME_TO_NEXT_WAVE * 0.9f;
+    private final int INITIAL_NUM_OF_ENEMY = 15;
+    private final int ENEMY_INCREMENT_PER_WAVE = 5;
 
     public EnemyGenerator() {
         enemyWave.put(EEnemyType.Bat, 1);
@@ -52,11 +54,36 @@ public class EnemyGenerator implements IGameObject {
         Player player = scene.getPlayer();
         if (player != null) {
             enemyWave.entrySet().iterator().forEachRemaining((entry) -> {
-                Log.d(null, "Key: " + entry.getKey() + ", value: " + entry.getValue());
+                int spawnNum = (wave - entry.getValue()) * ENEMY_INCREMENT_PER_WAVE;
+                spawnNum = spawnNum >= 0 ? spawnNum += INITIAL_NUM_OF_ENEMY : 0;
+                Log.d(null, "Spawn: " + entry.getKey() + ", count: " + spawnNum);
+                Enemy e = null;
+                for (int i = 0; i < spawnNum; i++) {
+                    switch (entry.getKey()) {
+                        case Bat:
+                            e = new Bat(i * 0.1f, 0, player);
+                            break;
+                        case Skeleton:
+                            e = new Skeleton(i * 0.1f, 0, player);
+                            break;
+                        case Ghost:
+                            e = new Ghost(i * 0.1f, 0, player);
+                            break;
+                        case Mantichana:
+                            e = new Mantichana(i * 0.1f, 0, player);
+                            break;
+                        case LizardPawn:
+                            e = new LizardPawn(i * 0.1f, 0, player);
+                            break;
+                        default:
+                            break;
+                    }
+                    if (e != null) {
+                        scene.add(e);
+                        addEnemy(e);
+                    }
+                }
             });
-            Bat bat = new Bat(0, 0, player);
-            scene.add(bat);
-            addEnemy(bat);
         }
     }
 

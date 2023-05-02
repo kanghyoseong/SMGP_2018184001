@@ -48,6 +48,7 @@ public class EnemyGenerator implements IGameObject {
     private void spawnEnemy(BaseScene scene) {
         Player player = scene.getPlayer();
         if (player == null) return;
+        Random random = new Random();
         for (int i = 0; i < EEnemyType.Count.ordinal(); i++) {
             EEnemyType curType = EEnemyType.values()[i];
             int spawnNum = (wave - curType.getWave()) * ENEMY_INCREMENT_PER_WAVE;
@@ -56,8 +57,8 @@ public class EnemyGenerator implements IGameObject {
             Enemy e = null;
             float posX, posY;
             for (int j = 0; j < spawnNum; j++) {
-                posX = getRandomPos(true);
-                posY = getRandomPos(false);
+                posX = getRandomPos(random, true);
+                posY = getRandomPos(random, false);
                 switch (curType) {
                     case Bat:
                         e = Bat.get(posX, posY, player);
@@ -103,9 +104,8 @@ public class EnemyGenerator implements IGameObject {
         });
     }
 
-    private float getRandomPos(boolean isPosX) {
+    private float getRandomPos(Random rand, boolean isPosX) {
         Player player = BaseScene.getTopScene().getPlayer();
-        Random rand = new Random();
         float pos;
         if (isPosX) {
             pos = rand.nextFloat() * (Object.boundary.right - Object.boundary.left) + Object.boundary.left;

@@ -12,7 +12,6 @@ import android.view.View;
 
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.BuildConfig;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.EnemyGenerator;
-import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.MainScene;
 
 public class GameView extends View implements Choreographer.FrameCallback {
     private static final String TAG = GameView.class.getSimpleName();
@@ -84,6 +83,9 @@ public class GameView extends View implements Choreographer.FrameCallback {
             long elapsedNanos = curNanos - previousNanos;
             frameTime = elapsedNanos / 1_000_000_000f;
             BaseScene scene = BaseScene.getTopScene();
+            if (BuildConfig.DEBUG) {
+                frameTime *= DebugFlag.FRAMETIME_MULTIPLIER;
+            }
             scene.update(frameTime);
         }
         previousNanos = curNanos;
@@ -105,11 +107,11 @@ public class GameView extends View implements Choreographer.FrameCallback {
         if (scene != null) {
             scene.draw(canvas);
         }
-        if (BuildConfig.DEBUG) {
+        if (BuildConfig.DEBUG && DebugFlag.DRAW_SCREENBORDER) {
             canvas.drawRect(0, 0, Metrics.game_width, Metrics.game_height, borderPaint);
         }
         canvas.restore();
-        if (BuildConfig.DEBUG && frameTime > 0) {
+        if (BuildConfig.DEBUG && DebugFlag.DRAW_GAMEINFO && frameTime > 0) {
             int fps = (int) (1.0f / frameTime);
             int wave = EnemyGenerator.wave;
             float time = EnemyGenerator.elapsedTime;

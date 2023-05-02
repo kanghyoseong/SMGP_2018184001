@@ -5,6 +5,7 @@ import android.graphics.RectF;
 
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.BuildConfig;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.BaseScene;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.DebugFlag;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.GameView;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.IAttackable;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.ICollidable;
@@ -37,7 +38,7 @@ public class Bullet extends Object implements IAttackable, ICollidable {
             canvas.rotate(degrees, posX - camera.getPosX(), posY - camera.getPosY());
             super.draw(canvas);
             canvas.restore();
-            if (BuildConfig.DEBUG) {
+            if (BuildConfig.DEBUG && DebugFlag.DRAW_COLLISIONRECT) {
                 RectF collider = new RectF(colliderRect);
                 collider.offset(-camera.getPosX(),
                         -camera.getPosY());

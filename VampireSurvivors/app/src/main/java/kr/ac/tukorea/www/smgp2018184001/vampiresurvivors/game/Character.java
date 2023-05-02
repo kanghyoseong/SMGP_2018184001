@@ -5,6 +5,7 @@ import android.graphics.RectF;
 
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.BuildConfig;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.BaseScene;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.DebugFlag;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.GameView;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.ICollidable;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.Object;
@@ -24,13 +25,13 @@ public class Character extends Object implements ICollidable {
     @Override
     public void draw(Canvas canvas) {
         super.draw(canvas);
-        if (BuildConfig.DEBUG) {
+        if (BuildConfig.DEBUG && DebugFlag.DRAW_COLLISIONRECT) {
             RectF collider = new RectF(colliderRect);
             Camera camera = BaseScene.getTopScene().getCamera();
             if (camera != null) {
                 collider.offset(-camera.getPosX(),
                         -camera.getPosY());
-                //canvas.drawRect(collider, GameView.colliderPaint);
+                canvas.drawRect(collider, GameView.colliderPaint);
             }
         }
     }

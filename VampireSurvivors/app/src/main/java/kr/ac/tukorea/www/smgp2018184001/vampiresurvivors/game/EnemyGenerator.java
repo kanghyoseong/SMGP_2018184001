@@ -1,5 +1,7 @@
 package kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game;
 
+import static kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.DebugFlag.START_WAVE;
+
 import android.graphics.Canvas;
 import android.os.Handler;
 import android.util.Log;
@@ -9,6 +11,7 @@ import java.util.HashMap;
 import java.util.Random;
 
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.BaseScene;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.DebugFlag;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.ICollidable;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.IGameObject;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.Metrics;
@@ -23,7 +26,7 @@ public class EnemyGenerator implements IGameObject {
     public static ArrayList<ICollidable> enemies = new ArrayList<>(); // 임시
     public static HashMap<EEnemyType, Integer> enemyWave = new HashMap<>();
     private static Handler hander = new Handler();
-    public static int wave = 0;
+    public static int wave = START_WAVE;
     protected static final float TIME_TO_NEXT_WAVE = 30.0f;
     protected final int ENEMY_PER_WAVE_INCREMENT = 5;
     public static float elapsedTime = TIME_TO_NEXT_WAVE * 0.9f;

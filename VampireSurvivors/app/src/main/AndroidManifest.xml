@@ -12,7 +12,7 @@
         android:theme="@style/Theme.VampireSurvivors"
         tools:targetApi="31">
         <activity
-            android:name=".framework.MainActivity"
+            android:name=".game.app.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

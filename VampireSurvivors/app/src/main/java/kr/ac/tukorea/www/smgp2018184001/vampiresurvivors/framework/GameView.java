@@ -57,7 +57,6 @@ public class GameView extends View implements Choreographer.FrameCallback {
     }
 
     private void init(AttributeSet attrs, int defStyle) {
-        Metrics.setGameSize(1, 1);
         res = getResources();
 
         if (BuildConfig.DEBUG) {

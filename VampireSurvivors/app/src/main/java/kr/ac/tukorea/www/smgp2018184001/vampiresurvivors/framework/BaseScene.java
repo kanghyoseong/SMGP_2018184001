@@ -7,26 +7,28 @@ import android.view.MotionEvent;
 import java.util.ArrayList;
 
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.Camera;
-import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.Enemy;
-import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.EnemyGenerator;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.Player;
 
 public class BaseScene {
     private static ArrayList<BaseScene> sceneStack = new ArrayList<>();
-    protected ArrayList<IGameObject> objs = new ArrayList<>();
+    protected ArrayList<ArrayList<IGameObject>> layers = new ArrayList<>();
     protected Player player;
     protected Camera camera;
     protected Handler hander = new Handler();
 
     public void update(float frameTime) {
-        for (IGameObject obj : objs) {
-            obj.update(frameTime);
+        for (ArrayList<IGameObject> objs : layers) {
+            for (IGameObject gobj : objs) {
+                gobj.update(frameTime);
+            }
         }
     }
 
     public void draw(Canvas canvas) {
-        for (IGameObject obj : objs) {
-            obj.draw(canvas);
+        for (ArrayList<IGameObject> objs : layers) {
+            for (IGameObject gobj : objs) {
+                gobj.draw(canvas);
+            }
         }
     }
 
@@ -50,28 +52,44 @@ public class BaseScene {
         return sceneStack.size();
     }
 
+    protected <E extends Enum<E>> void initLayers(E countEnum) {
+        int layerCount = countEnum.ordinal();
+        layers = new ArrayList<>();
+        for (int i = 0; i < layerCount; i++) {
+            layers.add(new ArrayList<>());
+        }
+    }
+
     public boolean onTouchEvent(MotionEvent event) {
         return false;
     }
 
-    public int add(IGameObject obj) {
+    public <E extends Enum> void add(E layerEnum, IGameObject obj) {
+        ArrayList<IGameObject> objs = layers.get(layerEnum.ordinal());
         hander.post(new Runnable() {
             @Override
             public void run() {
                 objs.add(obj);
             }
         });
-        return objs.size();
     }
 
-    public int remove(IGameObject obj) {
+    public <E extends Enum> void remove(E layerEnum, IGameObject obj) {
+        ArrayList<IGameObject> objs = layers.get(layerEnum.ordinal());
         hander.post(new Runnable() {
             @Override
             public void run() {
                 objs.remove(obj);
             }
         });
-        return objs.size();
+    }
+
+    public int getObjectCount() {
+        int count = 0;
+        for (ArrayList<IGameObject> objects : layers) {
+            count += objects.size();
+        }
+        return count;
     }
 
     public Player getPlayer() {

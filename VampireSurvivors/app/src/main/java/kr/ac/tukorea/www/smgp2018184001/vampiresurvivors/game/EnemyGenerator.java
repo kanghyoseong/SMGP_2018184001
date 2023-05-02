@@ -83,7 +83,7 @@ public class EnemyGenerator implements IGameObject {
                             break;
                     }
                     if (e != null) {
-                        scene.add(e);
+                        scene.add(MainScene.Layer.enemy, e);
                         addEnemy(e);
                     }
                 }

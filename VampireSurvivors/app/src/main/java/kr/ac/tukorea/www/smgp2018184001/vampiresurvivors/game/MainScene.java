@@ -7,37 +7,45 @@ import java.util.ArrayList;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.R;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.BaseScene;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.CollisionChecker;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.Metrics;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.Object;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.enemy.Bat;
 
 public class MainScene extends BaseScene {
     private Joystick joystick;
 
+    public enum Layer {
+        bg, enemy, bullet, item, player, controller, COUNT
+    }
+
     public MainScene() {
-        add(new CollisionChecker());
-        add(new EnemyGenerator());
+        Metrics.setGameSize(1, 1);
+        initLayers(Layer.COUNT);
+
+        add(Layer.controller, new CollisionChecker());
+        add(Layer.controller, new EnemyGenerator());
 
         Object background = new Object(0, 0,
                 SpriteSize.BACKGROUND_SIZE, SpriteSize.BACKGROUND_SIZE,
                 R.mipmap.background);
-        add(background);
+        add(Layer.bg, background);
 
         player = new Player(0, 0,
                 SpriteSize.PLAYER_SIZE, SpriteSize.PLAYER_SIZE,
                 R.mipmap.player_anim_4x1, 4, 1, 0.2f);
         player.setcolliderSize(SpriteSize.PLAYER_SIZE * 0.6f, SpriteSize.PLAYER_SIZE * 0.8f);
-        add(player);
+        add(Layer.player, player);
 
         Item item = new Item(0, 0, SpriteSize.WHIP_SIZE_X, SpriteSize.WHIP_SIZE_Y, R.mipmap.whip,
                 1, 6, 0.02f);
         item.setcolliderSize(SpriteSize.WHIP_SIZE_X, SpriteSize.WHIP_SIZE_Y);
-        add(item);
+        add(Layer.item, item);
 
         camera = new Camera(player);
-        add(camera);
+        add(Layer.controller, camera);
 
         joystick = new Joystick();
-        add(joystick);
+        add(Layer.controller, joystick);
     }
 
     @Override

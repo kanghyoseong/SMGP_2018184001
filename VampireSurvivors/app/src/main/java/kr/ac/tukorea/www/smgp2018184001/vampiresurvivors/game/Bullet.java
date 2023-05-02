@@ -67,7 +67,7 @@ public class Bullet extends Object implements IAttackable, ICollidable {
 
     public void remove() {
         EnemyGenerator.removeEnemy(this);
-        BaseScene.getTopScene().remove(this);
+        BaseScene.getTopScene().remove(MainScene.Layer.bullet, this);
     }
 
     public void setDir(float dx, float dy) {

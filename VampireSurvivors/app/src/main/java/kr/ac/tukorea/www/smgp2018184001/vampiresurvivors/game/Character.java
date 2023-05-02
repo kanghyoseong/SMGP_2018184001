@@ -2,7 +2,6 @@ package kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game;
 
 import android.graphics.Canvas;
 import android.graphics.RectF;
-import android.util.Log;
 
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.BuildConfig;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.BaseScene;
@@ -20,7 +19,6 @@ public class Character extends Object implements ICollidable {
                      int resId, int spriteCountX, int spriteCountY, float secToNextFrame) {
         super(posX, posY, sizeX, sizeY,
                 resId, spriteCountX, spriteCountY, secToNextFrame);
-        aSprite.makeInvertedBitmap();
     }
 
     @Override
@@ -32,7 +30,7 @@ public class Character extends Object implements ICollidable {
             if (camera != null) {
                 collider.offset(-camera.getPosX(),
                         -camera.getPosY());
-                canvas.drawRect(collider, GameView.colliderPaint);
+                //canvas.drawRect(collider, GameView.colliderPaint);
             }
         }
     }

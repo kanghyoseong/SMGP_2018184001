@@ -115,8 +115,10 @@ public class GameView extends View implements Choreographer.FrameCallback {
             int fps = (int) (1.0f / frameTime);
             int wave = EnemyGenerator.wave;
             float time = EnemyGenerator.elapsedTime;
-            canvas.drawText("FPS: " + fps + ", Wave: " + wave + ", Time: " + time
+            canvas.drawText("FPS: " + fps + ", Wave: " + wave + ", Time: " + String.format("%.1f", time)
                     , 100f, 150f, fpsPaint);
+            canvas.drawText("Obj: " + BaseScene.getTopScene().getObjectCount()
+                    , 100f, 250f, fpsPaint);
         }
     }
 

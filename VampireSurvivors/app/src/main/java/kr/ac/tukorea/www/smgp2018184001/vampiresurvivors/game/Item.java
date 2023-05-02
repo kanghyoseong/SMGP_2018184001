@@ -19,7 +19,6 @@ public class Item extends Object {
                 int resId, int spriteCountX, int spriteCountY, float secToNextFrame) {
         super(posX, posY, sizeX, sizeY,
                 resId, spriteCountX, spriteCountY, secToNextFrame);
-        aSprite.makeInvertedBitmap();
         atk = 10;
         maxCoolTime = 1.35f;
     }

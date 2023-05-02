@@ -1,19 +1,12 @@
 package kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.RectF;
 
 public class Sprite {
     private Bitmap bitmap;
     protected RectF dstRect;
-    protected static BitmapFactory.Options opts;
-
-    static {
-        opts = new BitmapFactory.Options();
-        opts.inScaled = false;
-    }
 
     public Sprite() {
     }
@@ -27,7 +20,7 @@ public class Sprite {
     }
 
     public void setBitmap(int resId) {
-        bitmap = BitmapFactory.decodeResource(GameView.res, resId, opts);
+        bitmap = BitmapPool.get(resId, false);
     }
 
     public void setDstRect(RectF rect) {

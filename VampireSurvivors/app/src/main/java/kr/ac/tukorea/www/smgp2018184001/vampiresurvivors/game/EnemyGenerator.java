@@ -1,16 +1,14 @@
 package kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game;
 
-import static kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.DebugFlag.START_WAVE;
-
 import android.graphics.Canvas;
 import android.os.Handler;
 import android.util.Log;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Random;
 
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.BaseScene;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.DebugFlag;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.ICollidable;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.IGameObject;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.Metrics;
@@ -23,9 +21,8 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.enemy.Skeleton;
 
 public class EnemyGenerator implements IGameObject {
     public static ArrayList<ICollidable> enemies = new ArrayList<>(); // 임시
-    public static HashMap<EEnemyType, Integer> enemyWave = new HashMap<>();
     private static Handler hander = new Handler();
-    public static int wave = START_WAVE;
+    public static int wave = DebugFlag.START_WAVE;
     protected static final float TIME_TO_NEXT_WAVE = 30.0f;
     protected final int ENEMY_PER_WAVE_INCREMENT = 5;
     public static float elapsedTime = TIME_TO_NEXT_WAVE * 0.9f;
@@ -33,11 +30,6 @@ public class EnemyGenerator implements IGameObject {
     private final int ENEMY_INCREMENT_PER_WAVE = 5;
 
     public EnemyGenerator() {
-        enemyWave.put(EEnemyType.Bat, 1);
-        enemyWave.put(EEnemyType.Skeleton, 4);
-        enemyWave.put(EEnemyType.Ghost, 7);
-        enemyWave.put(EEnemyType.Mantichana, 10);
-        enemyWave.put(EEnemyType.LizardPawn, 13);
     }
 
     @Override
@@ -55,41 +47,41 @@ public class EnemyGenerator implements IGameObject {
 
     private void spawnEnemy(BaseScene scene) {
         Player player = scene.getPlayer();
-        if (player != null) {
-            enemyWave.entrySet().iterator().forEachRemaining((entry) -> {
-                int spawnNum = (wave - entry.getValue()) * ENEMY_INCREMENT_PER_WAVE;
-                spawnNum = spawnNum >= 0 ? spawnNum += INITIAL_NUM_OF_ENEMY : 0;
-                Log.d(null, "Spawn: " + entry.getKey() + ", count: " + spawnNum);
-                Enemy e = null;
-                float posX, posY;
-                for (int i = 0; i < spawnNum; i++) {
-                    posX = getRandomPos(true);
-                    posY = getRandomPos(false);
-                    switch (entry.getKey()) {
-                        case Bat:
-                            e = Bat.get(posX, posY, player);
-                            break;
-                        case Skeleton:
-                            e = Skeleton.get(posX, posY, player);
-                            break;
-                        case Ghost:
-                            e = Ghost.get(posX, posY, player);
-                            break;
-                        case Mantichana:
-                            e = Mantichana.get(posX, posY, player);
-                            break;
-                        case LizardPawn:
-                            e = LizardPawn.get(posX, posY, player);
-                            break;
-                        default:
-                            break;
-                    }
-                    if (e != null) {
-                        scene.add(MainScene.Layer.enemy, e);
-                        addEnemy(e);
-                    }
+        if (player == null) return;
+        for (int i = 0; i < EEnemyType.Count.ordinal(); i++) {
+            EEnemyType curType = EEnemyType.values()[i];
+            int spawnNum = (wave - curType.getWave()) * ENEMY_INCREMENT_PER_WAVE;
+            spawnNum = spawnNum >= 0 ? spawnNum += INITIAL_NUM_OF_ENEMY : 0;
+            Log.d(null, "Spawn: " + curType + ", count: " + spawnNum);
+            Enemy e = null;
+            float posX, posY;
+            for (int j = 0; j < spawnNum; j++) {
+                posX = getRandomPos(true);
+                posY = getRandomPos(false);
+                switch (curType) {
+                    case Bat:
+                        e = Bat.get(posX, posY, player);
+                        break;
+                    case Skeleton:
+                        e = Skeleton.get(posX, posY, player);
+                        break;
+                    case Ghost:
+                        e = Ghost.get(posX, posY, player);
+                        break;
+                    case Mantichana:
+                        e = Mantichana.get(posX, posY, player);
+                        break;
+                    case LizardPawn:
+                        e = LizardPawn.get(posX, posY, player);
+                        break;
+                    default:
+                        break;
                 }
-            });
+                if (e != null) {
+                    scene.add(MainScene.Layer.enemy, e);
+                    addEnemy(e);
+                }
+            }
         }
     }
 

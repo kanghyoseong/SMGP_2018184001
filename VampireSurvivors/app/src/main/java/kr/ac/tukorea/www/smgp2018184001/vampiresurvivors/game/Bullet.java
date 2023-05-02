@@ -23,7 +23,7 @@ public class Bullet extends Object implements IAttackable, ICollidable {
         if (bullet == null) {
             bullet = new Bullet(posX, posY, resId, spriteCountX, spriteCountY);
         } else {
-            bullet.aSprite.setBitmapFrame(resId, spriteCountX, spriteCountY);
+            bullet.aSprite.setBitmapFrame(resId, spriteCountX, spriteCountY, 0.1f);
             bullet.posX = posX;
             bullet.posY = posY;
         }

@@ -25,12 +25,12 @@ public class AnimatedSprite extends Sprite {
 
     public AnimatedSprite(int resId, int spriteCountX, int spriteCountY, float secToNextFrame) {
         super();
-        this.secToNextFrame = secToNextFrame;
-        this.frameCount = spriteCountX * spriteCountY;
-        setBitmapFrame(resId, spriteCountX, spriteCountY);
+        setBitmapFrame(resId, spriteCountX, spriteCountY, secToNextFrame);
     }
 
-    public void setBitmapFrame(int resId, int spriteCountX, int spriteCountY) {
+    public void setBitmapFrame(int resId, int spriteCountX, int spriteCountY, float secToNextFrame) {
+        this.secToNextFrame = secToNextFrame;
+        this.frameCount = spriteCountX * spriteCountY;
         bitmapFrame = BitmapPool.getAnimation(resId, spriteCountX, spriteCountY);
         bitmapFrame_inverted = BitmapPool.getAnimation_Inverted(resId, spriteCountX, spriteCountY);
     }

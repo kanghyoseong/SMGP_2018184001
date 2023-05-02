@@ -45,7 +45,7 @@ public class EnemyRange extends Enemy {
         } else {
             return;
         }
-        Bullet bullet = new Bullet(posX, posY, bulletResId, bulletSpriteCountX, bulletSpriteCountY);
+        Bullet bullet = Bullet.get(posX, posY, bulletResId, bulletSpriteCountX, bulletSpriteCountY);
         bullet.setAtk(atk);
         bullet.setDir(dx, dy);
         BaseScene.getTopScene().add(MainScene.Layer.bullet, bullet);

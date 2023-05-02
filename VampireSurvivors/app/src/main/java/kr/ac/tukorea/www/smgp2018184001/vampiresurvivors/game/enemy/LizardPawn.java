@@ -4,6 +4,7 @@ import android.util.Log;
 
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.R;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.Object;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.RecycleBin;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.AtkType;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.EEnemyType;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.Enemy;
@@ -11,8 +12,19 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.Player;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.SpriteSize;
 
 public class LizardPawn extends Enemy {
+    public static LizardPawn get(float posX, float posY, Object target) {
+        LizardPawn lp = (LizardPawn) RecycleBin.get(LizardPawn.class);
+        if (lp == null) {
+            lp = new LizardPawn(posX, posY, target);
+        } else {
+            lp.posX = posX;
+            lp.posY = posY;
+            lp.target = target;
+        }
+        return lp;
+    }
 
-    public LizardPawn(float posX, float posY, Object target) {
+    private LizardPawn(float posX, float posY, Object target) {
         super(posX, posY, SpriteSize.LIZARDPAWN_SIZE, SpriteSize.LIZARDPAWN_SIZE,
                 R.mipmap.lizardpawn, 2, 2, 0.1f, target);
         maxHp = curHp = 20;

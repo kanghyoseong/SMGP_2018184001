@@ -11,7 +11,6 @@ import java.util.HashMap;
 import java.util.Random;
 
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.BaseScene;
-import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.DebugFlag;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.ICollidable;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.IGameObject;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.Metrics;
@@ -68,19 +67,19 @@ public class EnemyGenerator implements IGameObject {
                     posY = getRandomPos(false);
                     switch (entry.getKey()) {
                         case Bat:
-                            e = new Bat(posX, posY, player);
+                            e = Bat.get(posX, posY, player);
                             break;
                         case Skeleton:
-                            e = new Skeleton(posX, posY, player);
+                            e = Skeleton.get(posX, posY, player);
                             break;
                         case Ghost:
-                            e = new Ghost(posX, posY, player);
+                            e = Ghost.get(posX, posY, player);
                             break;
                         case Mantichana:
-                            e = new Mantichana(posX, posY, player);
+                            e = Mantichana.get(posX, posY, player);
                             break;
                         case LizardPawn:
-                            e = new LizardPawn(posX, posY, player);
+                            e = LizardPawn.get(posX, posY, player);
                             break;
                         default:
                             break;

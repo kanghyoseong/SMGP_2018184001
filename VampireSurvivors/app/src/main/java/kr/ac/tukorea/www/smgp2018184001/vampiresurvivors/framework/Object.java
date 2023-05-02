@@ -6,7 +6,7 @@ import android.graphics.RectF;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.Camera;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.SpriteSize;
 
-public class Object implements IGameObject {
+public class Object implements IGameObject, IRecyclable {
     protected Sprite sprite;
     protected AnimatedSprite aSprite;
     protected RectF dstRect;
@@ -125,5 +125,9 @@ public class Object implements IGameObject {
             float bottom = posY + colliderSizeY / 2;
             colliderRect.set(left, top, right, bottom);
         }
+    }
+
+    @Override
+    public void onRecycle() {
     }
 }

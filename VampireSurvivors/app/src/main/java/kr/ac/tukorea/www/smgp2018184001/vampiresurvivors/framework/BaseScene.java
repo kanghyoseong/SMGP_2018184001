@@ -65,21 +65,22 @@ public class BaseScene {
     }
 
     public <E extends Enum> void add(E layerEnum, IGameObject obj) {
-        ArrayList<IGameObject> objs = layers.get(layerEnum.ordinal());
         hander.post(new Runnable() {
             @Override
             public void run() {
-                objs.add(obj);
+                getObjectsAt(layerEnum).add(obj);
             }
         });
     }
 
     public <E extends Enum> void remove(E layerEnum, IGameObject obj) {
-        ArrayList<IGameObject> objs = layers.get(layerEnum.ordinal());
         hander.post(new Runnable() {
             @Override
             public void run() {
-                objs.remove(obj);
+                boolean removed = getObjectsAt(layerEnum).remove(obj);
+                if (removed && obj instanceof IRecyclable) {
+                    RecycleBin.collect((IRecyclable) obj);
+                }
             }
         });
     }
@@ -90,6 +91,10 @@ public class BaseScene {
             count += objects.size();
         }
         return count;
+    }
+
+    public <E extends Enum> ArrayList<IGameObject> getObjectsAt(E layerEnum) {
+        return layers.get(layerEnum.ordinal());
     }
 
     public Player getPlayer() {

@@ -30,11 +30,10 @@ public class CollisionChecker implements IGameObject {
             if (!p.isInvincible() && collides(p, (ICollidable) e)) {
                 p.getDamage(((IAttackable) e).getAtk());
             }
-            for (IGameObject i : weapons) {
+            for (IGameObject w : weapons) {
                 // Item(Weapon) <-> Enemy
-                if (collides((ICollidable) i, (ICollidable) e)) {
-                    ((Enemy) e).killThis();
-                    //((Enemy)e).getDamage(((IAttackable) i).getAtk());
+                if (collides((ICollidable) w, (ICollidable) e)) {
+                    ((Enemy)e).getDamage(((IAttackable) w).getAtk());
                 }
             }
         }

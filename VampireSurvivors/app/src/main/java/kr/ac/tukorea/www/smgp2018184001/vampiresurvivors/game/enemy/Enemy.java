@@ -19,6 +19,7 @@ public class Enemy extends Character implements IAttackable {
         super(posX, posY, sizeX, sizeY,
                 resId, spriteCountX, spriteCountY, secToNextFrame);
         setTarget(target);
+        INVINCIBLETIME = 0.2f;
     }
 
     public void setTarget(Object target) {

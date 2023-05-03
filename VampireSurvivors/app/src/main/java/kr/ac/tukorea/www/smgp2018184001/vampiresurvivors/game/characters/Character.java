@@ -17,14 +17,23 @@ public class Character extends Object implements ICollidable {
     protected int curHp = 20;
     protected int maxHp = 20;
     protected float movementSpeed;
-    private float INVINCIBLETIME = 1f;
-    protected float elapsedInvincibleTime;
+    protected float INVINCIBLETIME = 1f;
+    protected float elapsedInvincibleTime = 0;
 
     public Character(float posX, float posY, float sizeX, float sizeY,
                      int resId, int spriteCountX, int spriteCountY, float secToNextFrame) {
         super(posX, posY, sizeX, sizeY,
                 resId, spriteCountX, spriteCountY, secToNextFrame);
-        elapsedInvincibleTime = INVINCIBLETIME;
+    }
+
+    @Override
+    public void update(float eTime) {
+        super.update(eTime);
+        if (elapsedInvincibleTime > 0) { // 0보다 크면 무적
+            elapsedInvincibleTime -= eTime;
+        } else { // 0보다 작거나 같으면 무적 아님
+            aSprite.setIsInvincible(false);
+        }
     }
 
     @Override
@@ -71,10 +80,10 @@ public class Character extends Object implements ICollidable {
         }
     }
 
-    public void killThis(){
+    public void killThis() {
     }
 
-    public boolean isInvincible() {
+    public boolean isInvincible() { // 0보다 크면 무적
         return elapsedInvincibleTime > 0;
     }
 

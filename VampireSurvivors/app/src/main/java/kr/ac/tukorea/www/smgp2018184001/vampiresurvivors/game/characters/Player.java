@@ -19,16 +19,6 @@ public class Player extends Character {
     }
 
     @Override
-    public void update(float eTime) {
-        super.update(eTime);
-        if (elapsedInvincibleTime > 0) {
-            elapsedInvincibleTime -= eTime;
-        } else {
-            aSprite.setIsInvincible(false);
-        }
-    }
-
-    @Override
     public void killThis() {
         Log.d(TAG, "Game Over");
     }

@@ -72,6 +72,10 @@ public class AnimatedSprite extends Sprite {
         this.isDirLeft = isDirLeft;
     }
 
+    public boolean getIsDirLeft(){
+        return isDirLeft;
+    }
+
     public void setIsInvincible(boolean isInvincible) {
         this.isInvincible = isInvincible;
     }

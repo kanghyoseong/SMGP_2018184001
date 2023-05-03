@@ -38,7 +38,7 @@ public class MainScene extends BaseScene {
         player.setcolliderSize(SpriteSize.PLAYER_SIZE * 0.6f, SpriteSize.PLAYER_SIZE * 0.8f);
         add(Layer.player, player);
 
-        Whip whip = new Whip(0, 0);
+        Whip whip = new Whip(0, 0, player, false);
         add(Layer.weapon, whip);
 
         camera = new Camera(player);

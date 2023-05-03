@@ -112,6 +112,14 @@ public class Object implements IGameObject, IRecyclable {
         return posY;
     }
 
+    public float getSizeX() {
+        return sizeX;
+    }
+
+    public float getSizeY() {
+        return sizeY;
+    }
+
     public void setcolliderSize(float sizeX, float sizeY) {
         this.colliderSizeX = sizeX;
         this.colliderSizeY = sizeY;
@@ -130,6 +138,14 @@ public class Object implements IGameObject, IRecyclable {
             float bottom = posY + colliderSizeY / 2;
             colliderRect.set(left, top, right, bottom);
         }
+    }
+
+    public void setIsDirLeft(boolean isDirLeft) {
+        aSprite.setIsDirLeft(isDirLeft);
+    }
+
+    public boolean getIsDirLeft() {
+        return aSprite.getIsDirLeft();
     }
 
     @Override

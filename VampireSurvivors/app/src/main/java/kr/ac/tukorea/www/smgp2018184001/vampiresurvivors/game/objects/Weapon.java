@@ -8,6 +8,7 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.interfaces.IA
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.interfaces.ICollidable;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.BaseScene;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.view.GameView;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.characters.Player;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.controller.Camera;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.flags.DebugFlag;
 
@@ -17,12 +18,14 @@ public class Weapon extends Object implements IAttackable, ICollidable {
     protected float maxCoolTime;
     private float duration = 0;
     private int projectileCount = 1;
-    private boolean isAttacking = false;
+    protected boolean isAttacking = false;
+    protected Player player;
 
     public Weapon(float posX, float posY, float sizeX, float sizeY,
-                  int resId, int spriteCountX, int spriteCountY, float secToNextFrame) {
+                  int resId, int spriteCountX, int spriteCountY, float secToNextFrame, Player player) {
         super(posX, posY, sizeX, sizeY,
                 resId, spriteCountX, spriteCountY, secToNextFrame);
+        this.player = player;
     }
 
     @Override
@@ -31,12 +34,17 @@ public class Weapon extends Object implements IAttackable, ICollidable {
         if (elapsedCoolTime > 0) {
             elapsedCoolTime -= eTime;
         } else if (!isAttacking) {
-            aSprite.setCurFrame(1);
-            isAttacking = true;
+            attack();
         } else if (aSprite.getCurFrame() == aSprite.getFrameCount()) {
             elapsedCoolTime = maxCoolTime;
             isAttacking = false;
         }
+    }
+
+    protected void attack() {
+        aSprite.setCurFrame(1);
+        isAttacking = true;
+        setPos(player.getPosX(), player.getPosY());
     }
 
     @Override

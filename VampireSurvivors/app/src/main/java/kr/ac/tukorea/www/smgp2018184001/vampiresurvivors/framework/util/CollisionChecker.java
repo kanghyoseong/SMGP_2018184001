@@ -33,7 +33,7 @@ public class CollisionChecker implements IGameObject {
             }
             for (IGameObject w : weapons) {
                 if (!((Weapon) w).isAttacking()) continue;
-                // Item(Weapon) <-> Enemy
+                // Weapon <-> Enemy
                 if (collides((ICollidable) w, (ICollidable) e)) {
                     ((Enemy) e).getDamage(((IAttackable) w).getAtk());
                 }
@@ -44,6 +44,14 @@ public class CollisionChecker implements IGameObject {
             if (collides(p, (ICollidable) b)) {
                 p.getDamage(((IAttackable) b).getAtk());
                 ((Bullet) b).remove();
+            }
+            // Weapon <-> Bullet
+            for (IGameObject w : weapons) {
+                if (!((Weapon) w).isAttacking()) continue;
+                // Item(Weapon) <-> Enemy
+                if (collides((ICollidable) w, (ICollidable) b)) {
+                    ((Bullet) b).remove();
+                }
             }
         }
     }

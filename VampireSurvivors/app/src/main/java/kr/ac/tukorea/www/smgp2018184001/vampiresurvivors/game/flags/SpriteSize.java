@@ -13,8 +13,8 @@ public class SpriteSize {
     public static float BULLET_SIZE = 0.1f;
 
     // Items
-    public static float WHIP_SIZE_X = 0.42f;
-    public static float WHIP_SIZE_Y = 0.07f;
+    public static float WHIP_SIZE_X = 0.5f;
+    public static float WHIP_SIZE_Y = 0.1f;
 
 
     // ETC

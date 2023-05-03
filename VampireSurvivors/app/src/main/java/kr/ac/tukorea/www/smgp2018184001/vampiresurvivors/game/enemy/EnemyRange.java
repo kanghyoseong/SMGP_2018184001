@@ -50,6 +50,5 @@ public class EnemyRange extends Enemy {
         bullet.setAtk(atk);
         bullet.setDir(dx, dy);
         BaseScene.getTopScene().add(MainScene.Layer.bullet, bullet);
-        EnemyGenerator.addEnemy(bullet);
     }
 }

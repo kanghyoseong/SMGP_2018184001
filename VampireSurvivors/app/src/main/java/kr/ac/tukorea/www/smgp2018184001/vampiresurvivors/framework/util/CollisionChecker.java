@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.interfaces.IAttackable;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.interfaces.ICollidable;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.interfaces.IGameObject;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.controller.MainScene;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.enemy.Bullet;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.enemy.EnemyGenerator;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.characters.Player;
@@ -19,17 +20,17 @@ public class CollisionChecker implements IGameObject {
         if (scene == null) return;
         Player p = scene.getPlayer();
         if (p != null && p.isInvincible()) {
-            ArrayList<ICollidable> enemies = EnemyGenerator.enemies;
-            for (ICollidable e : enemies) {
-                if (collides(p, e)) {
-                    if (e instanceof IAttackable) {
-                        p.getDamage(((IAttackable) e).getAtk());
-                        if (e instanceof Bullet) {
-                            ((Bullet) e).remove();
-                        }
-                    }
-                    // else 아이템 이라면
-                    // 아이템 습득
+            ArrayList<IGameObject> enemies = scene.getObjectsAt(MainScene.Layer.enemy);
+            for (IGameObject e : enemies) {
+                if (collides(p, (ICollidable) e)) {
+                    p.getDamage(((IAttackable) e).getAtk());
+                }
+            }
+            ArrayList<IGameObject> bullets = scene.getObjectsAt(MainScene.Layer.bullet);
+            for (IGameObject b : bullets) {
+                if (collides(p, (ICollidable) b)) {
+                    p.getDamage(((IAttackable) b).getAtk());
+                    ((Bullet) b).remove();
                 }
             }
         }

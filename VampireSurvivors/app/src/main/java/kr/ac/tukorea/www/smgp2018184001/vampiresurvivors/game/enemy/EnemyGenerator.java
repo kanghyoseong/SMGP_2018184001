@@ -23,7 +23,6 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.flags.DebugFlag;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects.Object;
 
 public class EnemyGenerator implements IGameObject {
-    public static ArrayList<ICollidable> enemies = new ArrayList<>(); // 임시
     private static Handler hander = new Handler();
     public static int wave = 1;
     protected static final float TIME_TO_NEXT_WAVE = 30.0f;
@@ -85,28 +84,9 @@ public class EnemyGenerator implements IGameObject {
                 }
                 if (e != null) {
                     scene.add(MainScene.Layer.enemy, e);
-                    addEnemy(e);
                 }
             }
         }
-    }
-
-    public static void addEnemy(ICollidable enemy) {
-        hander.post(new Runnable() {
-            @Override
-            public void run() {
-                enemies.add(enemy);
-            }
-        });
-    }
-
-    public static void removeEnemy(ICollidable enemy) {
-        hander.post(new Runnable() {
-            @Override
-            public void run() {
-                enemies.remove(enemy);
-            }
-        });
     }
 
     private float getRandomPos(Random rand, boolean isPosX) {

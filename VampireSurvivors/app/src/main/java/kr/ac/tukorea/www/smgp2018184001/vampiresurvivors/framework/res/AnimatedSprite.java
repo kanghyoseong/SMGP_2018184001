@@ -29,6 +29,8 @@ public class AnimatedSprite extends Sprite {
     }
 
     public void setBitmapFrame(int resId, int spriteCountX, int spriteCountY, float secToNextFrame) {
+        curFrame = 1;
+        elapsedTime = 0;
         this.secToNextFrame = secToNextFrame;
         this.frameCount = spriteCountX * spriteCountY;
         bitmapFrame = BitmapPool.getAnimation(resId, spriteCountX, spriteCountY);

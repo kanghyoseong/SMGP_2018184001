@@ -5,6 +5,7 @@ import android.graphics.RectF;
 
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.BuildConfig;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.BaseScene;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.controller.MainScene;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.flags.DebugFlag;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.view.GameView;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.interfaces.ICollidable;
@@ -16,11 +17,14 @@ public class Character extends Object implements ICollidable {
     protected int curHp = 20;
     protected int maxHp = 20;
     protected float movementSpeed;
+    private float INVINCIBLETIME = 1f;
+    protected float elapsedInvincibleTime;
 
     public Character(float posX, float posY, float sizeX, float sizeY,
                      int resId, int spriteCountX, int spriteCountY, float secToNextFrame) {
         super(posX, posY, sizeX, sizeY,
                 resId, spriteCountX, spriteCountY, secToNextFrame);
+        elapsedInvincibleTime = INVINCIBLETIME;
     }
 
     @Override
@@ -54,6 +58,24 @@ public class Character extends Object implements ICollidable {
         }
         reconstructRect();
         reconstructColliderRect();
+    }
+
+    public void getDamage(int damage) {
+        if (!isInvincible()) {
+            aSprite.setIsInvincible(true);
+            curHp -= damage;
+            elapsedInvincibleTime = INVINCIBLETIME;
+            if (curHp <= 0) {
+                killThis();
+            }
+        }
+    }
+
+    public void killThis(){
+    }
+
+    public boolean isInvincible() {
+        return elapsedInvincibleTime > 0;
     }
 
     @Override

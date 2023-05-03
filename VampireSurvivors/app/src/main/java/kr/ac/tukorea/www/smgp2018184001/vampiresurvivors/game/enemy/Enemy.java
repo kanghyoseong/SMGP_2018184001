@@ -1,7 +1,9 @@
 package kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.enemy;
 
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.interfaces.IAttackable;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.BaseScene;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.characters.Character;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.controller.MainScene;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects.Object;
 
 public class Enemy extends Character implements IAttackable {
@@ -40,6 +42,12 @@ public class Enemy extends Character implements IAttackable {
                 move(dx, dy);
             }
         }
+    }
+
+    @Override
+    public void killThis() {
+        BaseScene scene = BaseScene.getTopScene();
+        scene.remove(MainScene.Layer.enemy, this);
     }
 
     @Override

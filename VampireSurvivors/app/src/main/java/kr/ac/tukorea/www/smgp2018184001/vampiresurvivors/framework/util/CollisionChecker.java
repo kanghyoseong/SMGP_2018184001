@@ -10,6 +10,7 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.interfaces.IC
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.interfaces.IGameObject;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.controller.MainScene;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.enemy.Bullet;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.enemy.Enemy;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.enemy.EnemyGenerator;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.characters.Player;
 
@@ -17,21 +18,31 @@ public class CollisionChecker implements IGameObject {
     @Override
     public void update(float eTime) {
         BaseScene scene = BaseScene.getTopScene();
-        if (scene == null) return;
         Player p = scene.getPlayer();
-        if (p != null && p.isInvincible()) {
-            ArrayList<IGameObject> enemies = scene.getObjectsAt(MainScene.Layer.enemy);
-            for (IGameObject e : enemies) {
-                if (collides(p, (ICollidable) e)) {
-                    p.getDamage(((IAttackable) e).getAtk());
+        if (scene == null || p == null) return;
+
+        ArrayList<IGameObject> enemies = scene.getObjectsAt(MainScene.Layer.enemy);
+        ArrayList<IGameObject> items = scene.getObjectsAt(MainScene.Layer.item);
+        ArrayList<IGameObject> bullets = scene.getObjectsAt(MainScene.Layer.bullet);
+
+        for (IGameObject e : enemies) {
+            // Player <-> Enemy
+            if (!p.isInvincible() && collides(p, (ICollidable) e)) {
+                p.getDamage(((IAttackable) e).getAtk());
+            }
+            for (IGameObject i : items) {
+                // Item(Weapon) <-> Enemy
+                if (collides((ICollidable) i, (ICollidable) e)) {
+                    ((Enemy) e).killThis();
+                    //((Enemy)e).getDamage(((IAttackable) i).getAtk());
                 }
             }
-            ArrayList<IGameObject> bullets = scene.getObjectsAt(MainScene.Layer.bullet);
-            for (IGameObject b : bullets) {
-                if (collides(p, (ICollidable) b)) {
-                    p.getDamage(((IAttackable) b).getAtk());
-                    ((Bullet) b).remove();
-                }
+        }
+        for (IGameObject b : bullets) {
+            // Player <-> Bullet
+            if (collides(p, (ICollidable) b)) {
+                p.getDamage(((IAttackable) b).getAtk());
+                ((Bullet) b).remove();
             }
         }
     }

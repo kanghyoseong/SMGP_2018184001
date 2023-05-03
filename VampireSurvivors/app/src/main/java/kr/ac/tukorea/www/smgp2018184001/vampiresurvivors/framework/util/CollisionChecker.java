@@ -13,6 +13,7 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.enemy.Bullet;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.enemy.Enemy;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.enemy.EnemyGenerator;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.characters.Player;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects.Weapon;
 
 public class CollisionChecker implements IGameObject {
     @Override
@@ -31,9 +32,10 @@ public class CollisionChecker implements IGameObject {
                 p.getDamage(((IAttackable) e).getAtk());
             }
             for (IGameObject w : weapons) {
+                if (!((Weapon) w).isAttacking()) continue;
                 // Item(Weapon) <-> Enemy
                 if (collides((ICollidable) w, (ICollidable) e)) {
-                    ((Enemy)e).getDamage(((IAttackable) w).getAtk());
+                    ((Enemy) e).getDamage(((IAttackable) w).getAtk());
                 }
             }
         }

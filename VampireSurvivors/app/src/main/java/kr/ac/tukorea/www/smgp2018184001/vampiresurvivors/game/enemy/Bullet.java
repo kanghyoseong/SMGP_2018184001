@@ -102,4 +102,9 @@ public class Bullet extends Object implements IAttackable, ICollidable {
     public int getAtk() {
         return atk;
     }
+
+    @Override
+    public boolean isAttacking() {
+        return true;
+    }
 }

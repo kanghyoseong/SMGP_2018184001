@@ -75,4 +75,16 @@ public class AnimatedSprite extends Sprite {
     public void setIsInvincible(boolean isInvincible) {
         this.isInvincible = isInvincible;
     }
+
+    public void setCurFrame(int frame) {
+        curFrame = frame;
+    }
+
+    public int getCurFrame() {
+        return curFrame;
+    }
+
+    public int getFrameCount() {
+        return frameCount;
+    }
 }

@@ -19,7 +19,7 @@ public class Enemy extends Character implements IAttackable {
         super(posX, posY, sizeX, sizeY,
                 resId, spriteCountX, spriteCountY, secToNextFrame);
         setTarget(target);
-        INVINCIBLETIME = 0.2f;
+        INVINCIBLETIME = 0.5f;
     }
 
     public void setTarget(Object target) {
@@ -54,5 +54,10 @@ public class Enemy extends Character implements IAttackable {
     @Override
     public int getAtk() {
         return atk;
+    }
+
+    @Override
+    public boolean isAttacking() {
+        return true;
     }
 }

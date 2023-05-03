@@ -4,28 +4,23 @@ import android.graphics.Canvas;
 import android.graphics.RectF;
 
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.BuildConfig;
-import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.interfaces.IAttackable;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.interfaces.ICollidable;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.BaseScene;
-import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.flags.DebugFlag;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.view.GameView;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.controller.Camera;
-import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.flags.SpriteSize;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.flags.DebugFlag;
 
-public class Item extends Object implements IAttackable, ICollidable {
-    private int atk;
+public class Weapon extends Object implements ICollidable {
+    protected int atk;
     private float elapsedCoolTime = 0;
-    private float maxCoolTime = 999f;
+    protected float maxCoolTime = 999f;
     private float duration = 0;
     private int projectileCount = 1;
 
-    public Item(float posX, float posY, float sizeX, float sizeY,
-                int resId, int spriteCountX, int spriteCountY, float secToNextFrame) {
+    public Weapon(float posX, float posY, float sizeX, float sizeY,
+                  int resId, int spriteCountX, int spriteCountY, float secToNextFrame) {
         super(posX, posY, sizeX, sizeY,
                 resId, spriteCountX, spriteCountY, secToNextFrame);
-        setcolliderSize(sizeX, sizeY);
-        atk = 10;
-        maxCoolTime = 1.35f;
     }
 
     @Override
@@ -46,10 +41,5 @@ public class Item extends Object implements IAttackable, ICollidable {
     public void setPos(float x, float y) {
         super.setPos(x, y);
         reconstructColliderRect();
-    }
-
-    @Override
-    public int getAtk() {
-        return atk;
     }
 }

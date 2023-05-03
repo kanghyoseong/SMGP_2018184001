@@ -22,7 +22,7 @@ public class CollisionChecker implements IGameObject {
         if (scene == null || p == null) return;
 
         ArrayList<IGameObject> enemies = scene.getObjectsAt(MainScene.Layer.enemy);
-        ArrayList<IGameObject> items = scene.getObjectsAt(MainScene.Layer.item);
+        ArrayList<IGameObject> weapons = scene.getObjectsAt(MainScene.Layer.weapon);
         ArrayList<IGameObject> bullets = scene.getObjectsAt(MainScene.Layer.bullet);
 
         for (IGameObject e : enemies) {
@@ -30,7 +30,7 @@ public class CollisionChecker implements IGameObject {
             if (!p.isInvincible() && collides(p, (ICollidable) e)) {
                 p.getDamage(((IAttackable) e).getAtk());
             }
-            for (IGameObject i : items) {
+            for (IGameObject i : weapons) {
                 // Item(Weapon) <-> Enemy
                 if (collides((ICollidable) i, (ICollidable) e)) {
                     ((Enemy) e).killThis();

@@ -10,13 +10,14 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects.Object;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.characters.Player;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.enemy.EnemyGenerator;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.flags.SpriteSize;
-import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects.Item;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects.Weapon;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.weapon.Whip;
 
 public class MainScene extends BaseScene {
     private Joystick joystick;
 
     public enum Layer {
-        bg, enemy, bullet, item, player, controller, COUNT
+        bg, enemy, bullet, weapon, player, controller, COUNT
     }
 
     public MainScene() {
@@ -37,10 +38,8 @@ public class MainScene extends BaseScene {
         player.setcolliderSize(SpriteSize.PLAYER_SIZE * 0.6f, SpriteSize.PLAYER_SIZE * 0.8f);
         add(Layer.player, player);
 
-        Item item = new Item(0, 0, SpriteSize.WHIP_SIZE_X, SpriteSize.WHIP_SIZE_Y, R.mipmap.whip,
-                1, 6, 0.02f);
-        item.setcolliderSize(SpriteSize.WHIP_SIZE_X, SpriteSize.WHIP_SIZE_Y);
-        add(Layer.item, item);
+        Whip whip = new Whip(0, 0);
+        add(Layer.weapon, whip);
 
         camera = new Camera(player);
         add(Layer.controller, camera);

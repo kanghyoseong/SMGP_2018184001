@@ -83,6 +83,10 @@ public class Bullet extends Object implements IAttackable, ICollidable {
         reconstructColliderRect();
     }
 
+    public void setSprite(int resId, int spriteCountX, int spriteCountY, float secToNextFrame) {
+        aSprite.setBitmapFrame(resId, spriteCountX, spriteCountY, secToNextFrame);
+    }
+
     public void remove() {
         BaseScene.getTopScene().remove(MainScene.Layer.bullet, this);
     }

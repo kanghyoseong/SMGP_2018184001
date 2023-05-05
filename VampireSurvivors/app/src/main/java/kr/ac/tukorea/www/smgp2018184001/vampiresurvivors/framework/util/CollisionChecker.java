@@ -8,13 +8,11 @@ import java.util.ArrayList;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.interfaces.IAttackable;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.interfaces.ICollidable;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.interfaces.IGameObject;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.characters.Player;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.controller.MainScene;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.enemy.Bullet;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.enemy.Enemy;
-import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.enemy.EnemyGenerator;
-import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.characters.Player;
-import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects.Weapon;
-import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.weapon.MagicWandBullet;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.weapon.WandBullet;
 
 public class CollisionChecker implements IGameObject {
     @Override
@@ -37,7 +35,7 @@ public class CollisionChecker implements IGameObject {
                 // Weapon <-> Enemy
                 if (collides((ICollidable) w, (ICollidable) e)) {
                     ((Enemy) e).getDamage(((IAttackable) w).getAtk());
-                    if (w instanceof MagicWandBullet) {
+                    if (w instanceof WandBullet) {
                         ((Bullet) w).remove();
                     }
                 }

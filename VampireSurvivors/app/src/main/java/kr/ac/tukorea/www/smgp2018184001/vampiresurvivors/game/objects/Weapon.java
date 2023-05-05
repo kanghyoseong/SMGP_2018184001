@@ -35,7 +35,9 @@ public class Weapon extends Object implements IAttackable, ICollidable {
         if (elapsedCoolTime > 0) {
             elapsedCoolTime -= eTime;
         } else if (!isAttacking) {
-            attack();
+            for (int i = 0; i < projectileCount; i++) {
+                attack();
+            }
         } else if (aSprite.getCurFrame() == aSprite.getFrameCount()) {
             elapsedCoolTime = maxCoolTime;
             isAttacking = false;

@@ -29,7 +29,7 @@ public class MagicWand extends Weapon implements IAttackable {
 
     @Override
     public void draw(Canvas canvas) {
-        // Magic Wand는 Magic Wand Bullet을 소환하는 역할만 한다.
+        // Magic Wand는 Wand Bullet을 소환하는 역할만 한다.
     }
 
     @Override
@@ -47,7 +47,7 @@ public class MagicWand extends Weapon implements IAttackable {
             dx = 1.0f;
             dy = 0.0f;
         }
-        MagicWandBullet bullet = MagicWandBullet.get(posX, posY);
+        WandBullet bullet = WandBullet.get(posX, posY, R.mipmap.magicwandbullet);
         bullet.setAtk(atk);
         bullet.setDir(dx, dy);
         BaseScene.getTopScene().add(MainScene.Layer.weapon, bullet);

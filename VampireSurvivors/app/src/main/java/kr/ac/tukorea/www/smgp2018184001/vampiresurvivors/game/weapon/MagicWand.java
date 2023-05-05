@@ -1,6 +1,7 @@
 package kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.weapon;
 
 import android.graphics.Canvas;
+import android.util.Log;
 
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.R;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.interfaces.IAttackable;
@@ -8,10 +9,13 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.BaseScen
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.characters.Player;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.controller.MainScene;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.enemy.Bullet;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.enemy.Enemy;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.flags.SpriteSize;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects.Weapon;
 
 public class MagicWand extends Weapon implements IAttackable {
+    private static final String TAG = MagicWand.class.getSimpleName();
+
     public MagicWand(Player player) {
         super(SpriteSize.WHIP_SIZE_X, SpriteSize.WHIP_SIZE_Y,
                 R.mipmap.magicwand, 1, 1, 1f, player);
@@ -31,8 +35,10 @@ public class MagicWand extends Weapon implements IAttackable {
     @Override
     protected void attack() {
         super.attack();
-        float dx = 1.0f;//target.getPosX() - posX;
-        float dy = 0.0f;//target.getPosY() - posY;
+        Enemy target = player.findNearestEnemy();
+        if (target == null) return;
+        float dx = target.getPosX() - posX;
+        float dy = target.getPosY() - posY;
         float length = (float) Math.sqrt(dx * dx + dy * dy);
         if (length > 0.0001f) {
             dx = dx / length;

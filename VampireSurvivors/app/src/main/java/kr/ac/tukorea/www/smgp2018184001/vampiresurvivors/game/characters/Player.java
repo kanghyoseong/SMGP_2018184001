@@ -2,6 +2,13 @@ package kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.characters;
 
 import android.util.Log;
 
+import java.util.ArrayList;
+
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.interfaces.IGameObject;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.BaseScene;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.controller.MainScene;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.enemy.Enemy;
+
 public class Player extends Character {
     private static final String TAG = Player.class.getSimpleName();
     // Game Information
@@ -21,5 +28,24 @@ public class Player extends Character {
     @Override
     public void killThis() {
         Log.d(TAG, "Game Over");
+    }
+
+    public Enemy findNearestEnemy() {
+        BaseScene scene = BaseScene.getTopScene();
+        if (scene == null) return null;
+        ArrayList<IGameObject> enemies = scene.getObjectsAt(MainScene.Layer.enemy);
+        if (enemies.isEmpty()) return null;
+
+        Enemy enemy = (Enemy) enemies.get(0);
+        float distance = 999.f;
+        for (IGameObject curEnemy : enemies) {
+            float curDistance = Math.abs(posX - ((Enemy) curEnemy).getPosX())
+                    + Math.abs(posY - ((Enemy) curEnemy).getPosY());
+            if (distance > curDistance) {
+                distance = curDistance;
+                enemy = (Enemy) curEnemy;
+            }
+        }
+        return enemy;
     }
 }

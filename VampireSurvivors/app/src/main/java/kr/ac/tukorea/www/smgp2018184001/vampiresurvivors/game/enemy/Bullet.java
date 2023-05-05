@@ -17,10 +17,10 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.characters.Player;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.flags.SpriteSize;
 
 public class Bullet extends Object implements IAttackable, ICollidable {
-    private float dx, dy;
-    private float movementSpeed;
-    private int atk;
-    private float degrees;
+    protected float dx, dy;
+    protected float movementSpeed;
+    protected int atk;
+    protected float degrees;
 
     public static Bullet get(float posX, float posY, int resId, int spriteCountX, int spriteCountY) {
         Bullet bullet = (Bullet) RecycleBin.get(Bullet.class);
@@ -34,7 +34,7 @@ public class Bullet extends Object implements IAttackable, ICollidable {
         return bullet;
     }
 
-    private Bullet(float posX, float posY, int resId, int spriteCountX, int spriteCountY) {
+    protected Bullet(float posX, float posY, int resId, int spriteCountX, int spriteCountY) {
         super(posX, posY, SpriteSize.BULLET_SIZE, SpriteSize.BULLET_SIZE,
                 resId, spriteCountX, spriteCountY, 0.1f);
         movementSpeed = Player.PLAYER_MOVEMENTSPEED * 0.4f;

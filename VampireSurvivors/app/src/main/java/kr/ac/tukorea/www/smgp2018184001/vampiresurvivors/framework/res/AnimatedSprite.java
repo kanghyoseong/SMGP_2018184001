@@ -7,6 +7,10 @@ import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.RecycleBin;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.flags.SpriteSize;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.weapon.Lightning;
+
 public class AnimatedSprite extends Sprite {
     private Bitmap bitmapFrame[];
     private Bitmap bitmapFrame_inverted[];
@@ -21,6 +25,16 @@ public class AnimatedSprite extends Sprite {
     static {
         ColorFilter cf = new PorterDuffColorFilter(0x88FF0000, PorterDuff.Mode.SRC_ATOP);
         PaintHit.setColorFilter(cf);
+    }
+
+    public static AnimatedSprite get(int resId, int spriteCountX, int spriteCountY, float secToNextFrame) {
+        AnimatedSprite aSprite = (AnimatedSprite) RecycleBin.get(AnimatedSprite.class);
+        if (aSprite == null) {
+            aSprite = new AnimatedSprite(resId, spriteCountX, spriteCountY, secToNextFrame);
+        } else {
+            aSprite.setBitmapFrame(resId, spriteCountX, spriteCountY, secToNextFrame);
+        }
+        return aSprite;
     }
 
     public AnimatedSprite(int resId, int spriteCountX, int spriteCountY, float secToNextFrame) {
@@ -72,7 +86,7 @@ public class AnimatedSprite extends Sprite {
         this.isDirLeft = isDirLeft;
     }
 
-    public boolean getIsDirLeft(){
+    public boolean getIsDirLeft() {
         return isDirLeft;
     }
 

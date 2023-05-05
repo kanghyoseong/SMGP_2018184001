@@ -54,7 +54,7 @@ public class Object implements IGameObject, IRecyclable {
         this.posY = posY;
         this.sizeX = sizeX;
         this.sizeY = sizeY;
-        aSprite = new AnimatedSprite(resId, spriteCountX, spriteCountY, secToNextFrame);
+        aSprite = AnimatedSprite.get(resId, spriteCountX, spriteCountY, secToNextFrame);
         dstRect = new RectF();
         colliderRect = new RectF();
         reconstructRect();

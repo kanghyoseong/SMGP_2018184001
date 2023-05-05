@@ -37,7 +37,7 @@ public class CollisionChecker implements IGameObject {
                 // Weapon <-> Enemy
                 if (collides((ICollidable) w, (ICollidable) e)) {
                     ((Enemy) e).getDamage(((IAttackable) w).getAtk());
-                    if (w instanceof Bullet) {
+                    if (w instanceof MagicWandBullet) {
                         ((Bullet) w).remove();
                     }
                 }

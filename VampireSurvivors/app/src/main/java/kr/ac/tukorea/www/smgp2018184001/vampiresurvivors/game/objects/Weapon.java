@@ -16,8 +16,9 @@ public class Weapon extends Object implements IAttackable, ICollidable {
     protected int atk;
     protected float elapsedCoolTime = 0;
     protected float maxCoolTime;
-    private float duration = 0;
-    private int projectileCount = 1;
+    protected float duration = 0;
+    protected float duration_elapsedTime = 0;
+    protected int projectileCount = 1;
     protected boolean isAttacking = false;
     protected Player player;
 
@@ -43,6 +44,7 @@ public class Weapon extends Object implements IAttackable, ICollidable {
 
     protected void attack() {
         aSprite.setCurFrame(1);
+        duration_elapsedTime = 0;
         isAttacking = true;
         setPos(player.getPosX(), player.getPosY());
     }

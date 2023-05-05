@@ -11,6 +11,7 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.characters.Player;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.enemy.EnemyGenerator;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.flags.SpriteSize;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects.Weapon;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.weapon.KingBible;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.weapon.MagicWand;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.weapon.Whip;
 
@@ -41,8 +42,10 @@ public class MainScene extends BaseScene {
 
         //Whip whip = new Whip(player);
         //add(Layer.weapon, whip);
-        MagicWand w = new MagicWand(player);
-        add(Layer.weapon, w);
+        //MagicWand w = new MagicWand(player);
+        //add(Layer.weapon, w);
+        KingBible kb = new KingBible(player);
+        add(Layer.weapon, kb);
 
         camera = new Camera(player);
         add(Layer.controller, camera);

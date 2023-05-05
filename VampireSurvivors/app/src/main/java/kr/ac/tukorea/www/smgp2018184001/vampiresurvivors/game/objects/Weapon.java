@@ -21,9 +21,9 @@ public class Weapon extends Object implements IAttackable, ICollidable {
     protected boolean isAttacking = false;
     protected Player player;
 
-    public Weapon(float posX, float posY, float sizeX, float sizeY,
+    public Weapon(float sizeX, float sizeY,
                   int resId, int spriteCountX, int spriteCountY, float secToNextFrame, Player player) {
-        super(posX, posY, sizeX, sizeY,
+        super(0, 0, sizeX, sizeY,
                 resId, spriteCountX, spriteCountY, secToNextFrame);
         this.player = player;
     }

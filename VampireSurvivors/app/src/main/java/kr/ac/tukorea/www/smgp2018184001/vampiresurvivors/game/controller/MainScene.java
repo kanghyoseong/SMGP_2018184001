@@ -11,6 +11,7 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.characters.Player;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.enemy.EnemyGenerator;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.flags.SpriteSize;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects.Weapon;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.weapon.MagicWand;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.weapon.Whip;
 
 public class MainScene extends BaseScene {
@@ -38,7 +39,7 @@ public class MainScene extends BaseScene {
         player.setcolliderSize(SpriteSize.PLAYER_SIZE * 0.6f, SpriteSize.PLAYER_SIZE * 0.8f);
         add(Layer.player, player);
 
-        Whip whip = new Whip(0, 0, player, false);
+        Whip whip = new Whip(player, false);
         add(Layer.weapon, whip);
 
         camera = new Camera(player);

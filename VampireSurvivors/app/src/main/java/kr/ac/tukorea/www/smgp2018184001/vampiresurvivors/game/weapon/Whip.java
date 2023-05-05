@@ -7,12 +7,12 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.flags.SpriteSize;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects.Weapon;
 
 public class Whip extends Weapon implements IAttackable {
-    public Whip(float posX, float posY, Player player, boolean isDirLeft) {
-        super(posX, posY, SpriteSize.WHIP_SIZE_X, SpriteSize.WHIP_SIZE_Y,
+    public Whip(Player player, boolean isDirLeft) {
+        super(SpriteSize.WHIP_SIZE_X, SpriteSize.WHIP_SIZE_Y,
                 R.mipmap.whip, 1, 6, 0.03f, player);
         setcolliderSize(SpriteSize.WHIP_SIZE_X, SpriteSize.WHIP_SIZE_Y);
         atk = 10;
-        maxCoolTime = 1.35f;
+        elapsedCoolTime = maxCoolTime = 1.35f;
         aSprite.setIsDirLeft(isDirLeft);
     }
 

@@ -10,6 +10,7 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects.Object;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.characters.Player;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.enemy.EnemyGenerator;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.flags.SpriteSize;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects.Passive;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects.Weapon;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.weapon.FireWand;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.weapon.KingBible;
@@ -21,7 +22,7 @@ public class MainScene extends BaseScene {
     private Joystick joystick;
 
     public enum Layer {
-        bg, enemy, bullet, weapon, player, controller, COUNT
+        bg, enemy, bullet, weapon, player, item, controller, COUNT
     }
 
     public MainScene() {
@@ -52,6 +53,9 @@ public class MainScene extends BaseScene {
         //add(Layer.weapon, f);
         LightningRing r = new LightningRing(player);
         add(Layer.weapon, r);
+
+        Passive item = new Passive(0.1f, 0.1f, player, Passive.PassiveType.Inc_Atk);
+        add(Layer.item, item);
 
         camera = new Camera(player);
         add(Layer.controller, camera);

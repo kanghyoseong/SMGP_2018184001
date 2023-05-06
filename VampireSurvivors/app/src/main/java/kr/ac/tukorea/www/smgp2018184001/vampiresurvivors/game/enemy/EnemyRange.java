@@ -1,6 +1,7 @@
 package kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.enemy;
 
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.BaseScene;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.flags.SpriteSize;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects.Object;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.controller.MainScene;
 
@@ -46,7 +47,7 @@ public class EnemyRange extends Enemy {
         } else {
             return;
         }
-        Bullet bullet = Bullet.get(posX, posY, bulletResId, bulletSpriteCountX, bulletSpriteCountY);
+        Bullet bullet = Bullet.get(posX, posY, bulletResId, bulletSpriteCountX, bulletSpriteCountY, SpriteSize.BULLET_SIZE, SpriteSize.BULLET_SIZE);
         bullet.setAtk(atk);
         bullet.setDir(dx, dy);
         BaseScene.getTopScene().add(MainScene.Layer.bullet, bullet);

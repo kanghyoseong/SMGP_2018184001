@@ -31,7 +31,7 @@ public class KingBibleBullet extends Bullet {
     }
 
     private KingBibleBullet(Player player, float duration) {
-        super(player.getPosX(), player.getPosY(), R.mipmap.kingbible, 1, 1);
+        super(player.getPosX(), player.getPosY(), R.mipmap.kingbible, 1, 1, SpriteSize.BULLET_SIZE, SpriteSize.BULLET_SIZE * 0.5f);
         this.player = player;
         this.duration = duration;
         movementSpeed = Player.PLAYER_MOVEMENTSPEED * 1.1f;

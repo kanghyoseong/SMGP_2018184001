@@ -22,20 +22,22 @@ public class Bullet extends Object implements IAttackable, ICollidable {
     protected int atk;
     protected float degrees;
 
-    public static Bullet get(float posX, float posY, int resId, int spriteCountX, int spriteCountY) {
+    public static Bullet get(float posX, float posY, int resId, int spriteCountX, int spriteCountY, float sizeX, float sizeY) {
         Bullet bullet = (Bullet) RecycleBin.get(Bullet.class);
         if (bullet == null) {
-            bullet = new Bullet(posX, posY, resId, spriteCountX, spriteCountY);
+            bullet = new Bullet(posX, posY, resId, spriteCountX, spriteCountY, sizeX, sizeY);
         } else {
             bullet.aSprite.setBitmapFrame(resId, spriteCountX, spriteCountY, 0.1f);
             bullet.posX = posX;
             bullet.posY = posY;
+            bullet.sizeX = sizeX;
+            bullet.sizeY = sizeY;
         }
         return bullet;
     }
 
-    protected Bullet(float posX, float posY, int resId, int spriteCountX, int spriteCountY) {
-        super(posX, posY, SpriteSize.BULLET_SIZE, SpriteSize.BULLET_SIZE,
+    protected Bullet(float posX, float posY, int resId, int spriteCountX, int spriteCountY, float sizeX, float sizeY) {
+        super(posX, posY, sizeX, sizeY,
                 resId, spriteCountX, spriteCountY, 0.1f);
         movementSpeed = Player.PLAYER_MOVEMENTSPEED * 0.4f;
         setcolliderSize(SpriteSize.BULLET_SIZE * 0.6f, SpriteSize.BULLET_SIZE * 0.6f);

@@ -21,7 +21,7 @@ public class WandBullet extends Bullet {
     }
 
     private WandBullet(float posX, float posY, int resId) {
-        super(posX, posY, resId, 1, 2);
+        super(posX, posY, resId, 1, 2, SpriteSize.BULLET_SIZE, SpriteSize.BULLET_SIZE * 0.5f);
         movementSpeed = Player.PLAYER_MOVEMENTSPEED * 1.1f;
         setcolliderSize(SpriteSize.BULLET_SIZE * 0.6f, SpriteSize.BULLET_SIZE * 0.6f);
     }

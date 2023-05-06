@@ -13,6 +13,7 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.flags.SpriteSize;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects.Weapon;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.weapon.FireWand;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.weapon.KingBible;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.weapon.LightningRing;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.weapon.MagicWand;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.weapon.Whip;
 
@@ -47,8 +48,10 @@ public class MainScene extends BaseScene {
         //add(Layer.weapon, w);
         //KingBible kb = new KingBible(player);
         //add(Layer.weapon, kb);
-        FireWand f = new FireWand(player);
-        add(Layer.weapon, f);
+        //FireWand f = new FireWand(player);
+        //add(Layer.weapon, f);
+        LightningRing r = new LightningRing(player);
+        add(Layer.weapon, r);
 
         camera = new Camera(player);
         add(Layer.controller, camera);

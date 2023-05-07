@@ -13,6 +13,11 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.controller.MainSce
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.enemy.Enemy;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects.Passive;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects.Weapon;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.weapon.FireWand;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.weapon.KingBible;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.weapon.LightningRing;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.weapon.MagicWand;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.weapon.Whip;
 
 public class Player extends Character {
     private static final String TAG = Player.class.getSimpleName();
@@ -34,6 +39,7 @@ public class Player extends Character {
         super(posX, posY, sizeX, sizeY,
                 resId, spriteCountX, spriteCountY, secToNextFrame);
         movementSpeed = PLAYER_MOVEMENTSPEED;
+        weaponLevel.put(Weapon.WeaponType.Whip, 1);
     }
 
     @Override
@@ -85,21 +91,22 @@ public class Player extends Character {
     public void addPassiveItem(Passive.PassiveType type) {
         if (passiveLevel.get(type) == null) {
             passiveLevel.put(type, 1);
-            makeEffect(type);
-            //Log.d(TAG, "first added " + type);
+            makePassiveEffect(type);
+            Log.d(TAG, "first added " + type + ", ratio: " + getRatio(type));
             return;
         }
         int num = passiveLevel.get(type);
         if (num >= 5) {
+            Log.d(TAG, type + " is Level 5, Increase Exp");
             // -------------------- Increase Exp --------------------
         } else {
             passiveLevel.put(type, num + 1);
-            makeEffect(type);
-            //Log.d(TAG, type + "added, num: " + passiveItemNum.get(type));
+            makePassiveEffect(type);
+            Log.d(TAG, type + "added, num: " + passiveLevel.get(type) + ", ratio: " + getRatio(type));
         }
     }
 
-    private void makeEffect(Passive.PassiveType type) {
+    private void makePassiveEffect(Passive.PassiveType type) {
         switch (type) {
             case Inc_Atk:
                 attackRatio += 0.1f; // maximum 1.5f
@@ -112,6 +119,59 @@ public class Player extends Character {
                 break;
         }
         //Log.d(TAG, attackRatio+", "+coolTimeRatio+", "+bulletSpeedRatio);
+    }
+
+    public void addWeapon(Weapon.WeaponType type) {
+        if (weaponLevel.get(type) == null) {
+            BaseScene scene = BaseScene.getTopScene();
+            IGameObject weapon;
+            switch (type) {
+                default:
+                case Whip:
+                    weapon = new Whip(this);
+                    break;
+                case MagicWand:
+                    weapon = new MagicWand(this);
+                    break;
+                case KingBible:
+                    weapon = new KingBible(this);
+                    break;
+                case FireWand:
+                    weapon = new FireWand(this);
+                    break;
+                case LightningRing:
+                    weapon = new LightningRing(this);
+                    break;
+            }
+            scene.add(MainScene.Layer.weapon, weapon);
+            weaponLevel.put(type, 1);
+            Log.d(TAG, "first added Weapon " + type);
+            return;
+        }
+        int num = weaponLevel.get(type);
+        if (num >= 8) {
+            Log.d(TAG, type + " is Level 8, Increase Exp");
+            // -------------------- Increase Exp --------------------
+        } else {
+            weaponLevel.put(type, num + 1);
+            Log.d(TAG, type + "added weapon, num: " + weaponLevel.get(type));
+        }
+    }
+
+    public float getRatio(Passive.PassiveType type) {
+        float ratio = 0.0f;
+        switch (type) {
+            case Inc_Atk:
+                ratio = attackRatio;
+                break;
+            case Dec_Cooltime:
+                ratio = coolTimeRatio;
+                break;
+            case Inc_BulletSpd:
+                ratio = bulletSpeedRatio;
+                break;
+        }
+        return ratio;
     }
 
     public float getAttackRatio() {

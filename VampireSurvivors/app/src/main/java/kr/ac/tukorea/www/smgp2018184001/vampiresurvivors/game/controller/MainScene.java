@@ -18,6 +18,7 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.weapon.Whip;
 
 public class MainScene extends BaseScene {
     private Joystick joystick;
+    private ItemGenerator itemGenerator;
 
     public enum Layer {
         bg, enemy, bullet, weapon, player, item, controller, COUNT
@@ -37,21 +38,14 @@ public class MainScene extends BaseScene {
                 R.mipmap.player_anim_4x1, 4, 1, 0.2f);
         player.setcolliderSize(SpriteSize.PLAYER_SIZE * 0.6f, SpriteSize.PLAYER_SIZE * 0.8f);
         add(Layer.player, player);
-
-        //Whip whip = new Whip(player);
-        //add(Layer.weapon, whip);
-        //MagicWand w = new MagicWand(player);
-        //add(Layer.weapon, w);
-        //KingBible kb = new KingBible(player);
-        //add(Layer.weapon, kb);
-        //FireWand f = new FireWand(player);
-        //add(Layer.weapon, f);
-        LightningRing r = new LightningRing(player);
-        add(Layer.weapon, r);
+        Whip whip = new Whip(player);
+        add(Layer.weapon, whip);
 
         add(Layer.controller, new CollisionChecker());
         add(Layer.controller, new EnemyGenerator());
-        add(Layer.controller, new ItemGenerator(this, player));
+
+        itemGenerator = new ItemGenerator(this, player);
+        add(Layer.controller, itemGenerator);
 
         camera = new Camera(player);
         add(Layer.controller, camera);
@@ -75,5 +69,9 @@ public class MainScene extends BaseScene {
                 return true;
         }
         return super.onTouchEvent(event);
+    }
+
+    public ItemGenerator getItemGenerator() {
+        return itemGenerator;
     }
 }

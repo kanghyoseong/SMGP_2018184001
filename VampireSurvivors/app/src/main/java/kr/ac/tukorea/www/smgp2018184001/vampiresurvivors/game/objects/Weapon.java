@@ -3,6 +3,8 @@ package kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects;
 import android.graphics.Canvas;
 import android.graphics.RectF;
 
+import java.util.Random;
+
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.BuildConfig;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.interfaces.IAttackable;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.interfaces.ICollidable;
@@ -24,7 +26,12 @@ public class Weapon extends Object implements IAttackable, ICollidable {
     protected WeaponType type;
 
     public enum WeaponType {
-        Whip, MagicWand, KingBible, FireWand, LightningRing, COUNT
+        Whip, MagicWand, KingBible, FireWand, LightningRing, COUNT;
+
+        public static WeaponType getRandomWeaponType(Random random) {
+            int randomIndex = random.nextInt(WeaponType.COUNT.ordinal());
+            return WeaponType.values()[randomIndex];
+        }
     }
 
     public Weapon(WeaponType type, float sizeX, float sizeY,

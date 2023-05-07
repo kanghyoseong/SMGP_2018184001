@@ -29,7 +29,7 @@ public class KingBible extends Weapon {
         } else if (isAttacking) {
             duration_elapsedTime += GameView.frameTime;
             if (duration_elapsedTime > duration) {
-                elapsedCoolTime = maxCoolTime;
+                elapsedCoolTime = maxCoolTime * player.getCoolTimeRatio();
                 isAttacking = false;
             }
         }

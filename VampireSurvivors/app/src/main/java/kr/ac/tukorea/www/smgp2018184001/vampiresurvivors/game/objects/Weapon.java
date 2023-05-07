@@ -39,7 +39,7 @@ public class Weapon extends Object implements IAttackable, ICollidable {
                 attack();
             }
         } else if (aSprite.getCurFrame() == aSprite.getFrameCount()) {
-            elapsedCoolTime = maxCoolTime;
+            elapsedCoolTime = maxCoolTime * player.getCoolTimeRatio();
             isAttacking = false;
         }
     }

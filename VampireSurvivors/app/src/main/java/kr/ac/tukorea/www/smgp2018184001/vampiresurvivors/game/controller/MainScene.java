@@ -27,9 +27,6 @@ public class MainScene extends BaseScene {
         Metrics.setGameSize(1, 1);
         initLayers(Layer.COUNT);
 
-        add(Layer.controller, new CollisionChecker());
-        add(Layer.controller, new EnemyGenerator());
-
         Object background = new Object(0, 0,
                 SpriteSize.BACKGROUND_SIZE, SpriteSize.BACKGROUND_SIZE,
                 R.mipmap.background);
@@ -52,10 +49,9 @@ public class MainScene extends BaseScene {
         LightningRing r = new LightningRing(player);
         add(Layer.weapon, r);
 
-        for (int i = 0; i < 8; i++) {
-            Passive item = new Passive(i * 0.1f, 0.15f, player, Passive.PassiveType.Inc_Atk);
-            add(Layer.item, item);
-        }
+        add(Layer.controller, new CollisionChecker());
+        add(Layer.controller, new EnemyGenerator());
+        add(Layer.controller, new ItemGenerator(this, player));
 
         camera = new Camera(player);
         add(Layer.controller, camera);

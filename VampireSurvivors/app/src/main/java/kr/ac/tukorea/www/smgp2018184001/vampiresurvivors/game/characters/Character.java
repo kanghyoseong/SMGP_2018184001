@@ -68,7 +68,7 @@ public class Character extends Object implements ICollidable {
         reconstructColliderRect();
     }
 
-    public void getDamage(int damage) {
+    public void getDamage(float damage) {
         if (!isInvincible()) {
             aSprite.setIsInvincible(true);
             curHp -= damage;

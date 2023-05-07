@@ -52,7 +52,7 @@ public class Player extends Character {
         super.draw(canvas);
         canvas.save();
         float width = dstRect.width() * 1.2f;
-        canvas.translate(Metrics.game_width / 2 - width / 2, dstRect.bottom * 1.05f);
+        canvas.translate(dstRect.left + dstRect.width() / 2 - width / 2, dstRect.bottom + 0.03f);
         canvas.scale(width, width);
         gauge.draw(canvas, curHp / maxHp);
         canvas.restore();

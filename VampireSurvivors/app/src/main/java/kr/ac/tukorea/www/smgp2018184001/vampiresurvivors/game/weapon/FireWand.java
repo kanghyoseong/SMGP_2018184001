@@ -16,7 +16,7 @@ public class FireWand extends Weapon {
     private static final float PI = 3.14159f;
 
     public FireWand(Player player) {
-        super(SpriteSize.WHIP_SIZE_X, SpriteSize.WHIP_SIZE_Y,
+        super(WeaponType.FireWand, SpriteSize.WHIP_SIZE_X, SpriteSize.WHIP_SIZE_Y,
                 R.mipmap.firewand, 1, 1, 0.01f, player);
         atk = 20;
         elapsedCoolTime = maxCoolTime = 3f;

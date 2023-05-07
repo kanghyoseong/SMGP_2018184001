@@ -17,7 +17,7 @@ public class MagicWand extends Weapon implements IAttackable {
     private static final String TAG = MagicWand.class.getSimpleName();
 
     public MagicWand(Player player) {
-        super(SpriteSize.WHIP_SIZE_X, SpriteSize.WHIP_SIZE_Y,
+        super(WeaponType.MagicWand, SpriteSize.WHIP_SIZE_X, SpriteSize.WHIP_SIZE_Y,
                 R.mipmap.magicwand, 1, 1, 0.01f, player);
         // attack 타이밍은 aSprite의 애니메이션이 끝나는것과 관련이 있다.
         // 리소스를 아끼기 위해 mipmap을 다른 weapon의 것에서 가져온다면

@@ -12,6 +12,7 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.view.Metrics;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.controller.MainScene;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.enemy.Enemy;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects.Passive;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects.Weapon;
 
 public class Player extends Character {
     private static final String TAG = Player.class.getSimpleName();
@@ -22,7 +23,8 @@ public class Player extends Character {
     private int maxHp_increment = 2;
     public static float PLAYER_MOVEMENTSPEED = 0.5f;
     ArrayList<IGameObject> enemiesInScreen = new ArrayList<>();
-    HashMap<Passive.PassiveType, Integer> passiveItemNum = new HashMap<>();
+    HashMap<Passive.PassiveType, Integer> passiveLevel = new HashMap<>();
+    HashMap<Weapon.WeaponType, Integer> weaponLevel = new HashMap<>();
     private float attackRatio = 1.0f;
     private float coolTimeRatio = 1.0f;
     private float bulletSpeedRatio = 1.0f;
@@ -81,17 +83,17 @@ public class Player extends Character {
     }
 
     public void addPassiveItem(Passive.PassiveType type) {
-        if (passiveItemNum.get(type) == null) {
-            passiveItemNum.put(type, 1);
+        if (passiveLevel.get(type) == null) {
+            passiveLevel.put(type, 1);
             makeEffect(type);
             //Log.d(TAG, "first added " + type);
             return;
         }
-        int num = passiveItemNum.get(type);
+        int num = passiveLevel.get(type);
         if (num >= 5) {
             // -------------------- Increase Exp --------------------
         } else {
-            passiveItemNum.put(type, num + 1);
+            passiveLevel.put(type, num + 1);
             makeEffect(type);
             //Log.d(TAG, type + "added, num: " + passiveItemNum.get(type));
         }

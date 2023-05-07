@@ -21,12 +21,18 @@ public class Weapon extends Object implements IAttackable, ICollidable {
     protected int projectileCount = 1;
     protected boolean isAttacking = false;
     protected Player player;
+    protected WeaponType type;
 
-    public Weapon(float sizeX, float sizeY,
+    public enum WeaponType {
+        Whip, MagicWand, KingBible, FireWand, LightningRing, COUNT
+    }
+
+    public Weapon(WeaponType type, float sizeX, float sizeY,
                   int resId, int spriteCountX, int spriteCountY, float secToNextFrame, Player player) {
         super(0, 0, sizeX, sizeY,
                 resId, spriteCountX, spriteCountY, secToNextFrame);
         this.player = player;
+        this.type = type;
     }
 
     @Override

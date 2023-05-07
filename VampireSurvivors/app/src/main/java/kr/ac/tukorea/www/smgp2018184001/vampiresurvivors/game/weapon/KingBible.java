@@ -13,7 +13,7 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects.Weapon;
 
 public class KingBible extends Weapon {
     public KingBible(Player player) {
-        super(SpriteSize.WHIP_SIZE_X, SpriteSize.WHIP_SIZE_Y,
+        super(WeaponType.KingBible, SpriteSize.WHIP_SIZE_X, SpriteSize.WHIP_SIZE_Y,
                 R.mipmap.kingbible, 1, 1, 0.01f, player);
         atk = 10;
         elapsedCoolTime = maxCoolTime = 3f;

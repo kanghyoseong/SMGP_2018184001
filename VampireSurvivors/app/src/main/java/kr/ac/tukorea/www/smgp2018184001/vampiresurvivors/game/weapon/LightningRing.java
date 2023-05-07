@@ -15,7 +15,7 @@ public class LightningRing extends Weapon {
     private static final String TAG = LightningRing.class.getSimpleName();
 
     public LightningRing(Player player) {
-        super(SpriteSize.WHIP_SIZE_X, SpriteSize.WHIP_SIZE_Y,
+        super(WeaponType.LightningRing, SpriteSize.WHIP_SIZE_X, SpriteSize.WHIP_SIZE_Y,
                 R.mipmap.lightningring, 1, 1, 0.01f, player);
         atk = 15;
         elapsedCoolTime = maxCoolTime = 4.5f;

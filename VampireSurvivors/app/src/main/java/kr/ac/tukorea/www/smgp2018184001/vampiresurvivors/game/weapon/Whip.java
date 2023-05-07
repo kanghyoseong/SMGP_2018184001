@@ -8,7 +8,7 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects.Weapon;
 
 public class Whip extends Weapon implements IAttackable {
     public Whip(Player player) {
-        super(SpriteSize.WHIP_SIZE_X, SpriteSize.WHIP_SIZE_Y,
+        super(WeaponType.Whip, SpriteSize.WHIP_SIZE_X, SpriteSize.WHIP_SIZE_Y,
                 R.mipmap.whip, 1, 6, 0.03f, player);
         setcolliderSize(SpriteSize.WHIP_SIZE_X, SpriteSize.WHIP_SIZE_Y);
         atk = 10;

@@ -47,7 +47,7 @@ public class MagicWand extends Weapon implements IAttackable {
             dx = 1.0f;
             dy = 0.0f;
         }
-        WandBullet bullet = WandBullet.get(posX, posY, R.mipmap.magicwandbullet);
+        WandBullet bullet = WandBullet.get(posX, posY, R.mipmap.magicwandbullet, player.getBulletSpeedRatio());
         bullet.setAtk(atk);
         bullet.setDir(dx, dy);
         BaseScene.getTopScene().add(MainScene.Layer.weapon, bullet);

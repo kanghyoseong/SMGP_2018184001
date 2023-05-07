@@ -12,6 +12,7 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.characters.Player;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.controller.MainScene;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.enemy.Bullet;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.enemy.Enemy;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects.Passive;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.weapon.WandBullet;
 
 public class CollisionChecker implements IGameObject {
@@ -24,6 +25,7 @@ public class CollisionChecker implements IGameObject {
         ArrayList<IGameObject> enemies = scene.getObjectsAt(MainScene.Layer.enemy);
         ArrayList<IGameObject> weapons = scene.getObjectsAt(MainScene.Layer.weapon);
         ArrayList<IGameObject> bullets = scene.getObjectsAt(MainScene.Layer.bullet);
+        ArrayList<IGameObject> items = scene.getObjectsAt(MainScene.Layer.item);
 
         for (IGameObject e : enemies) {
             // Player <-> Enemy
@@ -54,6 +56,12 @@ public class CollisionChecker implements IGameObject {
                 if (collides((ICollidable) w, (ICollidable) b)) {
                     ((Bullet) b).remove();
                 }
+            }
+        }
+        for (IGameObject i : items) {
+            if (collides(p, (ICollidable) i)) {
+                ((Passive)i).makeEffect();
+                ((Passive) i).remove();
             }
         }
     }

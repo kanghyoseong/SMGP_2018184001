@@ -54,8 +54,10 @@ public class MainScene extends BaseScene {
         LightningRing r = new LightningRing(player);
         add(Layer.weapon, r);
 
-        Passive item = new Passive(0.1f, 0.1f, player, Passive.PassiveType.Inc_Atk);
-        add(Layer.item, item);
+        for (int i = 0; i < 8; i++) {
+            Passive item = new Passive(i * 0.1f, 0.15f, player, Passive.PassiveType.Inc_Atk);
+            add(Layer.item, item);
+        }
 
         camera = new Camera(player);
         add(Layer.controller, camera);

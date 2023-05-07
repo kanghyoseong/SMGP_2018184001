@@ -3,6 +3,7 @@ package kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.characters;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.interfaces.IGameObject;
@@ -10,6 +11,7 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.BaseScen
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.view.Metrics;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.controller.MainScene;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.enemy.Enemy;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects.Passive;
 
 public class Player extends Character {
     private static final String TAG = Player.class.getSimpleName();
@@ -20,6 +22,7 @@ public class Player extends Character {
     private int maxHp_increment = 2;
     public static float PLAYER_MOVEMENTSPEED = 0.5f;
     ArrayList<IGameObject> enemiesInScreen = new ArrayList<>();
+    HashMap<Passive.PassiveType, Integer> passiveItemNum = new HashMap<>();
 
     public Player(float posX, float posY, float sizeX, float sizeY,
                   int resId, int spriteCountX, int spriteCountY, float secToNextFrame) {
@@ -72,5 +75,21 @@ public class Player extends Character {
         Enemy enemy = (Enemy) enemiesInScreen.get(random.nextInt(enemiesInScreen.size()));
         enemiesInScreen.clear();
         return enemy;
+    }
+
+    public void addPassiveItem(Passive.PassiveType type) {
+        if (passiveItemNum.get(type) == null) {
+            passiveItemNum.put(type, 1);
+            //Log.d(TAG, "first added " + type);
+            return;
+        }
+        int num = passiveItemNum.get(type);
+        if (num >= 5) {
+            // -------------------- Increase Exp --------------------
+            return;
+        }
+        passiveItemNum.put(type, num + 1);
+        num = passiveItemNum.get(type);
+        //Log.d(TAG, type + "added, num: " + num);
     }
 }

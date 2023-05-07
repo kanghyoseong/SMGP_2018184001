@@ -42,7 +42,7 @@ public class Lightning extends Object implements IAttackable {
     }
 
     @Override
-    public int getAtk() {
+    public float getAtk() {
         return 0;
     }
 

@@ -19,7 +19,7 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.flags.SpriteSize;
 public class Bullet extends Object implements IAttackable, ICollidable {
     protected float dx, dy;
     protected float movementSpeed;
-    protected int atk;
+    protected float atk;
     protected float degrees;
 
     public static Bullet get(float posX, float posY, int resId, int spriteCountX, int spriteCountY, float sizeX, float sizeY) {
@@ -100,12 +100,12 @@ public class Bullet extends Object implements IAttackable, ICollidable {
         degrees = (float) Math.toDegrees(radian);
     }
 
-    public void setAtk(int atk) {
+    public void setAtk(float atk) {
         this.atk = atk;
     }
 
     @Override
-    public int getAtk() {
+    public float getAtk() {
         return atk;
     }
 

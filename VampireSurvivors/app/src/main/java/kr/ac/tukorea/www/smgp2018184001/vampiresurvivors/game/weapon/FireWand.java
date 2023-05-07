@@ -35,7 +35,7 @@ public class FireWand extends Weapon {
         float dx = (float) Math.cos(radian);
         float dy = (float) Math.sin(radian);
         WandBullet bullet = WandBullet.get(posX, posY, R.mipmap.firewandbullet, player.getBulletSpeedRatio());
-        bullet.setAtk(atk);
+        bullet.setAtk(atk * player.getAttackRatio());
         bullet.setDir(dx, dy);
         BaseScene.getTopScene().add(MainScene.Layer.weapon, bullet);
     }

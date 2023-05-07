@@ -7,7 +7,7 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.controller.MainSce
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects.Object;
 
 public class Enemy extends Character implements IAttackable {
-    protected int atk;
+    protected float atk;
     protected AtkType atkType;
     protected int dropExp;
     protected EEnemyType type;
@@ -52,7 +52,7 @@ public class Enemy extends Character implements IAttackable {
     }
 
     @Override
-    public int getAtk() {
+    public float getAtk() {
         return atk;
     }
 

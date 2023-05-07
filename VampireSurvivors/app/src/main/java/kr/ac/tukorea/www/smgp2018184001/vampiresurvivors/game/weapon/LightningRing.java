@@ -32,7 +32,7 @@ public class LightningRing extends Weapon {
         Enemy target = player.findRandomEnemyInScreen();
         if (target == null) return;
         super.attack();
-        target.getDamage(atk);
+        target.getDamage(atk * player.getAttackRatio());
 
         Lightning lightning = Lightning.get(target.getPosX(), target.getPosY());
         BaseScene.getTopScene().add(MainScene.Layer.weapon, lightning);

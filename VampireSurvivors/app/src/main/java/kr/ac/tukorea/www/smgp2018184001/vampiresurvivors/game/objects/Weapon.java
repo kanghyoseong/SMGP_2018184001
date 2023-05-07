@@ -68,8 +68,8 @@ public class Weapon extends Object implements IAttackable, ICollidable {
     }
 
     @Override
-    public int getAtk() {
-        return atk;
+    public float getAtk() {
+        return atk * player.getAttackRatio();
     }
 
     @Override

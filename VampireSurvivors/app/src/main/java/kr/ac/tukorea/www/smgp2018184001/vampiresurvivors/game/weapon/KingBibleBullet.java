@@ -57,6 +57,11 @@ public class KingBibleBullet extends Bullet {
     }
 
     @Override
+    public float getAtk() {
+        return atk * player.getAttackRatio();
+    }
+
+    @Override
     public void remove() {
         BaseScene.getTopScene().remove(MainScene.Layer.weapon, this);
     }

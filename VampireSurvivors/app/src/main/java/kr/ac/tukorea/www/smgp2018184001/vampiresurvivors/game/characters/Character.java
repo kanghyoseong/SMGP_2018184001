@@ -5,7 +5,6 @@ import android.graphics.RectF;
 
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.BuildConfig;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.BaseScene;
-import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.controller.MainScene;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.flags.DebugFlag;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.view.GameView;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.interfaces.ICollidable;
@@ -14,8 +13,8 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.controller.Camera;
 
 public class Character extends Object implements ICollidable {
     protected float dx = 0, dy = 0;
-    protected int curHp = 20;
-    protected int maxHp = 20;
+    protected float curHp = 20;
+    protected float maxHp = 20;
     protected float movementSpeed;
     protected float INVINCIBLETIME = 1f;
     protected float elapsedInvincibleTime = 0;

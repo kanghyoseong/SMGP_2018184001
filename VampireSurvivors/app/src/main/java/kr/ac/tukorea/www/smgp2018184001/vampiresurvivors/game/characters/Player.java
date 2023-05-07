@@ -23,6 +23,9 @@ public class Player extends Character {
     public static float PLAYER_MOVEMENTSPEED = 0.5f;
     ArrayList<IGameObject> enemiesInScreen = new ArrayList<>();
     HashMap<Passive.PassiveType, Integer> passiveItemNum = new HashMap<>();
+    private float attackRatio = 1.0f;
+    private float coolTimeRatio = 1.0f;
+    private float bulletSpeedRatio = 1.0f;
 
     public Player(float posX, float posY, float sizeX, float sizeY,
                   int resId, int spriteCountX, int spriteCountY, float secToNextFrame) {
@@ -80,16 +83,44 @@ public class Player extends Character {
     public void addPassiveItem(Passive.PassiveType type) {
         if (passiveItemNum.get(type) == null) {
             passiveItemNum.put(type, 1);
+            makeEffect(type);
             //Log.d(TAG, "first added " + type);
             return;
         }
         int num = passiveItemNum.get(type);
         if (num >= 5) {
             // -------------------- Increase Exp --------------------
-            return;
+        } else {
+            passiveItemNum.put(type, num + 1);
+            makeEffect(type);
+            //Log.d(TAG, type + "added, num: " + passiveItemNum.get(type));
         }
-        passiveItemNum.put(type, num + 1);
-        num = passiveItemNum.get(type);
-        //Log.d(TAG, type + "added, num: " + num);
+    }
+
+    private void makeEffect(Passive.PassiveType type) {
+        switch (type) {
+            case Inc_Atk:
+                attackRatio += 0.1f; // maximum 1.5f
+                break;
+            case Dec_Cooltime:
+                coolTimeRatio -= 0.08f; // minimum 0.6f
+                break;
+            case Inc_BulletSpd:
+                bulletSpeedRatio += 0.1f;  // maximum 1.5f
+                break;
+        }
+        //Log.d(TAG, attackRatio+", "+coolTimeRatio+", "+bulletSpeedRatio);
+    }
+
+    public float getAttackRatio() {
+        return attackRatio;
+    }
+
+    public float getCoolTimeRatio() {
+        return coolTimeRatio;
+    }
+
+    public float getBulletSpeedRatio() {
+        return bulletSpeedRatio;
     }
 }

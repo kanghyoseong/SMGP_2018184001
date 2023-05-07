@@ -35,14 +35,6 @@ public class Passive extends Object implements ICollidable {
 
     public void makeEffect() {
         player.addPassiveItem(type);
-        switch (type) {
-            case Inc_Atk:
-                break;
-            case Dec_Cooltime:
-                break;
-            case Inc_BulletSpd:
-                break;
-        }
     }
 
     public void remove() {

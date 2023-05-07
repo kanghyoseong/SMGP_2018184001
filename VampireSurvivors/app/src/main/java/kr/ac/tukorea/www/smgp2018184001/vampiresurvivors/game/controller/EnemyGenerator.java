@@ -1,4 +1,4 @@
-package kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.enemy;
+package kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.controller;
 
 import android.graphics.Canvas;
 import android.os.Handler;
@@ -14,6 +14,8 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.BaseScen
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.view.Metrics;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.characters.Player;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.controller.MainScene;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.enemy.EEnemyType;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.enemy.Enemy;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.enemy.enemyType.Bat;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.enemy.enemyType.Ghost;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.enemy.enemyType.LizardPawn;

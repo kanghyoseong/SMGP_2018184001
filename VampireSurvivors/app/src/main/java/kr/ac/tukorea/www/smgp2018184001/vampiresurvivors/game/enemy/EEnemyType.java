@@ -5,7 +5,7 @@ public enum EEnemyType {
 
     int[] wave = {1,4,7,10,13};
 
-    int getWave(){
+    public int getWave(){
         return wave[this.ordinal()];
     }
 

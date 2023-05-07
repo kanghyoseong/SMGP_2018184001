@@ -1,14 +1,18 @@
 package kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.characters;
 
+import android.graphics.Canvas;
 import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.R;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.interfaces.IGameObject;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.BaseScene;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.Gauge;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.view.Metrics;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.controller.Camera;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.controller.MainScene;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.enemy.Enemy;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects.Passive;
@@ -33,6 +37,7 @@ public class Player extends Character {
     private float attackRatio = 1.0f;
     private float coolTimeRatio = 1.0f;
     private float bulletSpeedRatio = 1.0f;
+    private Gauge gauge = new Gauge(0.1f, R.color.gauge_fg, R.color.gauge_bg);
 
     public Player(float posX, float posY, float sizeX, float sizeY,
                   int resId, int spriteCountX, int spriteCountY, float secToNextFrame) {
@@ -40,6 +45,17 @@ public class Player extends Character {
                 resId, spriteCountX, spriteCountY, secToNextFrame);
         movementSpeed = PLAYER_MOVEMENTSPEED;
         weaponLevel.put(Weapon.WeaponType.Whip, 1);
+    }
+
+    @Override
+    public void draw(Canvas canvas) {
+        super.draw(canvas);
+        canvas.save();
+        float width = dstRect.width() * 1.2f;
+        canvas.translate(Metrics.game_width / 2 - width / 2, dstRect.bottom * 1.05f);
+        canvas.scale(width, width);
+        gauge.draw(canvas, curHp / maxHp);
+        canvas.restore();
     }
 
     @Override

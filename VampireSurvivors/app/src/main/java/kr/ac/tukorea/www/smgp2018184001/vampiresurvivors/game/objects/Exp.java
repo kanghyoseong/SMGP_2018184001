@@ -1,13 +1,18 @@
 package kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects;
 
+import android.graphics.Canvas;
 import android.graphics.RectF;
 
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.BuildConfig;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.R;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.interfaces.ICollidable;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.res.Sprite;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.BaseScene;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.RecycleBin;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.view.GameView;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.controller.Camera;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.controller.MainScene;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.flags.DebugFlag;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.flags.SpriteSize;
 
 public class Exp extends Object implements ICollidable {
@@ -28,6 +33,18 @@ public class Exp extends Object implements ICollidable {
         this.sizeX = SpriteSize.EXP_SIZEX;
         this.sizeY = SpriteSize.EXP_SIZEY;
         init(posX, posY, exp);
+    }
+
+    @Override
+    public void draw(Canvas canvas) {
+        super.draw(canvas);
+        Camera camera = BaseScene.getTopScene().getCamera();
+        if (camera != null && BuildConfig.DEBUG && DebugFlag.DRAW_COLLISIONRECT) {
+            RectF collider = new RectF(colliderRect);
+            collider.offset(-camera.getPosX(),
+                    -camera.getPosY());
+            canvas.drawRect(collider, GameView.colliderPaint);
+        }
     }
 
     private void init(float posX, float posY, int exp) {

@@ -18,7 +18,6 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.weapon.Whip;
 
 public class MainScene extends BaseScene {
     private Joystick joystick;
-    private ItemGenerator itemGenerator;
 
     public enum Layer {
         bg, enemy, bullet, weapon, player, item, controller, COUNT
@@ -44,9 +43,6 @@ public class MainScene extends BaseScene {
         add(Layer.controller, new CollisionChecker());
         add(Layer.controller, new EnemyGenerator());
 
-        itemGenerator = new ItemGenerator(this, player);
-        add(Layer.controller, itemGenerator);
-
         camera = new Camera(player);
         add(Layer.controller, camera);
 
@@ -69,9 +65,5 @@ public class MainScene extends BaseScene {
                 return true;
         }
         return super.onTouchEvent(event);
-    }
-
-    public ItemGenerator getItemGenerator() {
-        return itemGenerator;
     }
 }

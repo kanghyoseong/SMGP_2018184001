@@ -15,7 +15,7 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.controller.Camera;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.flags.DebugFlag;
 
 public class Weapon extends Object implements IAttackable, ICollidable {
-    protected int atk;
+    protected float atk;
     protected float elapsedCoolTime = 0;
     protected float maxCoolTime;
     protected float duration = 0;
@@ -94,5 +94,21 @@ public class Weapon extends Object implements IAttackable, ICollidable {
     public void setPos(float x, float y) {
         super.setPos(x, y);
         reconstructColliderRect();
+    }
+
+    public void addProjectileCount(int count) {
+        projectileCount += count;
+    }
+
+    public void addAtk(float inc) {
+        atk += inc;
+    }
+
+    public float getMaxCoolTime() {
+        return maxCoolTime;
+    }
+
+    public void setMaxCoolTime(float time) {
+        maxCoolTime = time;
     }
 }

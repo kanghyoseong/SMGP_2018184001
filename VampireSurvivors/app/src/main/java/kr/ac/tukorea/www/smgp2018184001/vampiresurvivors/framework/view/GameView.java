@@ -12,6 +12,7 @@ import android.view.View;
 
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.BuildConfig;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.BaseScene;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.characters.Player;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.controller.EnemyGenerator;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.flags.DebugFlag;
 
@@ -121,6 +122,13 @@ public class GameView extends View implements Choreographer.FrameCallback {
                     , 100f, 150f, fpsPaint);
             canvas.drawText("Obj: " + BaseScene.getTopScene().getObjectCount()
                     , 100f, 250f, fpsPaint);
+            Player p = scene.getPlayer();
+            if (p != null) {
+                int curLevel = p.getLevel();
+                int curExp = p.getCurExp();
+                canvas.drawText("Level: " + curLevel + ", Exp: " + curExp
+                        , 100f, 350f, fpsPaint);
+            }
         }
     }
 

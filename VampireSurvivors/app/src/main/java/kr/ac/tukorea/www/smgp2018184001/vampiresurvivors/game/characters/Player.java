@@ -12,7 +12,6 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.interfaces.IG
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.BaseScene;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.Gauge;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.view.Metrics;
-import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.controller.Camera;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.controller.MainScene;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.enemy.Enemy;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects.Passive;
@@ -35,17 +34,23 @@ public class Player extends Character {
     ArrayList<IGameObject> enemiesInScreen = new ArrayList<>();
     HashMap<Passive.PassiveType, Integer> passiveLevel = new HashMap<>();
     HashMap<Weapon.WeaponType, Integer> weaponLevel = new HashMap<>();
+    HashMap<Weapon.WeaponType, Weapon> curWeapons = new HashMap<>();
     private float attackRatio = 1.0f;
     private float coolTimeRatio = 1.0f;
     private float bulletSpeedRatio = 1.0f;
     private Gauge gauge = new Gauge(0.1f, R.color.gauge_fg, R.color.gauge_bg);
+    Random random = new Random();
 
     public Player(float posX, float posY, float sizeX, float sizeY,
                   int resId, int spriteCountX, int spriteCountY, float secToNextFrame) {
         super(posX, posY, sizeX, sizeY,
                 resId, spriteCountX, spriteCountY, secToNextFrame);
         movementSpeed = PLAYER_MOVEMENTSPEED;
+    }
+
+    public void init(Whip whip) {
         weaponLevel.put(Weapon.WeaponType.Whip, 1);
+        curWeapons.put(Weapon.WeaponType.Whip, whip);
     }
 
     @Override
@@ -115,11 +120,11 @@ public class Player extends Character {
         int num = passiveLevel.get(type);
         if (num >= 5) {
             Log.d(TAG, type + " is Level 5, Increase Exp");
-            // -------------------- Increase Exp --------------------
+            addExp(5);
         } else {
             passiveLevel.put(type, num + 1);
             makePassiveEffect(type);
-            Log.d(TAG, type + "added, num: " + passiveLevel.get(type) + ", ratio: " + getRatio(type));
+            Log.d(TAG, type + " Level Up to " + passiveLevel.get(type) + ", ratio: " + getRatio(type));
         }
     }
 
@@ -161,6 +166,7 @@ public class Player extends Character {
                     break;
             }
             scene.add(MainScene.Layer.weapon, weapon);
+            curWeapons.put(type, (Weapon) weapon);
             weaponLevel.put(type, 1);
             Log.d(TAG, "first added Weapon " + type);
             return;
@@ -168,16 +174,66 @@ public class Player extends Character {
         int num = weaponLevel.get(type);
         if (num >= 8) {
             Log.d(TAG, type + " is Level 8, Increase Exp");
-            // -------------------- Increase Exp --------------------
+            addExp(5);
         } else {
-            weaponLevel.put(type, num + 1);
-            Log.d(TAG, type + "added weapon, num: " + weaponLevel.get(type));
+            increaseWeaponLevel(type);
+            Log.d(TAG, type + " Level Up to " + weaponLevel.get(type));
+        }
+    }
+
+    private void increaseWeaponLevel(Weapon.WeaponType type) {
+        int num = weaponLevel.get(type);
+        weaponLevel.put(type, num + 1);
+        Weapon weapon = curWeapons.get(type);
+        switch (num + 1) {
+            case 2:
+                weapon.addProjectileCount(1);
+                break;
+            case 3:
+                weapon.addAtk(10f);
+                break;
+            case 4:
+                weapon.addProjectileCount(1);
+                break;
+            case 5:
+                weapon.addAtk(20f);
+                break;
+            case 6:
+                float coolTime = weapon.getMaxCoolTime();
+                weapon.setMaxCoolTime(coolTime * 0.75f);
+                break;
+            case 7:
+                weapon.addAtk(10f);
+                break;
+            case 8:
+                weapon.addProjectileCount(1);
+                break;
+            default:
+                break;
         }
     }
 
     public void addExp(int exp) {
         this.curExp += exp;
-        Log.d(TAG, "Add Exp " + exp + ", Current Exp: " + curExp);
+        if (curExp >= expToLevelUp) {
+            curExp -= expToLevelUp;
+            levelUp();
+        }
+    }
+
+    private void levelUp() {
+        level += 1;
+        Log.d(TAG, "level Up to " + level);
+        expToLevelUp += expToLevelUp_increment;
+        maxHp += maxHp_increment;
+        
+        // Give Player Random Item
+        if (random.nextBoolean()) {
+            addPassiveItem(Passive.PassiveType.getRandomPassiveType(random));
+        } else {
+            addWeapon(Weapon.WeaponType.getRandomWeaponType(random));
+            //addWeapon(Weapon.WeaponType.Whip);
+        }
     }
 
     public float getRatio(Passive.PassiveType type) {
@@ -206,5 +262,13 @@ public class Player extends Character {
 
     public float getBulletSpeedRatio() {
         return bulletSpeedRatio;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public int getCurExp() {
+        return curExp;
     }
 }

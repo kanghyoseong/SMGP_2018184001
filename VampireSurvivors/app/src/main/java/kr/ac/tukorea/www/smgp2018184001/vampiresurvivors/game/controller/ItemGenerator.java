@@ -7,6 +7,7 @@ import java.util.Random;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.interfaces.IGameObject;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.BaseScene;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.characters.Player;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects.Exp;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects.Passive;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects.Weapon;
 
@@ -24,12 +25,15 @@ public class ItemGenerator implements IGameObject {
     public void update(float eTime) {
     }
 
-    public void spawnExp(float posX, float posY) {
-        if (random.nextBoolean()) {
-            player.addPassiveItem(Passive.PassiveType.getRandomPassiveType(random));
-        } else {
-            player.addWeapon(Weapon.WeaponType.getRandomWeaponType(random));
-        }
+    public void spawnExp(float posX, float posY, int exp) {
+        Exp e = Exp.get(posX, posY, exp);
+        scene = BaseScene.getTopScene();
+        scene.add(MainScene.Layer.item, e);
+//        if (random.nextBoolean()) {
+//            player.addPassiveItem(Passive.PassiveType.getRandomPassiveType(random));
+//        } else {
+//            player.addWeapon(Weapon.WeaponType.getRandomWeaponType(random));
+//        }
     }
 
     @Override

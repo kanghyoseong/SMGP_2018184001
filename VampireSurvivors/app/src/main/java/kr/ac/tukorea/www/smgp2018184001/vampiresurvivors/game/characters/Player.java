@@ -30,6 +30,7 @@ public class Player extends Character {
     private int expToLevelUp = 5;
     private int expToLevelUp_increment = 10;
     private int maxHp_increment = 2;
+    private int curExp = 0;
     public static float PLAYER_MOVEMENTSPEED = 0.5f;
     ArrayList<IGameObject> enemiesInScreen = new ArrayList<>();
     HashMap<Passive.PassiveType, Integer> passiveLevel = new HashMap<>();
@@ -172,6 +173,11 @@ public class Player extends Character {
             weaponLevel.put(type, num + 1);
             Log.d(TAG, type + "added weapon, num: " + weaponLevel.get(type));
         }
+    }
+
+    public void addExp(int exp) {
+        this.curExp += exp;
+        Log.d(TAG, "Add Exp " + exp + ", Current Exp: " + curExp);
     }
 
     public float getRatio(Passive.PassiveType type) {

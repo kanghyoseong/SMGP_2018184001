@@ -51,7 +51,7 @@ public class Enemy extends Character implements IAttackable {
         BaseScene scene = BaseScene.getTopScene();
         scene.remove(MainScene.Layer.enemy, this);
         ItemGenerator ig = ((MainScene) scene).getItemGenerator();
-        if (ig != null) ig.spawnExp(0, 0);
+        if (ig != null) ig.spawnExp(posX, posY, dropExp);
     }
 
     @Override

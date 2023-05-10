@@ -40,10 +40,6 @@ public class Passive extends Object implements ICollidable {
         this.type = type;
     }
 
-    public void makeEffect() {
-        player.addPassiveItem(type);
-    }
-
     public void remove() {
         BaseScene.getTopScene().remove(MainScene.Layer.item, this);
     }

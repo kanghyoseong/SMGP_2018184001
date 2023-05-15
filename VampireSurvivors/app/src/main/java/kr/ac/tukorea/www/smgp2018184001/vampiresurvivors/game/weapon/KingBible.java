@@ -12,6 +12,7 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.flags.SpriteSize;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects.Weapon;
 
 public class KingBible extends Weapon {
+    private final float PI = 3.14159f;
     public KingBible(Player player) {
         super(WeaponType.KingBible, SpriteSize.WHIP_SIZE_X, SpriteSize.WHIP_SIZE_Y,
                 R.mipmap.kingbible, 1, 1, 0.01f, player);
@@ -44,8 +45,13 @@ public class KingBible extends Weapon {
     @Override
     protected void attack(int callIndex) {
         super.attack(callIndex);
-        KingBibleBullet bullet = KingBibleBullet.get(player, duration);
-        bullet.setAtk(atk);
-        BaseScene.getTopScene().add(MainScene.Layer.weapon, bullet);
+        float div = 2 * PI / (float) projectileCount;
+        for (int i = 0; i < projectileCount; i++) {
+            //Log.d(null, "Spawn KingBible Bullet " + i);
+            KingBibleBullet bullet = KingBibleBullet.get(player, duration);
+            bullet.setAtk(atk);
+            bullet.setOffset(div * (float) i);
+            BaseScene.getTopScene().add(MainScene.Layer.weapon, bullet);
+        }
     }
 }

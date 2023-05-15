@@ -14,6 +14,7 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.flags.SpriteSize;
 public class KingBibleBullet extends Bullet {
     private float duration;
     private float elapsedTime = 0;
+    private float offset = 0.0f;
     private float radius = 0.25f;
     private static final float KINGBIBLEBULLET_SPEED = 3.0f;
 
@@ -45,8 +46,8 @@ public class KingBibleBullet extends Bullet {
         posX = player.getPosX();
         posY = player.getPosY();
         float ratio = elapsedTime / duration;
-        posX += Math.cos(elapsedTime * movementSpeed) * radius;
-        posY += Math.sin(elapsedTime * movementSpeed) * radius;
+        posX += Math.cos(elapsedTime * movementSpeed + offset) * radius;
+        posY += Math.sin(elapsedTime * movementSpeed + offset) * radius;
         sizeX = sizeY = SpriteSize.BULLET_SIZE * (4 * ratio * (1 - ratio));
         //Log.d(null, "duraton: " + duration + ", ratio: " + (4 * ratio * (1 - ratio)));
         reconstructRect();
@@ -59,6 +60,10 @@ public class KingBibleBullet extends Bullet {
     @Override
     public float getAtk() {
         return atk * player.getAttackRatio();
+    }
+
+    public void setOffset(float offset) {
+        this.offset = offset;
     }
 
     @Override

@@ -33,8 +33,8 @@ public class MagicWand extends Weapon implements IAttackable {
     }
 
     @Override
-    protected void attack() {
-        super.attack();
+    protected void attack(int callIndex) {
+        super.attack(callIndex);
         Enemy target = player.findNearestEnemy();
         if (target == null) return;
         float dx = target.getPosX() - posX;

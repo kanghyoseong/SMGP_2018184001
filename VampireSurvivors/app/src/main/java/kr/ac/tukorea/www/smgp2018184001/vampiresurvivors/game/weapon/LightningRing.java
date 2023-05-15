@@ -28,10 +28,10 @@ public class LightningRing extends Weapon {
     }
 
     @Override
-    protected void attack() {
+    protected void attack(int callIndex) {
         Enemy target = player.findRandomEnemyInScreen();
         if (target == null) return;
-        super.attack();
+        super.attack(callIndex);
         target.getDamage(atk * player.getAttackRatio());
 
         Lightning lightning = Lightning.get(target.getPosX(), target.getPosY());

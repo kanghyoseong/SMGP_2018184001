@@ -29,8 +29,8 @@ public class FireWand extends Weapon {
     }
 
     @Override
-    protected void attack() {
-        super.attack();
+    protected void attack(int callIndex) {
+        super.attack(callIndex);
         float radian = random.nextFloat() * 2 * PI;
         float dx = (float) Math.cos(radian);
         float dy = (float) Math.sin(radian);

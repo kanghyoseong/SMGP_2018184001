@@ -1,5 +1,7 @@
 package kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.weapon;
 
+import android.util.Log;
+
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.R;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.interfaces.IAttackable;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.characters.Player;
@@ -16,7 +18,7 @@ public class Whip extends Weapon implements IAttackable {
     }
 
     @Override
-    protected void attack() {
+    protected void attack(int callIndex) {
         aSprite.setCurFrame(1);
         isAttacking = true;
         float offset;

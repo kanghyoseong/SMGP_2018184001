@@ -49,7 +49,7 @@ public class Weapon extends Object implements IAttackable, ICollidable {
             elapsedCoolTime -= eTime;
         } else if (!isAttacking) {
             for (int i = 0; i < projectileCount; i++) {
-                attack();
+                attack(i);
             }
         } else if (aSprite.getCurFrame() == aSprite.getFrameCount()) {
             elapsedCoolTime = maxCoolTime * player.getCoolTimeRatio();
@@ -57,7 +57,7 @@ public class Weapon extends Object implements IAttackable, ICollidable {
         }
     }
 
-    protected void attack() {
+    protected void attack(int callIndex) {
         aSprite.setCurFrame(1);
         duration_elapsedTime = 0;
         isAttacking = true;

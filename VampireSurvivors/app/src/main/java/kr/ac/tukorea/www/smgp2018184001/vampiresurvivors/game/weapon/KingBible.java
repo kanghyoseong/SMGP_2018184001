@@ -25,7 +25,7 @@ public class KingBible extends Weapon {
         if (!isAttacking && elapsedCoolTime > 0) {
             elapsedCoolTime -= eTime;
         } else if (!isAttacking) {
-            attack();
+            attack(0);
         } else if (isAttacking) {
             duration_elapsedTime += GameView.frameTime;
             if (duration_elapsedTime > duration) {
@@ -42,9 +42,8 @@ public class KingBible extends Weapon {
     }
 
     @Override
-    protected void attack() {
-        Log.d(null, "attack");
-        super.attack();
+    protected void attack(int callIndex) {
+        super.attack(callIndex);
         KingBibleBullet bullet = KingBibleBullet.get(player, duration);
         bullet.setAtk(atk);
         BaseScene.getTopScene().add(MainScene.Layer.weapon, bullet);

@@ -18,7 +18,7 @@ public class KingBible extends Weapon {
                 R.mipmap.kingbible, 1, 1, 0.01f, player);
         atk = 10;
         elapsedCoolTime = maxCoolTime = 3f;
-        duration = 3f;
+        duration = 6f;
     }
 
     @Override

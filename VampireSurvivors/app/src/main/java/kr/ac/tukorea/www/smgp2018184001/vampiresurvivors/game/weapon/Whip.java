@@ -24,9 +24,9 @@ public class Whip extends Weapon implements IAttackable {
         float offset;
         aSprite.setIsDirLeft(player.getIsDirLeft());
         if (aSprite.getIsDirLeft()) {
-            offset = -SpriteSize.WHIP_SIZE_X / 2.f - player.getSizeX() / 2;
+            offset = -SpriteSize.WHIP_SIZE_X / 2.f;
         } else {
-            offset = SpriteSize.WHIP_SIZE_X / 2.f + player.getSizeX() / 2;
+            offset = SpriteSize.WHIP_SIZE_X / 2.f;
         }
         setPos(player.getPosX() + offset, player.getPosY());
     }

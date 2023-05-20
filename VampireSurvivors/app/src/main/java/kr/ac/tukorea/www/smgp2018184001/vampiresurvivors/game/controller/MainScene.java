@@ -9,12 +9,7 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.view.Metrics;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.characters.Player;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.flags.SpriteSize;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects.Object;
-import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects.Passive;
-import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.weapon.FireWand;
-import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.weapon.KingBible;
-import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.weapon.LightningRing;
-import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.weapon.MagicWand;
-import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.weapon.Whip;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.weapon.WhipController;
 
 public class MainScene extends BaseScene {
     private Joystick joystick;
@@ -37,9 +32,9 @@ public class MainScene extends BaseScene {
                 R.mipmap.player_anim_4x1, 4, 1, 0.2f);
         player.setcolliderSize(SpriteSize.PLAYER_SIZE * 0.6f, SpriteSize.PLAYER_SIZE * 0.8f);
         add(Layer.player, player);
-        Whip whip = new Whip(player);
-        player.init(whip);
-        add(Layer.weapon, whip);
+        WhipController wc = new WhipController(player, this);
+        player.init(wc);
+        add(Layer.weapon, wc);
 
         add(Layer.controller, new CollisionChecker());
         add(Layer.controller, new EnemyGenerator());

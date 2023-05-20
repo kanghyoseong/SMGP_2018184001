@@ -21,6 +21,7 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.weapon.KingBible;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.weapon.LightningRing;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.weapon.MagicWand;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.weapon.Whip;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.weapon.WhipController;
 
 public class Player extends Character {
     private static final String TAG = Player.class.getSimpleName();
@@ -48,9 +49,9 @@ public class Player extends Character {
         movementSpeed = PLAYER_MOVEMENTSPEED;
     }
 
-    public void init(Whip whip) {
+    public void init(WhipController wc) {
         weaponLevel.put(Weapon.WeaponType.Whip, 1);
-        curWeapons.put(Weapon.WeaponType.Whip, whip);
+        curWeapons.put(Weapon.WeaponType.Whip, wc);
     }
 
     @Override
@@ -124,7 +125,7 @@ public class Player extends Character {
         } else {
             passiveLevel.put(type, num + 1);
             makePassiveEffect(type);
-            Log.d(TAG, type + " Level Up to " + passiveLevel.get(type) + ", ratio: " + getRatio(type));
+            Log.d(TAG, type + "Passive Item Level Up to " + passiveLevel.get(type) + ", ratio: " + getRatio(type));
         }
     }
 
@@ -150,7 +151,9 @@ public class Player extends Character {
             switch (type) {
                 default:
                 case Whip:
-                    weapon = new Whip(this);
+                    // 게임 시작 시 Whip은 레벨이 1이기 때문에 코드가 불리지 않지만
+                    // 일단 적어 놓는다.
+                    weapon = new WhipController(this, BaseScene.getTopScene());
                     break;
                 case MagicWand:
                     weapon = new MagicWand(this);
@@ -177,7 +180,7 @@ public class Player extends Character {
             addExp(5);
         } else {
             increaseWeaponLevel(type);
-            Log.d(TAG, type + " Level Up to " + weaponLevel.get(type));
+            Log.d(TAG, type + "Weapon Item Level Up to " + weaponLevel.get(type));
         }
     }
 
@@ -201,6 +204,7 @@ public class Player extends Character {
             case 6:
                 float coolTime = weapon.getMaxCoolTime();
                 weapon.setMaxCoolTime(coolTime * 0.75f);
+                Log.d(TAG, "Decrease " + weapon.getClass().getSimpleName() + "'s CoolTime");
                 break;
             case 7:
                 weapon.addAtk(10f);
@@ -223,10 +227,12 @@ public class Player extends Character {
 
     private void levelUp() {
         level += 1;
-        Log.d(TAG, "level Up to " + level);
+        Log.d(TAG, "Player level Up to " + level);
         expToLevelUp += expToLevelUp_increment;
         maxHp += maxHp_increment;
-        
+        // 모든 아이템 레벨이 max라면
+        //recoverHp(5);
+        // else
         // Give Player Random Item
         if (random.nextBoolean()) {
             addPassiveItem(Passive.PassiveType.getRandomPassiveType(random));

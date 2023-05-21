@@ -54,6 +54,6 @@ public class KingBible extends Weapon {
             bullet.setOffset(div * (float) i);
             BaseScene.getTopScene().add(MainScene.Layer.weapon, bullet);
         }
-        Log.d(TAG, String.format("pCount: %d, atk: %.2f, CoolTime: %.2f", projectileCount, atk, maxCoolTime));
+        //Log.d(TAG, String.format("pCount: %d, atk: %.2f, CoolTime: %.2f", projectileCount, atk, maxCoolTime));
     }
 }

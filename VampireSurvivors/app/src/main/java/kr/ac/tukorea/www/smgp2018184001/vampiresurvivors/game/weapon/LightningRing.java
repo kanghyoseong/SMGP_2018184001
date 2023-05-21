@@ -36,7 +36,7 @@ public class LightningRing extends Weapon {
 
         Lightning lightning = Lightning.get(target.getPosX(), target.getPosY());
         BaseScene.getTopScene().add(MainScene.Layer.weapon, lightning);
-        Log.d(TAG, "attack " + callIndex + ", Atk: " + atk*player.getAttackRatio());
-        Log.d(TAG, String.format("pCount: %d, atk: %.2f, CoolTime: %.2f", projectileCount, atk, maxCoolTime));
+        //Log.d(TAG, "attack " + callIndex + ", Atk: " + atk*player.getAttackRatio());
+        //Log.d(TAG, String.format("pCount: %d, atk: %.2f, CoolTime: %.2f", projectileCount, atk, maxCoolTime));
     }
 }

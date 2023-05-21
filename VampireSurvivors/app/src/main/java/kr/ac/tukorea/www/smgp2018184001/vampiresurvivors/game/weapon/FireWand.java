@@ -41,6 +41,6 @@ public class FireWand extends Weapon {
         bullet.setDir(dx, dy);
         BaseScene.getTopScene().add(MainScene.Layer.weapon, bullet);
         //Log.d(null, "attack "+callIndex);
-        Log.d(TAG, String.format("pCount: %d, atk: %.2f, CoolTime: %.2f", projectileCount, atk, maxCoolTime));
+        //Log.d(TAG, String.format("pCount: %d, atk: %.2f, CoolTime: %.2f", projectileCount, atk, maxCoolTime));
     }
 }

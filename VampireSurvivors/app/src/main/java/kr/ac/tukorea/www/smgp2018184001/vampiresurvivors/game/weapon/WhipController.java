@@ -69,6 +69,6 @@ public class WhipController extends Weapon implements IAttackable {
             whip.setCallIndex(i);
             whip.setCoolTime(0.1f * i);
         }
-        Log.d(TAG, String.format("pCount: %d, atk: %.2f, CoolTime: %.2f", projectileCount, atk, maxCoolTime));
+        //Log.d(TAG, String.format("pCount: %d, atk: %.2f, CoolTime: %.2f", projectileCount, atk, maxCoolTime));
     }
 }

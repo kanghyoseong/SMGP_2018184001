@@ -36,6 +36,7 @@ public class Player extends Character {
     HashMap<Passive.PassiveType, Integer> passiveLevel = new HashMap<>();
     HashMap<Weapon.WeaponType, Integer> weaponLevel = new HashMap<>();
     HashMap<Weapon.WeaponType, Weapon> curWeapons = new HashMap<>();
+    private int maxItemNum = 0;
     private float attackRatio = 1.0f;
     private float coolTimeRatio = 1.0f;
     private float bulletSpeedRatio = 1.0f;
@@ -123,6 +124,7 @@ public class Player extends Character {
             Log.d(TAG, type + " is Level 5, Increase Exp");
             addExp(5);
         } else {
+            if (passiveLevel.get(type) == 4) maxItemNum++;
             passiveLevel.put(type, num + 1);
             makePassiveEffect(type);
             Log.d(TAG, type + "Passive Item Level Up to " + passiveLevel.get(type) + ", ratio: " + getRatio(type));
@@ -211,6 +213,7 @@ public class Player extends Character {
                 break;
             case 8:
                 weapon.addProjectileCount(1);
+                maxItemNum++;
                 break;
             default:
                 break;
@@ -227,18 +230,22 @@ public class Player extends Character {
 
     private void levelUp() {
         level += 1;
-        Log.d(TAG, "Player level Up to " + level);
+        //Log.d(TAG, "Player level Up to " + level);
         expToLevelUp += expToLevelUp_increment;
         maxHp += maxHp_increment;
-        // 모든 아이템 레벨이 max라면
-        //recoverHp(5);
-        // else
-        // Give Player Random Item
-        if (random.nextBoolean()) {
-            addPassiveItem(Passive.PassiveType.getRandomPassiveType(random));
+        // 모든 아이템 레벨이 max라면 체력 회복
+        if (maxItemNum == Weapon.WeaponType.COUNT.ordinal() + Passive.PassiveType.COUNT.ordinal()) {
+            recoverHp(5);
         } else {
-            addWeapon(Weapon.WeaponType.getRandomWeaponType(random));
-            //addWeapon(Weapon.WeaponType.Whip);
+            //Log.d(TAG, "maxItemNum: "+maxItemNum);
+            //업그레이드 UI 띄우기
+            // Give Player Random Item
+            if (random.nextBoolean()) {
+                addPassiveItem(Passive.PassiveType.getRandomPassiveType(random));
+            } else {
+                addWeapon(Weapon.WeaponType.getRandomWeaponType(random));
+                //addWeapon(Weapon.WeaponType.Whip);
+            }
         }
     }
 

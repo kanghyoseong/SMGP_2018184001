@@ -1,6 +1,7 @@
 package kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.weapon;
 
 import android.graphics.Canvas;
+import android.util.Log;
 
 import java.util.Random;
 
@@ -38,5 +39,6 @@ public class FireWand extends Weapon {
         bullet.setAtk(atk * player.getAttackRatio());
         bullet.setDir(dx, dy);
         BaseScene.getTopScene().add(MainScene.Layer.weapon, bullet);
+        //Log.d(null, "attack "+callIndex);
     }
 }

@@ -36,6 +36,6 @@ public class LightningRing extends Weapon {
 
         Lightning lightning = Lightning.get(target.getPosX(), target.getPosY());
         BaseScene.getTopScene().add(MainScene.Layer.weapon, lightning);
-        //Log.d(TAG, "Spawn Lightning");
+        //Log.d(TAG, "attack " + callIndex + "Atk: " + atk);
     }
 }

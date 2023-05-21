@@ -8,8 +8,8 @@ import java.util.ArrayList;
 
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.interfaces.IGameObject;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.interfaces.IRecyclable;
-import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.controller.Camera;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.characters.Player;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.controller.Camera;
 
 public class BaseScene {
     private static ArrayList<BaseScene> sceneStack = new ArrayList<>();
@@ -51,7 +51,21 @@ public class BaseScene {
 
     public int pushScene() {
         sceneStack.add(this);
+        this.onStart();
         return sceneStack.size();
+    }
+
+    public void pauseScene() {
+        onPause();
+    }
+
+    public void resumeScene() {
+        onResume();
+    }
+
+    public void popScene() {
+        this.onEnd();
+        sceneStack.remove(this);
     }
 
     protected <E extends Enum<E>> void initLayers(E countEnum) {
@@ -97,6 +111,18 @@ public class BaseScene {
 
     public <E extends Enum> ArrayList<IGameObject> getObjectsAt(E layerEnum) {
         return layers.get(layerEnum.ordinal());
+    }
+
+    protected void onStart() {
+    }
+
+    protected void onEnd() {
+    }
+
+    protected void onPause() {
+    }
+
+    protected void onResume() {
     }
 
     public Player getPlayer() {

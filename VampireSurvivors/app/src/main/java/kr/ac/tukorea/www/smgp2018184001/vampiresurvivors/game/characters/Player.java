@@ -9,6 +9,7 @@ import java.util.Random;
 
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.R;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.interfaces.IGameObject;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.res.Sound;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.BaseScene;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.Gauge;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.view.Metrics;
@@ -222,6 +223,7 @@ public class Player extends Character {
 
     public void addExp(int exp) {
         this.curExp += exp;
+        Sound.playEffect(R.raw.getexp);
         if (curExp >= expToLevelUp) {
             curExp -= expToLevelUp;
             levelUp();
@@ -230,6 +232,7 @@ public class Player extends Character {
 
     private void levelUp() {
         level += 1;
+        Sound.playEffect(R.raw.levelup);
         //Log.d(TAG, "Player level Up to " + level);
         expToLevelUp += expToLevelUp_increment;
         maxHp += maxHp_increment;
@@ -283,5 +286,11 @@ public class Player extends Character {
 
     public int getCurExp() {
         return curExp;
+    }
+
+    @Override
+    public void getDamage(float damage) {
+        super.getDamage(damage);
+        Sound.playEffect(R.raw.playerhit);
     }
 }

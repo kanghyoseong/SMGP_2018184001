@@ -25,6 +25,7 @@ public class GameView extends View implements Choreographer.FrameCallback {
     public static Paint colliderPaint;
     private Paint fpsPaint;
     private boolean isRunning = true;
+    public static GameView view;
 
     public GameView(Context context) {
         super(context);
@@ -39,6 +40,11 @@ public class GameView extends View implements Choreographer.FrameCallback {
     public GameView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         init(attrs, defStyle);
+    }
+
+    public static void clear() {
+        view = null;
+        res = null;
     }
 
     @Override
@@ -60,6 +66,7 @@ public class GameView extends View implements Choreographer.FrameCallback {
 
     private void init(AttributeSet attrs, int defStyle) {
         res = getResources();
+        view = this;
 
         if (BuildConfig.DEBUG) {
             fpsPaint = new Paint();
@@ -143,6 +150,7 @@ public class GameView extends View implements Choreographer.FrameCallback {
 
     public void pauseGame() {
         isRunning = false;
+        BaseScene.getTopScene().pauseScene();
     }
 
     public void resumeGame() {
@@ -150,6 +158,7 @@ public class GameView extends View implements Choreographer.FrameCallback {
             return;
         }
         isRunning = true;
+        BaseScene.getTopScene().resumeScene();
         previousNanos = 0;
         Choreographer.getInstance().postFrameCallback(this);
     }

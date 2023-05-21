@@ -3,6 +3,7 @@ package kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.controller;
 import android.view.MotionEvent;
 
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.R;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.res.Sound;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.BaseScene;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.CollisionChecker;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.view.Metrics;
@@ -61,5 +62,25 @@ public class MainScene extends BaseScene {
                 return true;
         }
         return super.onTouchEvent(event);
+    }
+
+    @Override
+    protected void onStart() {
+        Sound.playMusic(R.raw.bgm);
+    }
+
+    @Override
+    protected void onEnd() {
+        Sound.stopMusic();
+    }
+
+    @Override
+    protected void onPause() {
+        Sound.pauseMusic();
+    }
+
+    @Override
+    protected void onResume() {
+        Sound.resumeMusic();
     }
 }

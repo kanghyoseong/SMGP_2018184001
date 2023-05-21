@@ -4,6 +4,7 @@ import android.graphics.Canvas;
 import android.util.Log;
 
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.R;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.res.Sound;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.BaseScene;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.view.GameView;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.characters.Player;
@@ -47,6 +48,7 @@ public class KingBible extends Weapon {
     protected void attack(int callIndex) {
         super.attack(callIndex);
         float div = 2 * PI / (float) projectileCount;
+        Sound.playEffect(R.raw.kingbible);
         for (int i = 0; i < projectileCount; i++) {
             //Log.d(null, "Spawn KingBible Bullet " + i);
             KingBibleBullet bullet = KingBibleBullet.get(player, duration);

@@ -12,6 +12,7 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.flags.SpriteSize;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects.Weapon;
 
 public class KingBible extends Weapon {
+    private static final String TAG = KingBible.class.getSimpleName();
     private final float PI = 3.14159f;
     public KingBible(Player player) {
         super(WeaponType.KingBible, SpriteSize.WHIP_SIZE_X, SpriteSize.WHIP_SIZE_Y,
@@ -53,5 +54,6 @@ public class KingBible extends Weapon {
             bullet.setOffset(div * (float) i);
             BaseScene.getTopScene().add(MainScene.Layer.weapon, bullet);
         }
+        Log.d(TAG, String.format("pCount: %d, atk: %.2f, CoolTime: %.2f", projectileCount, atk, maxCoolTime));
     }
 }

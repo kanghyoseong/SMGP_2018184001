@@ -79,5 +79,6 @@ public class MagicWand extends Weapon implements IAttackable {
         bullet.setDir(dx, dy);
         BaseScene.getTopScene().add(MainScene.Layer.weapon, bullet);
         //Log.d(TAG, "attack " + callIndex);
+        Log.d(TAG, String.format("pCount: %d, atk: %.2f, CoolTime: %.2f", projectileCount, atk, maxCoolTime));
     }
 }

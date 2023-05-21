@@ -13,6 +13,7 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.flags.SpriteSize;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects.Weapon;
 
 public class FireWand extends Weapon {
+    private static final String TAG = FireWand.class.getSimpleName();
     Random random = new Random();
     private static final float PI = 3.14159f;
 
@@ -40,5 +41,6 @@ public class FireWand extends Weapon {
         bullet.setDir(dx, dy);
         BaseScene.getTopScene().add(MainScene.Layer.weapon, bullet);
         //Log.d(null, "attack "+callIndex);
+        Log.d(TAG, String.format("pCount: %d, atk: %.2f, CoolTime: %.2f", projectileCount, atk, maxCoolTime));
     }
 }

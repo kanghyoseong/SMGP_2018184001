@@ -1,6 +1,7 @@
 package kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.weapon;
 
 import android.graphics.Canvas;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -68,5 +69,6 @@ public class WhipController extends Weapon implements IAttackable {
             whip.setCallIndex(i);
             whip.setCoolTime(0.1f * i);
         }
+        Log.d(TAG, String.format("pCount: %d, atk: %.2f, CoolTime: %.2f", projectileCount, atk, maxCoolTime));
     }
 }

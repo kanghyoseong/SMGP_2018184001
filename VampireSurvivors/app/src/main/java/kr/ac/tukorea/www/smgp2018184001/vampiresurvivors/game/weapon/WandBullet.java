@@ -3,7 +3,7 @@ package kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.weapon;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.BaseScene;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.RecycleBin;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.characters.Player;
-import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.controller.MainScene;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.scene.MainScene;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.enemy.Bullet;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.flags.SpriteSize;
 

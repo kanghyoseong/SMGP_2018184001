@@ -12,7 +12,7 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.interfaces.IC
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects.Object;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.RecycleBin;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.controller.Camera;
-import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.controller.MainScene;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.scene.MainScene;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.characters.Player;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.flags.SpriteSize;
 

@@ -4,16 +4,14 @@ import android.graphics.Canvas;
 import android.os.Handler;
 import android.util.Log;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.BuildConfig;
-import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.interfaces.ICollidable;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.interfaces.IGameObject;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.BaseScene;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.view.Metrics;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.characters.Player;
-import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.controller.MainScene;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.scene.MainScene;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.enemy.EEnemyType;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.enemy.Enemy;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.enemy.enemyType.Bat;
@@ -59,7 +57,7 @@ public class EnemyGenerator implements IGameObject {
             EEnemyType curType = EEnemyType.values()[i];
             int spawnNum = (wave - curType.getWave()) * ENEMY_INCREMENT_PER_WAVE;
             spawnNum = spawnNum >= 0 ? spawnNum += INITIAL_NUM_OF_ENEMY : 0;
-            Log.d(null, "Spawn: " + curType + ", count: " + spawnNum);
+            //Log.d(null, "Spawn: " + curType + ", count: " + spawnNum);
             Enemy e = null;
             float posX, posY;
             for (int j = 0; j < spawnNum; j++) {

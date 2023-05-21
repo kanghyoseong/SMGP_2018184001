@@ -5,7 +5,7 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.interfaces.IA
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.res.Sound;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.BaseScene;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.characters.Character;
-import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.controller.MainScene;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.scene.MainScene;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects.Exp;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects.Object;
 

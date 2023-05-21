@@ -9,14 +9,15 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.interfaces.IA
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.interfaces.ICollidable;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.interfaces.IGameObject;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.characters.Player;
-import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.controller.MainScene;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.scene.MainScene;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.enemy.Bullet;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.enemy.Enemy;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects.Exp;
-import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects.Passive;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.weapon.WandBullet;
 
 public class CollisionChecker implements IGameObject {
+    private static final String TAG = CollisionChecker.class.getSimpleName();
+
     @Override
     public void update(float eTime) {
         BaseScene scene = BaseScene.getTopScene();
@@ -61,7 +62,7 @@ public class CollisionChecker implements IGameObject {
         }
         for (IGameObject i : items) {
             if (collides(p, (ICollidable) i)) {
-                p.addExp(((Exp)i).getExp());
+                p.addExp(((Exp) i).getExp());
                 ((Exp) i).remove();
             }
         }

@@ -13,7 +13,7 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.res.Sound;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.BaseScene;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.Gauge;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.view.Metrics;
-import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.controller.MainScene;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.scene.MainScene;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.enemy.Enemy;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects.Passive;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects.Weapon;
@@ -21,7 +21,6 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.weapon.FireWand;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.weapon.KingBible;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.weapon.LightningRing;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.weapon.MagicWand;
-import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.weapon.Whip;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.weapon.WhipController;
 
 public class Player extends Character {

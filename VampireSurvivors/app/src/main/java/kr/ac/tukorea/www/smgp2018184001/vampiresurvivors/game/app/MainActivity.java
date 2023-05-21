@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.BaseScene;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.view.GameView;
-import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.controller.MainScene;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.scene.MainScene;
 
 public class MainActivity extends AppCompatActivity {
     private GameView gameView;

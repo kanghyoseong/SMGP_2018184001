@@ -3,7 +3,7 @@ package kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.enemy;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.BaseScene;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.flags.SpriteSize;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects.Object;
-import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.controller.MainScene;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.scene.MainScene;
 
 public class EnemyRange extends Enemy {
     private float elapsedShootTime = 0;

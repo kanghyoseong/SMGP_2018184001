@@ -1,4 +1,4 @@
-package kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.controller;
+package kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.scene;
 
 import android.view.MotionEvent;
 
@@ -8,6 +8,9 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.BaseScen
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.CollisionChecker;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.view.Metrics;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.characters.Player;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.controller.Camera;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.controller.EnemyGenerator;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.controller.Joystick;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.flags.SpriteSize;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects.Object;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.weapon.WhipController;

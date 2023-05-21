@@ -24,7 +24,7 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects.Object;
 
 public class EnemyGenerator implements IGameObject {
     private static Handler hander = new Handler();
-    public static int wave = 1;
+    public static int wave = 0;
     protected static final float TIME_TO_NEXT_WAVE = 30.0f;
     public static float elapsedTime = TIME_TO_NEXT_WAVE * 0.9f;
     private final int INITIAL_NUM_OF_ENEMY = 15;

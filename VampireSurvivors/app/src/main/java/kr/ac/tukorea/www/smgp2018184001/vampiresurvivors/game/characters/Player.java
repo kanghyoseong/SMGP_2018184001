@@ -222,7 +222,6 @@ public class Player extends Character {
 
     public void addExp(int exp) {
         this.curExp += exp;
-        Sound.playEffect(R.raw.getexp);
         if (curExp >= expToLevelUp) {
             curExp -= expToLevelUp;
             levelUp();
@@ -290,6 +289,5 @@ public class Player extends Character {
     @Override
     public void getDamage(float damage) {
         super.getDamage(damage);
-        Sound.playEffect(R.raw.playerhit);
     }
 }

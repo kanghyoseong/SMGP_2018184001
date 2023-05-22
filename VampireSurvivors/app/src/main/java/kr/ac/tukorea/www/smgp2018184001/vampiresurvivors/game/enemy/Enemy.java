@@ -71,6 +71,5 @@ public class Enemy extends Character implements IAttackable {
     @Override
     public void getDamage(float damage) {
         super.getDamage(damage);
-        Sound.playEffect(R.raw.enemyhit);
     }
 }

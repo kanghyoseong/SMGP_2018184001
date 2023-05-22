@@ -5,9 +5,11 @@ import android.graphics.RectF;
 
 import java.util.ArrayList;
 
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.R;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.interfaces.IAttackable;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.interfaces.ICollidable;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.interfaces.IGameObject;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.res.Sound;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.characters.Player;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.scene.MainScene;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.enemy.Bullet;
@@ -24,6 +26,10 @@ public class CollisionChecker implements IGameObject {
         Player p = scene.getPlayer();
         if (scene == null || p == null) return;
 
+        boolean isEnemyHitSoundPlayed = false;
+        boolean isGetExpSoundPlayed = false;
+        boolean isPlayerHitSoundPlayed = false;
+
         ArrayList<IGameObject> enemies = scene.getObjectsAt(MainScene.Layer.enemy);
         ArrayList<IGameObject> weapons = scene.getObjectsAt(MainScene.Layer.weapon);
         ArrayList<IGameObject> bullets = scene.getObjectsAt(MainScene.Layer.bullet);
@@ -33,6 +39,10 @@ public class CollisionChecker implements IGameObject {
             // Player <-> Enemy
             if (!p.isInvincible() && collides(p, (ICollidable) e)) {
                 p.getDamage(((IAttackable) e).getAtk());
+                if (!isPlayerHitSoundPlayed) {
+                    Sound.playEffect(R.raw.playerhit);
+                    isPlayerHitSoundPlayed = true;
+                }
             }
             for (IGameObject w : weapons) {
                 if (!((IAttackable) w).isAttacking()) continue;
@@ -41,6 +51,10 @@ public class CollisionChecker implements IGameObject {
                     ((Enemy) e).getDamage(((IAttackable) w).getAtk());
                     if (w instanceof WandBullet) {
                         ((Bullet) w).remove();
+                    }
+                    if (!isEnemyHitSoundPlayed) {
+                        Sound.playEffect(R.raw.enemyhit);
+                        isEnemyHitSoundPlayed = true;
                     }
                 }
             }
@@ -64,6 +78,10 @@ public class CollisionChecker implements IGameObject {
             if (collides(p, (ICollidable) i)) {
                 p.addExp(((Exp) i).getExp());
                 ((Exp) i).remove();
+                if (!isGetExpSoundPlayed) {
+                    Sound.playEffect(R.raw.getexp);
+                    isGetExpSoundPlayed = true;
+                }
             }
         }
     }

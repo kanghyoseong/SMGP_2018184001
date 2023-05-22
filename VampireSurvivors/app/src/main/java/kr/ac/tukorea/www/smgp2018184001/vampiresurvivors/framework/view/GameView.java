@@ -50,6 +50,8 @@ public class GameView extends View implements Choreographer.FrameCallback {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
+        Metrics.screenWidth = w;
+        Metrics.screenHeight = h;
         float viewRatio = (float) w / (float) h;
         float gameRatio = Metrics.game_width / Metrics.game_height;
         if (viewRatio < gameRatio) { // viewRatio의 세로가 더 클 때
@@ -70,7 +72,7 @@ public class GameView extends View implements Choreographer.FrameCallback {
 
         if (BuildConfig.DEBUG) {
             fpsPaint = new Paint();
-            fpsPaint.setColor(Color.WHITE);
+            fpsPaint.setColor(Color.BLACK);
             fpsPaint.setTextSize(90.0f);
 
             borderPaint = new Paint();
@@ -83,7 +85,6 @@ public class GameView extends View implements Choreographer.FrameCallback {
             colliderPaint.setStyle(Paint.Style.STROKE);
             colliderPaint.setStrokeWidth(0.005f);
         }
-
         Choreographer.getInstance().postFrameCallback(this);
     }
 

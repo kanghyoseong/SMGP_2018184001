@@ -1,6 +1,8 @@
 package kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util;
 
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Handler;
 import android.view.MotionEvent;
 
@@ -8,6 +10,8 @@ import java.util.ArrayList;
 
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.interfaces.IGameObject;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.interfaces.IRecyclable;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.interfaces.ITouchable;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.view.Metrics;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.characters.Player;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.controller.Camera;
 
@@ -17,6 +21,14 @@ public class BaseScene {
     protected Player player;
     protected Camera camera;
     protected Handler hander = new Handler();
+    public static Paint textPaint = new Paint();
+
+    static {
+        textPaint.setColor(Color.WHITE);
+        textPaint.setTextSize(Metrics.screenWidth * 0.3f);
+        textPaint.setTextAlign(Paint.Align.CENTER);
+    }
+
 
     public void update(float frameTime) {
         for (ArrayList<IGameObject> objs : layers) {
@@ -27,11 +39,22 @@ public class BaseScene {
     }
 
     public void draw(Canvas canvas) {
+        draw(canvas, sceneStack.size() - 1);
+    }
+
+    protected void draw(Canvas canvas, int index) {
+        canvas.save();
+        BaseScene scene = sceneStack.get(index);
+        if (scene.isTransparent() && index > 0) {
+            draw(canvas, index - 1);
+        }
+        ArrayList<ArrayList<IGameObject>> layers = scene.layers;
         for (ArrayList<IGameObject> objs : layers) {
             for (IGameObject gobj : objs) {
                 gobj.draw(canvas);
             }
         }
+        canvas.restore();
     }
 
     public static BaseScene getTopScene() {
@@ -77,7 +100,21 @@ public class BaseScene {
     }
 
     public boolean onTouchEvent(MotionEvent event) {
+        int touchLayer = getTouchLayerIndex();
+        if (touchLayer < 0) return false;
+        ArrayList<IGameObject> gameObjects = layers.get(touchLayer);
+        for (IGameObject gobj : gameObjects) {
+            if (!(gobj instanceof ITouchable)) {
+                continue;
+            }
+            boolean processed = ((ITouchable) gobj).onTouchEvent(event);
+            if (processed) return true;
+        }
         return false;
+    }
+
+    protected int getTouchLayerIndex() {
+        return -1;
     }
 
     public <E extends Enum> void add(E layerEnum, IGameObject obj) {
@@ -123,6 +160,10 @@ public class BaseScene {
     }
 
     protected void onResume() {
+    }
+
+    public boolean isTransparent() {
+        return false;
     }
 
     public Player getPlayer() {

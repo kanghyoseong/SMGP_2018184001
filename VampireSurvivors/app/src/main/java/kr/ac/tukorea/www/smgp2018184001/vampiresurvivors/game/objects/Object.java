@@ -90,9 +90,6 @@ public class Object implements IGameObject, IRecyclable {
                     float y = camera.getPosY();
                     dstRect.set(left - x, top - y,
                             right - x, bottom - y);
-                } else {
-                    dstRect.set(left, top,
-                            right, bottom);
                 }
             }
         }

@@ -4,7 +4,11 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.RectF;
 
-public class Sprite {
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.interfaces.IGameObject;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.BaseScene;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.controller.Camera;
+
+public class Sprite implements IGameObject {
     private Bitmap bitmap;
     protected RectF dstRect;
 
@@ -13,6 +17,15 @@ public class Sprite {
 
     public Sprite(int resId) {
         setBitmap(resId);
+    }
+
+    public Sprite(int resId, float x, float y, float width, float height) {
+        setBitmap(resId);
+        makeDstRect(x, y, width, height);
+    }
+
+    @Override
+    public void update(float eTime) {
     }
 
     public void draw(Canvas canvas) {
@@ -25,5 +38,13 @@ public class Sprite {
 
     public void setDstRect(RectF rect) {
         dstRect = rect;
+    }
+
+    public void makeDstRect(float x, float y, float width, float height) {
+        float left = x - width / 2;
+        float top = y - height / 2;
+        float right = x + width / 2;
+        float bottom = y + height / 2;
+        dstRect = new RectF(left, top, right, bottom);
     }
 }

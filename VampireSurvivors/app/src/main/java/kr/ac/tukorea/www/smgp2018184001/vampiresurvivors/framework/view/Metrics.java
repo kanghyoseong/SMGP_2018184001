@@ -6,6 +6,8 @@ public class Metrics {
     public static float game_height = 1.0f;
     public static int x_offset = 0;
     public static int y_offset = 0;
+    public static int screenWidth = 0;
+    public static int screenHeight = 0;
 
     public static void setGameSize(float width, float height) {
         game_width = width;

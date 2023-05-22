@@ -72,7 +72,8 @@ public class Joystick implements IGameObject {
     }
 
     public void draw(Canvas canvas) {
-        if (isTouchDown) {
+        Player player = BaseScene.getTopScene().getPlayer();
+        if (player != null && isTouchDown) {
             canvas.drawCircle(posX, posY, SpriteSize.JOYSTICK_BACKGROUND_SIZE, paint_joystickBackground);
             canvas.drawCircle(curX, curY, SpriteSize.JOYSTICK_HANDLE_SIZE, paint_joystickHandle);
         }

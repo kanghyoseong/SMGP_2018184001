@@ -1,10 +1,13 @@
 package kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.scene;
 
+import android.graphics.Canvas;
+import android.util.Log;
 import android.view.MotionEvent;
 
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.R;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.res.Sound;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.BaseScene;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.Button;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.CollisionChecker;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.view.Metrics;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.characters.Player;
@@ -17,9 +20,10 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.weapon.WhipControl
 
 public class MainScene extends BaseScene {
     private Joystick joystick;
+    public static float elapsedTime = 0;
 
     public enum Layer {
-        bg, enemy, bullet, weapon, player, item, controller, COUNT
+        bg, enemy, bullet, weapon, player, item, touch, controller, COUNT
     }
 
     public MainScene() {
@@ -40,6 +44,19 @@ public class MainScene extends BaseScene {
         player.init(wc);
         add(Layer.weapon, wc);
 
+        add(Layer.touch, new Button(R.mipmap.pause,
+                0.9f, -0.3f,
+                0.1f, 0.1f,
+                new Button.Callback() {
+                    @Override
+                    public boolean onTouch(Button.Action action) {
+                        if (action == Button.Action.pressed) {
+                            new PausedScene().pushScene();
+                        }
+                        return true;
+                    }
+                }));
+
         add(Layer.controller, new CollisionChecker());
         add(Layer.controller, new EnemyGenerator());
 
@@ -51,7 +68,26 @@ public class MainScene extends BaseScene {
     }
 
     @Override
+    public void update(float frameTime) {
+        super.update(frameTime);
+        elapsedTime += frameTime;
+    }
+
+    @Override
+    protected void draw(Canvas canvas, int index) {
+        super.draw(canvas, index);
+        canvas.restore();
+        textPaint.setTextSize(Metrics.screenWidth * 0.1f);
+        int minute = (int) (elapsedTime / 60f);
+        int sec = (int) (elapsedTime % 60f);
+        canvas.drawText(String.format("%02d : %02d", minute, sec),
+                Metrics.screenWidth / 2, Metrics.screenHeight * 0.1f, BaseScene.textPaint);
+        canvas.save();
+    }
+
+    @Override
     public boolean onTouchEvent(MotionEvent event) {
+        super.onTouchEvent(event);
         int action = event.getAction();
         switch (action) {
             case MotionEvent.ACTION_DOWN:
@@ -65,6 +101,15 @@ public class MainScene extends BaseScene {
                 return true;
         }
         return super.onTouchEvent(event);
+    }
+
+    @Override
+    protected int getTouchLayerIndex() {
+        return Layer.touch.ordinal();
+    }
+
+    public Joystick getJoystick() {
+        return joystick;
     }
 
     @Override

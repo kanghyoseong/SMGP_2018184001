@@ -23,7 +23,7 @@ public class CollisionChecker implements IGameObject {
     @Override
     public void update(float eTime) {
         BaseScene scene = BaseScene.getTopScene();
-        Player p = scene.getPlayer();
+        Player p = MainScene.player;
         if (scene == null || p == null) return;
 
         boolean isEnemyHitSoundPlayed = false;

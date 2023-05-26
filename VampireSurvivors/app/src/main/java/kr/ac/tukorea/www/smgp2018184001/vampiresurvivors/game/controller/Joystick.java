@@ -8,6 +8,7 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.interfaces.IG
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.view.Metrics;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.characters.Player;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.flags.SpriteSize;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.scene.MainScene;
 
 public class Joystick implements IGameObject {
     private float posX, posY, oldX, oldY, curX, curY;
@@ -28,7 +29,8 @@ public class Joystick implements IGameObject {
 
     @Override
     public void update(float eTime) {
-        Player player = BaseScene.getTopScene().getPlayer();
+        if (!(BaseScene.getTopScene() instanceof MainScene)) return;
+        Player player = MainScene.player;
         if (player != null) {
             if (isTouchDown && length > 0.01f) {
                 float moveX = dirX * speed_multiplier;
@@ -72,7 +74,8 @@ public class Joystick implements IGameObject {
     }
 
     public void draw(Canvas canvas) {
-        Player player = BaseScene.getTopScene().getPlayer();
+        if (!(BaseScene.getTopScene() instanceof MainScene)) return;
+        Player player = MainScene.player;
         if (player != null && isTouchDown) {
             canvas.drawCircle(posX, posY, SpriteSize.JOYSTICK_BACKGROUND_SIZE, paint_joystickBackground);
             canvas.drawCircle(curX, curY, SpriteSize.JOYSTICK_HANDLE_SIZE, paint_joystickHandle);

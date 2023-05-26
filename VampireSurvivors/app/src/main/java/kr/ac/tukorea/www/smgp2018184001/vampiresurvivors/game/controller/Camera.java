@@ -7,6 +7,7 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.interfaces.IG
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.view.Metrics;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects.Object;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.characters.Player;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.scene.MainScene;
 
 public class Camera extends Object implements IGameObject {
     private static final String TAG = Camera.class.getSimpleName();
@@ -17,7 +18,7 @@ public class Camera extends Object implements IGameObject {
 
     @Override
     public void update(float eTime) {
-        Player player = BaseScene.getTopScene().getPlayer();
+        Player player = MainScene.player;
         if (player != null) {
             float newX = player.getPosX() - Metrics.game_width * 0.5f;
             float newY = player.getPosY() - Metrics.game_height * 0.5f;

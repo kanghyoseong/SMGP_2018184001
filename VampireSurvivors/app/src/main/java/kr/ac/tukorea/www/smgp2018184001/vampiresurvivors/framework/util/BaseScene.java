@@ -18,7 +18,6 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.controller.Camera;
 public class BaseScene {
     private static ArrayList<BaseScene> sceneStack = new ArrayList<>();
     protected ArrayList<ArrayList<IGameObject>> layers = new ArrayList<>();
-    protected Player player;
     protected Camera camera;
     protected Handler hander = new Handler();
     public static Paint textPaint = new Paint();
@@ -169,10 +168,6 @@ public class BaseScene {
 
     public boolean isTransparent() {
         return false;
-    }
-
-    public Player getPlayer() {
-        return player;
     }
 
     public Camera getCamera() {

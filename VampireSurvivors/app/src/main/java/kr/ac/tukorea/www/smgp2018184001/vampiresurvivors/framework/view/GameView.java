@@ -15,6 +15,7 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.BaseScen
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.characters.Player;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.controller.EnemyGenerator;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.flags.DebugFlag;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.scene.MainScene;
 
 public class GameView extends View implements Choreographer.FrameCallback {
     private static final String TAG = GameView.class.getSimpleName();
@@ -130,7 +131,7 @@ public class GameView extends View implements Choreographer.FrameCallback {
                     , 100f, 150f, fpsPaint);
             canvas.drawText("Obj: " + BaseScene.getTopScene().getObjectCount()
                     , 100f, 250f, fpsPaint);
-            Player p = scene.getPlayer();
+            Player p = MainScene.player;
             if (p != null) {
                 int curLevel = p.getLevel();
                 int curExp = p.getCurExp();

@@ -50,7 +50,7 @@ public class EnemyGenerator implements IGameObject {
     }
 
     private void spawnEnemy(BaseScene scene) {
-        Player player = scene.getPlayer();
+        Player player = MainScene.player;
         if (player == null) return;
         Random random = new Random();
         for (int i = 0; i < EEnemyType.Count.ordinal(); i++) {
@@ -90,7 +90,7 @@ public class EnemyGenerator implements IGameObject {
     }
 
     private float getRandomPos(Random rand, boolean isPosX) {
-        Player player = BaseScene.getTopScene().getPlayer();
+        Player player = MainScene.player;
         float pos;
         if (isPosX) {
             pos = rand.nextFloat() * (Object.boundary.right - Object.boundary.left) + Object.boundary.left;

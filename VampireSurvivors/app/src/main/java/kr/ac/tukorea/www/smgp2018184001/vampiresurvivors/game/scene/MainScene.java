@@ -22,6 +22,7 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.weapon.WhipControl
 public class MainScene extends BaseScene {
     private Joystick joystick;
     public static float elapsedTime = 0;
+    public static Player player;
 
     public enum Layer {
         bg, enemy, bullet, weapon, player, item, touch, controller, COUNT

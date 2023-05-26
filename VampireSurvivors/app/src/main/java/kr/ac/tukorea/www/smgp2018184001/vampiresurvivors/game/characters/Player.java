@@ -1,6 +1,7 @@
 package kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.characters;
 
 import android.graphics.Canvas;
+import android.text.BoringLayout;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -40,7 +41,8 @@ public class Player extends Character {
     private float attackRatio = 1.0f;
     private float coolTimeRatio = 1.0f;
     private float bulletSpeedRatio = 1.0f;
-    private Gauge gauge = new Gauge(0.1f, R.color.gauge_fg, R.color.gauge_bg);
+    private Gauge hpGauge = new Gauge(0.1f, R.color.hp_gauge_fg, R.color.hp_gauge_bg);
+    private Gauge levelGauge = new Gauge(0.08f, R.color.level_gauge_fg, R.color.level_gauge_bg);
     Random random = new Random();
 
     public Player(float posX, float posY, float sizeX, float sizeY,
@@ -58,11 +60,21 @@ public class Player extends Character {
     @Override
     public void draw(Canvas canvas) {
         super.draw(canvas);
+
+        float width;
+        // Draw HP Gauge
         canvas.save();
-        float width = dstRect.width() * 1.2f;
+        width = dstRect.width() * 1.2f;
         canvas.translate(dstRect.left + dstRect.width() / 2 - width / 2, dstRect.bottom + 0.03f);
         canvas.scale(width, width);
-        gauge.draw(canvas, curHp / maxHp);
+        hpGauge.draw(canvas, curHp / maxHp);
+        canvas.restore();
+
+        // Draw HP Gauge
+        canvas.save();
+        float offsetY = -Metrics.y_offset / Metrics.scale;
+        canvas.translate(0, offsetY + levelGauge.getWidth() / 2.0f);
+        levelGauge.draw(canvas, (float) curExp / (float) expToLevelUp);
         canvas.restore();
     }
 

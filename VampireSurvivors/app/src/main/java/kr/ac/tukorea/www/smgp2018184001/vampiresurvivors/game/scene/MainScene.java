@@ -14,6 +14,7 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.characters.Player;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.controller.Camera;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.controller.EnemyGenerator;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.controller.Joystick;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.flags.DebugFlag;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.flags.SpriteSize;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects.Object;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.weapon.WhipController;
@@ -76,13 +77,23 @@ public class MainScene extends BaseScene {
     @Override
     protected void draw(Canvas canvas, int index) {
         super.draw(canvas, index);
-        canvas.restore();
-        textPaint.setTextSize(Metrics.screenWidth * 0.1f);
-        int minute = (int) (elapsedTime / 60f);
-        int sec = (int) (elapsedTime % 60f);
-        canvas.drawText(String.format("%02d : %02d", minute, sec),
-                Metrics.screenWidth / 2, Metrics.screenHeight * 0.1f, BaseScene.textPaint);
-        canvas.save();
+        if (!DebugFlag.DRAW_SCREENBORDER) {
+            // restore를 하면 1 x 1 게임 크기가 없어진다.
+            canvas.restore();
+            // setTextSize가 호출되는 시점이 screenWidth 초기화보다 빠르기 때문에 여기서 설정한다.
+            textPaint.setTextSize(Metrics.screenWidth * 0.1f);
+            int minute = (int) (elapsedTime / 60f);
+            int sec = (int) (elapsedTime % 60f);
+            // 시간 출력
+            canvas.drawText(String.format("%02d : %02d", minute, sec),
+                    Metrics.screenWidth / 2, Metrics.screenHeight * 0.1f, BaseScene.textPaint);
+            // 레벨 출력
+            levelTextPaint.setTextSize(Metrics.screenWidth * 0.05f);
+            canvas.drawText(String.format("LV %d", player.getLevel()),
+                    Metrics.screenWidth * 0.9f, 90f, BaseScene.levelTextPaint);
+            // 스택이 없어지는 오류를 없애기 위해 캔버스를 저장한다.
+            canvas.save();
+        }
     }
 
     @Override

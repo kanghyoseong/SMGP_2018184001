@@ -7,6 +7,8 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="gauge_bg">#FF000000</color>
-    <color name="gauge_fg">#FFCC2222</color>
+    <color name="hp_gauge_bg">#FF000000</color>
+    <color name="hp_gauge_fg">#FFCC2222</color>
+    <color name="level_gauge_bg">#FF000000</color>
+    <color name="level_gauge_fg">#3268D3</color>
 </resources>

@@ -22,11 +22,16 @@ public class BaseScene {
     protected Camera camera;
     protected Handler hander = new Handler();
     public static Paint textPaint = new Paint();
+    public static Paint levelTextPaint = new Paint();
 
     static {
         textPaint.setColor(Color.WHITE);
-        textPaint.setTextSize(Metrics.screenWidth * 0.3f);
+        textPaint.setTextSize(Metrics.screenWidth * 0.1f);
         textPaint.setTextAlign(Paint.Align.CENTER);
+
+        levelTextPaint.setColor(Color.WHITE);
+        levelTextPaint.setTextSize(Metrics.screenWidth * 0.1f);
+        levelTextPaint.setTextAlign(Paint.Align.CENTER);
     }
 
 

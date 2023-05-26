@@ -1,7 +1,7 @@
 package kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.characters;
 
 import android.graphics.Canvas;
-import android.text.BoringLayout;
+import android.os.Handler;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -14,10 +14,11 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.res.Sound;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.BaseScene;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.Gauge;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.view.Metrics;
-import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.scene.MainScene;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.enemy.Enemy;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects.Passive;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects.Weapon;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.scene.LevelUpScene;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.scene.MainScene;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.weapon.FireWand;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.weapon.KingBible;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.weapon.LightningRing;
@@ -250,15 +251,13 @@ public class Player extends Character {
         if (maxItemNum == Weapon.WeaponType.COUNT.ordinal() + Passive.PassiveType.COUNT.ordinal()) {
             recoverHp(5);
         } else {
-            //Log.d(TAG, "maxItemNum: "+maxItemNum);
-            //업그레이드 UI 띄우기
-            // Give Player Random Item
-            if (random.nextBoolean()) {
-                addPassiveItem(Passive.PassiveType.getRandomPassiveType(random));
-            } else {
-                addWeapon(Weapon.WeaponType.getRandomWeaponType(random));
-                //addWeapon(Weapon.WeaponType.Whip);
-            }
+            Handler handler = new Handler();
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    new LevelUpScene().pushScene();
+                }
+            });
         }
     }
 

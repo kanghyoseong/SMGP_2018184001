@@ -19,7 +19,7 @@ public class BaseScene {
     private static ArrayList<BaseScene> sceneStack = new ArrayList<>();
     protected ArrayList<ArrayList<IGameObject>> layers = new ArrayList<>();
     protected Camera camera;
-    protected Handler hander = new Handler();
+    protected Handler handler = new Handler();
     public static Paint textPaint = new Paint();
     public static Paint levelTextPaint = new Paint();
 
@@ -122,7 +122,7 @@ public class BaseScene {
     }
 
     public <E extends Enum> void add(E layerEnum, IGameObject obj) {
-        hander.post(new Runnable() {
+        handler.post(new Runnable() {
             @Override
             public void run() {
                 getObjectsAt(layerEnum).add(obj);
@@ -131,7 +131,7 @@ public class BaseScene {
     }
 
     public <E extends Enum> void remove(E layerEnum, IGameObject obj) {
-        hander.post(new Runnable() {
+        handler.post(new Runnable() {
             @Override
             public void run() {
                 boolean removed = getObjectsAt(layerEnum).remove(obj);

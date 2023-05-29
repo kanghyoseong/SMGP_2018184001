@@ -1,19 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">VampireSurvivors</string>
-    <string name="Whip">좌우로 적을 관통해 공격한다.</string>
-    <string name="MagicWand">가장 가까운 적을 공격한다.</string>
-    <string name="KingBible">주변을 회전하며 공격한다.</string>
-    <string name="FireWand">무작위 방향으로 불덩이가 발사된다.</string>
-    <string name="LightningRing">무작위 적에게 번개를 내려친다.</string>
-    <string name="Inc_Atk">레벨당 공격력이 10% 증가한다.</string>
-    <string name="Dec_Cooltime">레벨당 쿨타임이 8% 감소한다.</string>
-    <string name="Inc_BulletSpd">레벨당 투사체 속도가 10% 증가한다.</string>
-    <string name="lv2">투사체 수 1 증가</string>
-    <string name="lv3">공격력 10 증가</string>
-    <string name="lv4">투사체 수 1 증가</string>
-    <string name="lv5">공격력 20 증가</string>
-    <string name="lv6">쿨타임 25% 감소</string>
-    <string name="lv7">공격력 10 증가</string>
-    <string name="lv8">투사체 수 1 증가</string>
+    <string name="item_lv_1_Whip">좌우로 적을 관통해 공격한다.</string>
+    <string name="item_lv_1_MagicWand">가장 가까운 적을 공격한다.</string>
+    <string name="item_lv_1_KingBible">주변을 회전하며 공격한다.</string>
+    <string name="item_lv_1_FireWand">무작위 방향으로 불덩이가 발사된다.</string>
+    <string name="item_lv_1_LightningRing">무작위 적에게 번개를 내려친다.</string>
+    <string name="item_lv_1_Inc_Atk">레벨당 공격력이 10% 증가한다.</string>
+    <string name="item_lv_1_Dec_Cooltime">레벨당 쿨타임이 8% 감소한다.</string>
+    <string name="item_lv_1_Inc_BulletSpd">레벨당 투사체 속도가 10% 증가한다.</string>
+    <string name="item_lv_2">투사체 수 1 증가</string>
+    <string name="item_lv_3">공격력 10 증가</string>
+    <string name="item_lv_4">투사체 수 1 증가</string>
+    <string name="item_lv_5">공격력 20 증가</string>
+    <string name="item_lv_6">쿨타임 25% 감소</string>
+    <string name="item_lv_7">공격력 10 증가</string>
+    <string name="item_lv_8">투사체 수 1 증가</string>
+    <string name="item_name_Whip">채찍</string>
+    <string name="item_name_MagicWand">마법 지팡이</string>
+    <string name="item_name_KingBible">성경</string>
+    <string name="item_name_FireWand">불의 지팡이</string>
+    <string name="item_name_LightningRing">번개 반지</string>
+    <string name="item_name_Inc_Atk">시금치</string>
+    <string name="item_name_Dec_Cooltime">빈 책</string>
+    <string name="item_name_Inc_BulletSpd">팔 보호대</string>
 </resources>

@@ -78,24 +78,32 @@ public class LvUpButton extends Button {
         super.draw(canvas);
         GameView.toScreenScale(canvas);
         try {
-            String id;
+            String nameId, infoId;
             Enum e;
             if (isWeapon) {
                 e = weaponType;
                 int lv = MainScene.player.getWeaponLevel(weaponType);
                 if (lv == 0) {
-                    id = weaponType.name();
+                    infoId = "item_lv_1_" + weaponType.name();
                 } else {
-                    id = "lv" + (lv+1); // lv+1하여 다음 레벨에 관한 설명을 출력한다.
+                    infoId = "item_lv_" + (lv + 1); // lv+1하여 다음 레벨에 관한 설명을 출력한다.
                 }
             } else {
                 e = passiveType;
-                id = passiveType.name();
+                infoId = "item_lv_1_" + passiveType.name();
             }
-            //Log.d(TAG, "id: " + id);
-            int resId = GameView.res.getIdentifier(id, "string", GameView.packageName);
+            Log.d(TAG, "info id: " + infoId);
+            int resId;
+            // item name
+            nameId = "item_name_" + e.name();
+            Log.d(TAG, "name id: " + nameId);
+            resId = GameView.res.getIdentifier(nameId, "string", GameView.packageName);
+            String name = GameView.res.getString(resId);
+            canvas.drawText(name, Metrics.screenWidth / 2f, Metrics.toScreenY(posY) - height * Metrics.scale * 0.2f, lvupinfoTextPaint);
+            // info
+            resId = GameView.res.getIdentifier(infoId, "string", GameView.packageName);
             String info = GameView.res.getString(resId);
-            canvas.drawText(e.name() + ": " + info, Metrics.screenWidth / 2f, Metrics.toScreenY(posY), lvupinfoTextPaint);
+            canvas.drawText(info, Metrics.screenWidth / 2f, Metrics.toScreenY(posY) + height * Metrics.scale * 0.2f, lvupinfoTextPaint);
         } catch (Exception e) {
             canvas.translate(Metrics.x_offset, Metrics.y_offset);
             canvas.scale(Metrics.scale, Metrics.scale);

@@ -37,7 +37,7 @@ public class WhipController extends Weapon implements IAttackable {
 
     private void addWhip() {
         Whip whip = new Whip(player, atk);
-        BaseScene.getTopScene().add(MainScene.Layer.weapon, whip);
+        MainScene.mainScene.add(MainScene.Layer.weapon, whip);
         whips.add(whip);
     }
 

@@ -38,7 +38,10 @@ public class Player extends Character {
     HashMap<Passive.PassiveType, Integer> passiveLevel = new HashMap<>();
     HashMap<Weapon.WeaponType, Integer> weaponLevel = new HashMap<>();
     HashMap<Weapon.WeaponType, Weapon> curWeapons = new HashMap<>();
-    private int maxItemNum = 0;
+    public static final int MAX_WEAPON_LEVEL = 8;
+    public static final int MAX_PASSIVE_LEVEL = 5;
+    private int maxLevelWeaponNum = 0;
+    private int maxLevelPassiveNum = 0;
     private float attackRatio = 1.0f;
     private float coolTimeRatio = 1.0f;
     private float bulletSpeedRatio = 1.0f;
@@ -133,11 +136,11 @@ public class Player extends Character {
             return;
         }
         int num = passiveLevel.get(type);
-        if (num >= 5) {
+        if (num >= MAX_PASSIVE_LEVEL) {
             Log.d(TAG, type + " is Level 5, Increase Exp");
             addExp(5);
         } else {
-            if (passiveLevel.get(type) == 4) maxItemNum++;
+            if (passiveLevel.get(type) == 4) maxLevelPassiveNum++;
             passiveLevel.put(type, num + 1);
             makePassiveEffect(type);
             Log.d(TAG, type + "Passive Item Level Up to " + passiveLevel.get(type) + ", ratio: " + getRatio(type));
@@ -190,7 +193,7 @@ public class Player extends Character {
             return;
         }
         int num = weaponLevel.get(type);
-        if (num >= 8) {
+        if (num >= MAX_WEAPON_LEVEL) {
             Log.d(TAG, type + " is Level 8, Increase Exp");
             addExp(5);
         } else {
@@ -226,7 +229,7 @@ public class Player extends Character {
                 break;
             case 8:
                 weapon.addProjectileCount(1);
-                maxItemNum++;
+                maxLevelWeaponNum++;
                 break;
             default:
                 break;
@@ -243,18 +246,19 @@ public class Player extends Character {
 
     private void levelUp() {
         level += 1;
-        Sound.playEffect(R.raw.levelup);
+        LevelUpScene.numofLevelUpSceneToShow += 1;
         //Log.d(TAG, "Player level Up to " + level);
         expToLevelUp += expToLevelUp_increment;
         maxHp += maxHp_increment;
         // 모든 아이템 레벨이 max라면 체력 회복
-        if (maxItemNum == Weapon.WeaponType.COUNT.ordinal() + Passive.PassiveType.COUNT.ordinal()) {
+        if (isAllItemIsMaxLevel()) {
             recoverHp(5);
-        } else {
+        } else if (LevelUpScene.numofLevelUpSceneToShow == 1) {
             Handler handler = new Handler();
             handler.post(new Runnable() {
                 @Override
                 public void run() {
+                    Sound.playEffect(R.raw.levelup);
                     new LevelUpScene().pushScene();
                 }
             });
@@ -284,6 +288,41 @@ public class Player extends Character {
         return weaponLevel.get(type);
     }
 
+    public int getPassiveLevel(Passive.PassiveType type) {
+        if (passiveLevel.get(type) == null) {
+            return 0;
+        }
+        return passiveLevel.get(type);
+    }
+
+    public Weapon.WeaponType getRandomWeaponNotMaxLevel() {
+        if (maxLevelWeaponNum == Weapon.WeaponType.COUNT.ordinal()) {
+            Log.v(TAG, "All Weapon is Max Level");
+            return null;
+        }
+        Weapon.WeaponType randType = Weapon.WeaponType.getRandomWeaponType(random);
+        Integer itemLevel = weaponLevel.get(randType);
+        while (itemLevel != null && itemLevel >= MAX_WEAPON_LEVEL) {
+            randType = Weapon.WeaponType.getRandomWeaponType(random);
+            itemLevel = weaponLevel.get(randType);
+        }
+        return randType;
+    }
+
+    public Passive.PassiveType getRandomPassiveNotMaxLevel() {
+        if (maxLevelPassiveNum == Passive.PassiveType.COUNT.ordinal()) {
+            Log.v(TAG, "All Passive is Max Level");
+            return null;
+        }
+        Passive.PassiveType randType = Passive.PassiveType.getRandomPassiveType(random);
+        Integer itemLevel = passiveLevel.get(randType);
+        while (itemLevel != null && itemLevel >= MAX_PASSIVE_LEVEL) {
+            randType = Passive.PassiveType.getRandomPassiveType(random);
+            itemLevel = passiveLevel.get(randType);
+        }
+        return randType;
+    }
+
     public float getAttackRatio() {
         return attackRatio;
     }
@@ -307,5 +346,10 @@ public class Player extends Character {
     @Override
     public void getDamage(float damage) {
         super.getDamage(damage);
+    }
+
+    public boolean isAllItemIsMaxLevel() {
+        return maxLevelWeaponNum + maxLevelPassiveNum ==
+                Weapon.WeaponType.COUNT.ordinal() + Passive.PassiveType.COUNT.ordinal();
     }
 }

@@ -9,11 +9,13 @@ import android.util.Log;
 
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.R;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.res.BitmapPool;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.res.Sound;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.BaseScene;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.Button;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.view.GameView;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.view.Metrics;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.characters.Player;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.scene.LevelUpScene;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.scene.MainScene;
 
 public class LvUpButton extends Button {
@@ -37,6 +39,7 @@ public class LvUpButton extends Button {
             @Override
             public boolean onTouch(Action action) {
                 if (action == Button.Action.pressed) {
+                    LevelUpScene.numofLevelUpSceneToShow--;
                     BaseScene.getTopScene().popScene();
                     if (BaseScene.getTopScene() instanceof MainScene) {
                         MainScene scene = (MainScene) BaseScene.getTopScene();
@@ -46,13 +49,19 @@ public class LvUpButton extends Button {
                     if (player != null) {
                         player.addWeapon(weaponType);
                     }
+                    if (LevelUpScene.numofLevelUpSceneToShow > 0) {
+                        if (!MainScene.player.isAllItemIsMaxLevel()) {
+                            Sound.playEffect(R.raw.levelup);
+                            new LevelUpScene().pushScene();
+                        }
+                    }
                 }
                 return false;
             }
         });
         this.weaponType = weaponType;
         isWeapon = true;
-
+        
         itemBitmap = BitmapPool.get(Weapon.WeaponType.getResId(weaponType), false);
 
         init();
@@ -64,6 +73,7 @@ public class LvUpButton extends Button {
             @Override
             public boolean onTouch(Action action) {
                 if (action == Button.Action.pressed) {
+                    LevelUpScene.numofLevelUpSceneToShow--;
                     BaseScene.getTopScene().popScene();
                     if (BaseScene.getTopScene() instanceof MainScene) {
                         MainScene scene = (MainScene) BaseScene.getTopScene();
@@ -72,6 +82,12 @@ public class LvUpButton extends Button {
                     Player player = MainScene.player;
                     if (player != null) {
                         player.addPassiveItem(passiveType);
+                    }
+                    if (LevelUpScene.numofLevelUpSceneToShow > 0) {
+                        if (!MainScene.player.isAllItemIsMaxLevel()) {
+                            Sound.playEffect(R.raw.levelup);
+                            new LevelUpScene().pushScene();
+                        }
                     }
                 }
                 return false;

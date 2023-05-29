@@ -4,6 +4,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Handler;
+import android.util.Log;
 import android.view.MotionEvent;
 
 import java.util.ArrayList;
@@ -13,12 +14,13 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.interfaces.IR
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.interfaces.ITouchable;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.view.Metrics;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.controller.Camera;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.scene.MainScene;
 
 public class BaseScene {
     private static ArrayList<BaseScene> sceneStack = new ArrayList<>();
     protected ArrayList<ArrayList<IGameObject>> layers = new ArrayList<>();
     protected Camera camera;
-    protected Handler handler = new Handler();
+    public static Handler handler = new Handler();
     public static Paint textPaint = new Paint();
     public static Paint levelTextPaint = new Paint();
 
@@ -34,7 +36,8 @@ public class BaseScene {
 
     public void update(float frameTime) {
         for (ArrayList<IGameObject> objs : layers) {
-            for (IGameObject gobj : objs) {
+            for (int i = objs.size() - 1; i >= 0; i--) {
+                IGameObject gobj = objs.get(i);
                 gobj.update(frameTime);
             }
         }
@@ -52,7 +55,8 @@ public class BaseScene {
         }
         ArrayList<ArrayList<IGameObject>> layers = scene.layers;
         for (ArrayList<IGameObject> objs : layers) {
-            for (IGameObject gobj : objs) {
+            for (int i = objs.size() - 1; i >= 0; i--) {
+                IGameObject gobj = objs.get(i);
                 gobj.draw(canvas);
             }
         }

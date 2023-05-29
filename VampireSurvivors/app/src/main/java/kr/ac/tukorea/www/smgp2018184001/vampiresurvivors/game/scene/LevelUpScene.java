@@ -16,6 +16,7 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects.Weapon;
 
 public class LevelUpScene extends BaseScene {
     private Random random = new Random();
+    public static int numofLevelUpSceneToShow = 0;
 
     public enum Layer {
         bg, touch, COUNT
@@ -36,15 +37,33 @@ public class LevelUpScene extends BaseScene {
         // add buttons
         for (int i = 0; i < numofButtons; i++) {
             if (random.nextBoolean()) {
-                add(LevelUpScene.Layer.touch, new LvUpButton(0.5f,
-                        startY + buttonHeight * i + (Metrics.y_offset / Metrics.scale) - frameHeight / 2f + buttonHeight / 2f,
-                        0.9f, buttonHeight, Weapon.WeaponType.getRandomWeaponType(random)));
+                if (!addWeaponButton(i, startY, buttonHeight, frameHeight)) {
+                    addPassiveButton(i, startY, buttonHeight, frameHeight);
+                }
             } else {
-                add(LevelUpScene.Layer.touch, new LvUpButton(0.5f,
-                        startY + buttonHeight * i + (Metrics.y_offset / Metrics.scale) - frameHeight / 2f + buttonHeight / 2f,
-                        0.9f, buttonHeight, Passive.PassiveType.getRandomPassiveType(random)));
+                if (!addPassiveButton(i, startY, buttonHeight, frameHeight)) {
+                    addWeaponButton(i, startY, buttonHeight, frameHeight);
+                }
             }
         }
+    }
+
+    private boolean addWeaponButton(int index, float startY, float buttonHeight, float frameHeight) {
+        Weapon.WeaponType type = MainScene.player.getRandomWeaponNotMaxLevel();
+        if (type == null) return false;
+        add(LevelUpScene.Layer.touch, new LvUpButton(0.5f,
+                startY + buttonHeight * index + (Metrics.y_offset / Metrics.scale) - frameHeight / 2f + buttonHeight / 2f,
+                0.9f, buttonHeight, type));
+        return true;
+    }
+
+    private boolean addPassiveButton(int index, float startY, float buttonHeight, float frameHeight) {
+        Passive.PassiveType type = MainScene.player.getRandomPassiveNotMaxLevel();
+        if (type == null) return false;
+        add(LevelUpScene.Layer.touch, new LvUpButton(0.5f,
+                startY + buttonHeight * index + (Metrics.y_offset / Metrics.scale) - frameHeight / 2f + buttonHeight / 2f,
+                0.9f, buttonHeight, type));
+        return true;
     }
 
     @Override

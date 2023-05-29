@@ -76,11 +76,7 @@ public class LvUpButton extends Button {
     @Override
     public void draw(Canvas canvas) {
         super.draw(canvas);
-
-        // Game Scale -> Screen Scale
-        canvas.scale(1f / Metrics.scale, 1f / Metrics.scale);
-        canvas.translate(-Metrics.x_offset, -Metrics.y_offset);
-
+        GameView.toScreenScale(canvas);
         try {
             String id;
             Enum e;
@@ -105,9 +101,6 @@ public class LvUpButton extends Button {
             canvas.scale(Metrics.scale, Metrics.scale);
             return;
         }
-
-        // Screen Scale -> Game Scale
-        canvas.translate(Metrics.x_offset, Metrics.y_offset);
-        canvas.scale(Metrics.scale, Metrics.scale);
+        GameView.toGameScale(canvas);
     }
 }

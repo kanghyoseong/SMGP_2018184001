@@ -8,6 +8,7 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.R;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.res.Sound;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.res.Sprite;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.BaseScene;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.view.GameView;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.view.Metrics;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects.LvUpButton;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects.Passive;
@@ -44,6 +45,23 @@ public class LevelUpScene extends BaseScene {
                         0.9f, buttonHeight, Passive.PassiveType.getRandomPassiveType(random)));
             }
         }
+    }
+
+    @Override
+    public void draw(Canvas canvas) {
+        super.draw(canvas);
+        GameView.toScreenScale(canvas);
+        int minute = (int) (MainScene.elapsedTime / 60f);
+        int sec = (int) (MainScene.elapsedTime % 60f);
+        // 시간 출력
+        canvas.drawText(String.format("%02d : %02d", minute, sec),
+                Metrics.screenWidth / 2, Metrics.screenHeight * 0.1f, BaseScene.textPaint);
+        // 레벨 출력
+        if (MainScene.player == null) return;
+        levelTextPaint.setTextSize(Metrics.screenWidth * 0.05f);
+        canvas.drawText(String.format("LV %d", MainScene.player.getLevel()),
+                Metrics.screenWidth * 0.9f, 90f, BaseScene.levelTextPaint);
+        GameView.toGameScale(canvas);
     }
 
     @Override

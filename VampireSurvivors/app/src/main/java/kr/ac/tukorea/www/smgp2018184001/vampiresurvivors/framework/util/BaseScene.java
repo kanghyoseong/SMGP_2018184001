@@ -12,7 +12,6 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.interfaces.IG
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.interfaces.IRecyclable;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.interfaces.ITouchable;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.view.Metrics;
-import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.characters.Player;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.controller.Camera;
 
 public class BaseScene {
@@ -23,7 +22,7 @@ public class BaseScene {
     public static Paint textPaint = new Paint();
     public static Paint levelTextPaint = new Paint();
 
-    static {
+    public static void initScenePaints() {
         textPaint.setColor(Color.WHITE);
         textPaint.setTextSize(Metrics.screenWidth * 0.1f);
         textPaint.setTextAlign(Paint.Align.CENTER);
@@ -32,7 +31,6 @@ public class BaseScene {
         levelTextPaint.setTextSize(Metrics.screenWidth * 0.1f);
         levelTextPaint.setTextAlign(Paint.Align.CENTER);
     }
-
 
     public void update(float frameTime) {
         for (ArrayList<IGameObject> objs : layers) {

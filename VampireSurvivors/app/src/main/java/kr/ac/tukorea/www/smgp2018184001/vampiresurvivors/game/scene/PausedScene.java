@@ -6,6 +6,7 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.R;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.res.Sound;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.BaseScene;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.Button;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.view.GameView;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.view.Metrics;
 
 public class PausedScene extends BaseScene {
@@ -50,7 +51,7 @@ public class PausedScene extends BaseScene {
     @Override
     protected void draw(Canvas canvas, int index) {
         super.draw(canvas, index);
-        canvas.restore();
+        GameView.toScreenScale(canvas);
         textPaint.setTextSize(Metrics.screenWidth * 0.1f);
         int minute = (int) (MainScene.elapsedTime / 60f);
         int sec = (int) (MainScene.elapsedTime % 60f);
@@ -68,7 +69,7 @@ public class PausedScene extends BaseScene {
         canvas.drawText("계속하기",
                 Metrics.screenWidth * 0.75f, Metrics.y_offset + (Metrics.screenHeight - Metrics.y_offset * 2) * 0.85f + Metrics.y_offset + textPaint.getTextSize() * 0.4f,
                 BaseScene.textPaint);
-        canvas.save();
+        GameView.toGameScale(canvas);
     }
 
     @Override

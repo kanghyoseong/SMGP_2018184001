@@ -66,6 +66,7 @@ public class GameView extends View implements Choreographer.FrameCallback {
             Metrics.scale = h / Metrics.game_height;
         }
         //Log.d(TAG, "x_offset: "+Metrics.x_offset+", y_offset"+Metrics.y_offset);
+        BaseScene.initScenePaints();
     }
 
     private void init(AttributeSet attrs, int defStyle) {
@@ -170,5 +171,17 @@ public class GameView extends View implements Choreographer.FrameCallback {
         BaseScene.getTopScene().resumeScene();
         previousNanos = 0;
         Choreographer.getInstance().postFrameCallback(this);
+    }
+
+    public static void toGameScale(Canvas canvas){
+        // Screen Scale -> Game Scale
+        canvas.translate(Metrics.x_offset, Metrics.y_offset);
+        canvas.scale(Metrics.scale, Metrics.scale);
+    }
+
+    public static void toScreenScale(Canvas canvas){
+        // Game Scale -> Screen Scale
+        canvas.scale(1f / Metrics.scale, 1f / Metrics.scale);
+        canvas.translate(-Metrics.x_offset, -Metrics.y_offset);
     }
 }

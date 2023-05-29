@@ -117,6 +117,11 @@ public class BaseScene {
         return false;
     }
 
+    public boolean handleBackKey() {
+        popScene();
+        return true;
+    }
+
     protected int getTouchLayerIndex() {
         return -1;
     }

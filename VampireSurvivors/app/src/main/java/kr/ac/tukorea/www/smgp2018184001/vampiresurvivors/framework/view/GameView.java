@@ -151,6 +151,12 @@ public class GameView extends View implements Choreographer.FrameCallback {
         return super.onTouchEvent(event);
     }
 
+    public boolean handleBackKey() {
+        BaseScene scene = BaseScene.getTopScene();
+        if (scene == null) return false;
+        return scene.handleBackKey();
+    }
+
     public void pauseGame() {
         isRunning = false;
         BaseScene.getTopScene().pauseScene();

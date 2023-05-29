@@ -119,6 +119,12 @@ public class MainScene extends BaseScene {
     }
 
     @Override
+    public boolean handleBackKey() {
+        new PausedScene().pushScene();
+        return true;
+    }
+
+    @Override
     protected int getTouchLayerIndex() {
         return Layer.touch.ordinal();
     }

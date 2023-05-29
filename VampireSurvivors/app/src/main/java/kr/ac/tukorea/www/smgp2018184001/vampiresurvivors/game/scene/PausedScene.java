@@ -3,6 +3,7 @@ package kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.scene;
 import android.graphics.Canvas;
 
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.R;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.res.Sound;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.BaseScene;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.Button;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.view.Metrics;
@@ -78,5 +79,15 @@ public class PausedScene extends BaseScene {
     @Override
     public boolean isTransparent() {
         return true;
+    }
+
+    @Override
+    protected void onPause() {
+        Sound.pauseMusic();
+    }
+
+    @Override
+    protected void onResume() {
+        Sound.resumeMusic();
     }
 }

@@ -6,6 +6,7 @@ import android.graphics.RectF;
 import java.util.Random;
 
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.BuildConfig;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.R;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.interfaces.IAttackable;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.interfaces.ICollidable;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.BaseScene;
@@ -31,6 +32,15 @@ public class Weapon extends Object implements IAttackable, ICollidable {
         public static WeaponType getRandomWeaponType(Random random) {
             int randomIndex = random.nextInt(WeaponType.COUNT.ordinal());
             return WeaponType.values()[randomIndex];
+        }
+
+        private static int resId[] = {
+                R.mipmap.whipcontroller, R.mipmap.magicwand, R.mipmap.kingbible, R.mipmap.firewand, R.mipmap.lightningring,
+        };
+
+        public static int getResId(WeaponType type) {
+            if (type == WeaponType.COUNT) return 0;
+            return resId[type.ordinal()];
         }
     }
 

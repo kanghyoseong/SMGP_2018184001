@@ -1,11 +1,14 @@
 package kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects;
 
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.RectF;
 import android.util.Log;
 
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.R;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.res.BitmapPool;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.BaseScene;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.Button;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.view.GameView;
@@ -19,6 +22,9 @@ public class LvUpButton extends Button {
     private Weapon.WeaponType weaponType;
     private Passive.PassiveType passiveType;
     public static Paint lvupinfoTextPaint = new Paint();
+    private Bitmap itemBitmap;
+    private RectF itemRect = new RectF();
+    private float itemPosX, itemPosY, itemWidth, itemHeight;
 
     static {
         lvupinfoTextPaint.setColor(Color.WHITE);
@@ -46,7 +52,10 @@ public class LvUpButton extends Button {
         });
         this.weaponType = weaponType;
         isWeapon = true;
-        lvupinfoTextPaint.setTextSize(Metrics.screenWidth * 0.05f);
+
+        itemBitmap = BitmapPool.get(Weapon.WeaponType.getResId(weaponType), false);
+
+        init();
     }
 
     public LvUpButton(float posX, float posY, float width, float height,
@@ -70,12 +79,25 @@ public class LvUpButton extends Button {
         });
         this.passiveType = passiveType;
         isWeapon = false;
+
+        itemBitmap = BitmapPool.get(Passive.PassiveType.getResId(passiveType), false);
+
+        init();
+    }
+
+    private void init() {
+        itemPosX = posX - 0.22f;
+        itemPosY = posY - 0.12f;
+        itemWidth = 0.1f;
+        itemHeight = 0.1f;
         lvupinfoTextPaint.setTextSize(Metrics.screenWidth * 0.05f);
+        itemRect.set(itemPosX, itemPosY, itemPosX + itemWidth, itemPosY + itemHeight);
     }
 
     @Override
     public void draw(Canvas canvas) {
         super.draw(canvas);
+        canvas.drawBitmap(itemBitmap, null, itemRect, null);
         GameView.toScreenScale(canvas);
         try {
             String nameId, infoId;
@@ -92,11 +114,11 @@ public class LvUpButton extends Button {
                 e = passiveType;
                 infoId = "item_lv_1_" + passiveType.name();
             }
-            Log.d(TAG, "info id: " + infoId);
+            //Log.d(TAG, "info id: " + infoId);
             int resId;
             // item name
             nameId = "item_name_" + e.name();
-            Log.d(TAG, "name id: " + nameId);
+            //Log.d(TAG, "name id: " + nameId);
             resId = GameView.res.getIdentifier(nameId, "string", GameView.packageName);
             String name = GameView.res.getString(resId);
             canvas.drawText(name, Metrics.screenWidth / 2f, Metrics.toScreenY(posY) - height * Metrics.scale * 0.2f, lvupinfoTextPaint);

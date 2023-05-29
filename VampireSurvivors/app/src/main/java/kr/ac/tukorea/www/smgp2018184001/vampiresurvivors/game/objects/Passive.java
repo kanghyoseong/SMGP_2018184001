@@ -12,9 +12,9 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.BaseScen
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.view.GameView;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.characters.Player;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.controller.Camera;
-import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.scene.MainScene;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.flags.DebugFlag;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.flags.SpriteSize;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.scene.MainScene;
 
 public class Passive extends Object implements ICollidable {
     private Player player;
@@ -26,6 +26,15 @@ public class Passive extends Object implements ICollidable {
         public static PassiveType getRandomPassiveType(Random random) {
             int randomIndex = random.nextInt(PassiveType.COUNT.ordinal());
             return PassiveType.values()[randomIndex];
+        }
+
+        private static int resId[] = {
+                R.mipmap.spinach, R.mipmap.emptytome, R.mipmap.bracer,
+        };
+
+        public static int getResId(PassiveType type) {
+            if (type == PassiveType.COUNT) return 0;
+            return resId[type.ordinal()];
         }
     }
 

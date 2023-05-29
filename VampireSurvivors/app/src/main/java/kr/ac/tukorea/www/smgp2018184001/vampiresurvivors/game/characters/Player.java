@@ -38,10 +38,10 @@ public class Player extends Character {
     HashMap<Passive.PassiveType, Integer> passiveLevel = new HashMap<>();
     HashMap<Weapon.WeaponType, Integer> weaponLevel = new HashMap<>();
     HashMap<Weapon.WeaponType, Weapon> curWeapons = new HashMap<>();
+    private static ArrayList<Enum> weaponToUpgrade = new ArrayList<>();
+    private static ArrayList<Enum> passiveToUpgrade = new ArrayList<>();
     public static final int MAX_WEAPON_LEVEL = 8;
     public static final int MAX_PASSIVE_LEVEL = 5;
-    private int maxLevelWeaponNum = 0;
-    private int maxLevelPassiveNum = 0;
     private float attackRatio = 1.0f;
     private float coolTimeRatio = 1.0f;
     private float bulletSpeedRatio = 1.0f;
@@ -59,6 +59,13 @@ public class Player extends Character {
     public void init(WhipController wc) {
         weaponLevel.put(Weapon.WeaponType.Whip, 1);
         curWeapons.put(Weapon.WeaponType.Whip, wc);
+
+        for (int i = 0; i < Weapon.WeaponType.COUNT.ordinal(); i++) {
+            weaponToUpgrade.add(Weapon.WeaponType.values()[i]);
+        }
+        for (int i = 0; i < Passive.PassiveType.COUNT.ordinal(); i++) {
+            passiveToUpgrade.add(Passive.PassiveType.values()[i]);
+        }
     }
 
     @Override
@@ -140,7 +147,9 @@ public class Player extends Character {
             Log.d(TAG, type + " is Level 5, Increase Exp");
             addExp(5);
         } else {
-            if (passiveLevel.get(type) == 4) maxLevelPassiveNum++;
+            if (passiveLevel.get(type) == 4) {
+                passiveToUpgrade.remove(type);
+            }
             passiveLevel.put(type, num + 1);
             makePassiveEffect(type);
             Log.d(TAG, type + "Passive Item Level Up to " + passiveLevel.get(type) + ", ratio: " + getRatio(type));
@@ -229,7 +238,7 @@ public class Player extends Character {
                 break;
             case 8:
                 weapon.addProjectileCount(1);
-                maxLevelWeaponNum++;
+                weaponToUpgrade.remove(type);
                 break;
             default:
                 break;
@@ -251,7 +260,7 @@ public class Player extends Character {
         expToLevelUp += expToLevelUp_increment;
         maxHp += maxHp_increment;
         // 모든 아이템 레벨이 max라면 체력 회복
-        if (isAllItemIsMaxLevel()) {
+        if (numofItemToUpgrade() == 0) {
             recoverHp(5);
         } else if (LevelUpScene.numofLevelUpSceneToShow == 1) {
             Handler handler = new Handler();
@@ -295,32 +304,52 @@ public class Player extends Character {
         return passiveLevel.get(type);
     }
 
-    public Weapon.WeaponType getRandomWeaponNotMaxLevel() {
-        if (maxLevelWeaponNum == Weapon.WeaponType.COUNT.ordinal()) {
+    public Weapon.WeaponType getRandomWeaponNotMaxLevel(ArrayList<Enum> addedType) {
+        if (weaponToUpgrade.size() == 0) {
             Log.v(TAG, "All Weapon is Max Level");
             return null;
         }
-        Weapon.WeaponType randType = Weapon.WeaponType.getRandomWeaponType(random);
-        Integer itemLevel = weaponLevel.get(randType);
-        while (itemLevel != null && itemLevel >= MAX_WEAPON_LEVEL) {
-            randType = Weapon.WeaponType.getRandomWeaponType(random);
-            itemLevel = weaponLevel.get(randType);
-        }
-        return randType;
+        // upgrade가능한 weapon 중 addedType(이미 업그레이드 버튼에 생성된 type)을 제외하고 확인한다.
+        ArrayList<Enum> canUpgrade = new ArrayList<>();
+        canUpgrade.addAll(weaponToUpgrade);
+        canUpgrade.removeAll(addedType);
+//        Log.v(null, "----get Random Weapon -------");
+//        for (Enum e : addedType) {
+//            Log.v(null, "Added Type: " + e);
+//        }
+//        for (Enum e : weaponToUpgrade) {
+//            Log.v(null, "weaponToUpgrade: " + e);
+//        }
+//        for (Enum e : canUpgrade) {
+//            Log.v(null, "canUpgrade: " + e);
+//        }
+        if (canUpgrade.size() == 0) return null;
+        int id = random.nextInt(canUpgrade.size());
+        return (Weapon.WeaponType) canUpgrade.get(id);
     }
 
-    public Passive.PassiveType getRandomPassiveNotMaxLevel() {
-        if (maxLevelPassiveNum == Passive.PassiveType.COUNT.ordinal()) {
+    public Passive.PassiveType getRandomPassiveNotMaxLevel(ArrayList<Enum> addedType) {
+        if (passiveToUpgrade.size() == 0) {
             Log.v(TAG, "All Passive is Max Level");
             return null;
         }
-        Passive.PassiveType randType = Passive.PassiveType.getRandomPassiveType(random);
-        Integer itemLevel = passiveLevel.get(randType);
-        while (itemLevel != null && itemLevel >= MAX_PASSIVE_LEVEL) {
-            randType = Passive.PassiveType.getRandomPassiveType(random);
-            itemLevel = passiveLevel.get(randType);
-        }
-        return randType;
+        // upgrade가능한 passive 중 addedType(이미 업그레이드 버튼에 생성된 type)을 제외하고 확인한다.
+        ArrayList<Enum> canUpgrade = new ArrayList<>();
+        canUpgrade.addAll(passiveToUpgrade);
+        canUpgrade.removeAll(addedType);
+//        Log.v(null, "----get Random Passive -------");
+//        for (Enum e : addedType) {
+//            Log.v(null, "Added Type: " + e);
+//        }
+//        for (Enum e : passiveToUpgrade) {
+//            Log.v(null, "passiveToUpgrade: " + e);
+//        }
+//        for (Enum e : canUpgrade) {
+//            Log.v(null, "canUpgrade: " + e);
+//        }
+        if (canUpgrade.size() == 0) return null;
+        int id = random.nextInt(canUpgrade.size());
+        return (Passive.PassiveType) canUpgrade.get(id);
     }
 
     public float getAttackRatio() {
@@ -348,8 +377,7 @@ public class Player extends Character {
         super.getDamage(damage);
     }
 
-    public boolean isAllItemIsMaxLevel() {
-        return maxLevelWeaponNum + maxLevelPassiveNum ==
-                Weapon.WeaponType.COUNT.ordinal() + Passive.PassiveType.COUNT.ordinal();
+    public int numofItemToUpgrade() {
+        return weaponToUpgrade.size() + passiveToUpgrade.size();
     }
 }

@@ -50,7 +50,7 @@ public class LvUpButton extends Button {
                         player.addWeapon(weaponType);
                     }
                     if (LevelUpScene.numofLevelUpSceneToShow > 0) {
-                        if (!MainScene.player.isAllItemIsMaxLevel()) {
+                        if (MainScene.player.numofItemToUpgrade() > 0) {
                             Sound.playEffect(R.raw.levelup);
                             new LevelUpScene().pushScene();
                         }
@@ -61,7 +61,7 @@ public class LvUpButton extends Button {
         });
         this.weaponType = weaponType;
         isWeapon = true;
-        
+
         itemBitmap = BitmapPool.get(Weapon.WeaponType.getResId(weaponType), false);
 
         init();
@@ -84,7 +84,7 @@ public class LvUpButton extends Button {
                         player.addPassiveItem(passiveType);
                     }
                     if (LevelUpScene.numofLevelUpSceneToShow > 0) {
-                        if (!MainScene.player.isAllItemIsMaxLevel()) {
+                        if (MainScene.player.numofItemToUpgrade() > 0) {
                             Sound.playEffect(R.raw.levelup);
                             new LevelUpScene().pushScene();
                         }

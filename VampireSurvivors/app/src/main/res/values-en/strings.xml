@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">VampireSurvivors</string>
+    <string name="Whip">Attacks by piercing enemies left and right.</string>
+    <string name="MagicWand">Attack the nearest enemy.</string>
+    <string name="KingBible">Spins around to attack.</string>
+    <string name="FireWand">Fireballs are fired in a random direction.</string>
+    <string name="LightningRing">Strike a random enemy with lightning.</string>
+    <string name="Inc_Atk">Gain 10% increased damage.</string>
+    <string name="Dec_Cooltime">Cooldowns are reduced by 8%.</string>
+    <string name="Inc_BulletSpd">Increases projectile speed by 10%.</string>
+    <string name="lv2">Increase the number of projectiles by 1</string>
+    <string name="lv3">Increases attack damage by 10.</string>
+    <string name="lv4">Increase the number of projectiles by 1</string>
+    <string name="lv5">Increases attack damage by 20.</string>
+    <string name="lv6">Cooldowns are reduced by 25%.</string>
+    <string name="lv7">Increases attack damage by 10.</string>
+    <string name="lv8">Increase the number of projectiles by 1</string>
+</resources>

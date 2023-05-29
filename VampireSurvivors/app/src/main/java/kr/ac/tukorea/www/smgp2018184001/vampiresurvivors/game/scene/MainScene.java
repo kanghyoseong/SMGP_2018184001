@@ -23,6 +23,7 @@ public class MainScene extends BaseScene {
     private Joystick joystick;
     public static float elapsedTime = 0;
     public static Player player;
+    public static MainScene mainScene;
 
     public enum Layer {
         bg, enemy, bullet, weapon, player, item, touch, controller, COUNT
@@ -67,6 +68,8 @@ public class MainScene extends BaseScene {
 
         joystick = new Joystick();
         add(Layer.controller, joystick);
+
+        mainScene = this;
     }
 
     @Override

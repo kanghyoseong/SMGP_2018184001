@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         gameView = new GameView(this);
         setContentView(gameView);
+        GameView.packageName = this.getPackageName();
 
         new MainScene().pushScene();
     }

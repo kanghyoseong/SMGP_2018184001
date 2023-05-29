@@ -161,14 +161,14 @@ public class Player extends Character {
 
     public void addWeapon(Weapon.WeaponType type) {
         if (weaponLevel.get(type) == null) {
-            BaseScene scene = BaseScene.getTopScene();
+            MainScene scene = MainScene.mainScene;
             IGameObject weapon;
             switch (type) {
                 default:
                 case Whip:
                     // 게임 시작 시 Whip은 레벨이 1이기 때문에 코드가 불리지 않지만
                     // 일단 적어 놓는다.
-                    weapon = new WhipController(this, BaseScene.getTopScene());
+                    weapon = new WhipController(this, scene);
                     break;
                 case MagicWand:
                     weapon = new MagicWand(this);
@@ -275,6 +275,13 @@ public class Player extends Character {
                 break;
         }
         return ratio;
+    }
+
+    public int getWeaponLevel(Weapon.WeaponType type) {
+        if (weaponLevel.get(type) == null) {
+            return 0;
+        }
+        return weaponLevel.get(type);
     }
 
     public float getAttackRatio() {

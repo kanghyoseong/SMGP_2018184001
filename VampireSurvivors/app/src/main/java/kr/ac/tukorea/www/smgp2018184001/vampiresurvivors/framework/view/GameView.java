@@ -27,6 +27,7 @@ public class GameView extends View implements Choreographer.FrameCallback {
     private Paint fpsPaint;
     private boolean isRunning = true;
     public static GameView view;
+    public static String packageName;
 
     public GameView(Context context) {
         super(context);

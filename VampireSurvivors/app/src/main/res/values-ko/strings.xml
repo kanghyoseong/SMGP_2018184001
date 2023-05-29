@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">VampireSurvivors</string>
     <string name="Whip">좌우로 적을 관통해 공격한다.</string>
@@ -5,9 +6,9 @@
     <string name="KingBible">주변을 회전하며 공격한다.</string>
     <string name="FireWand">무작위 방향으로 불덩이가 발사된다.</string>
     <string name="LightningRing">무작위 적에게 번개를 내려친다.</string>
-    <string name="Inc_Atk">공격력이 10% 증가한다.</string>
-    <string name="Dec_Cooltime">쿨타임이 8% 감소한다.</string>
-    <string name="Inc_BulletSpd">투사체 속도가 10% 증가한다.</string>
+    <string name="Inc_Atk">레벨당 공격력이 10% 증가한다.</string>
+    <string name="Dec_Cooltime">레벨당 쿨타임이 8% 감소한다.</string>
+    <string name="Inc_BulletSpd">레벨당 투사체 속도가 10% 증가한다.</string>
     <string name="lv2">투사체 수 1 증가</string>
     <string name="lv3">공격력 10 증가</string>
     <string name="lv4">투사체 수 1 증가</string>

@@ -21,4 +21,13 @@ public class Metrics {
     public static float toGameY(float y) {
         return (y - y_offset) / scale;
     }
+
+
+    public static float toScreenX(float x) {
+        return x * scale + x_offset;
+    }
+
+    public static float toScreenY(float y) {
+        return y * scale + y_offset;
+    }
 }

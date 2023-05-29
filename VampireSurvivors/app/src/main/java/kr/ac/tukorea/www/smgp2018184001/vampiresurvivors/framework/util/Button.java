@@ -13,8 +13,8 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.view.Metrics;
 public class Button extends Sprite implements ITouchable, IGameObject {
     private static final String TAG = Button.class.getSimpleName();
     private final Callback callback;
-    float posX, posY;
-    float width, height;
+    protected float posX, posY;
+    protected float width, height;
 
     public enum Action {
         pressed, released,

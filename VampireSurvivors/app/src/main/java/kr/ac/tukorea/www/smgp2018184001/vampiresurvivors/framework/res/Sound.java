@@ -46,6 +46,12 @@ public class Sound {
         } else {
             soundId = pool.load(GameView.view.getContext(), resId, 1);
             soundIdMap.put(resId, soundId);
+            soundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
+                @Override
+                public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
+                    pool.play(soundId, 1f, 1f, 1, 0, 1f);
+                }
+            });
         }
         pool.play(soundId, 1f, 1f, 1, 0, 1f);
     }

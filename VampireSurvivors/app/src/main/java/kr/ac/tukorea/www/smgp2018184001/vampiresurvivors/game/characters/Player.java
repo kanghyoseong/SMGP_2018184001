@@ -17,6 +17,7 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.view.Metrics;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.enemy.Enemy;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects.Passive;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects.Weapon;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.scene.GameOverScene;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.scene.LevelUpScene;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.scene.MainScene;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.weapon.FireWand;
@@ -27,6 +28,7 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.weapon.WhipControl
 
 public class Player extends Character {
     private static final String TAG = Player.class.getSimpleName();
+    public MainScene mainScene;
     // Game Information
     private int level = 1;
     private int expToLevelUp = 5;
@@ -49,10 +51,11 @@ public class Player extends Character {
     private Gauge levelGauge = new Gauge(0.08f, R.color.level_gauge_fg, R.color.level_gauge_bg);
     Random random = new Random();
 
-    public Player(float posX, float posY, float sizeX, float sizeY,
+    public Player(MainScene scene, float posX, float posY, float sizeX, float sizeY,
                   int resId, int spriteCountX, int spriteCountY, float secToNextFrame) {
         super(posX, posY, sizeX, sizeY,
                 resId, spriteCountX, spriteCountY, secToNextFrame);
+        this.mainScene = scene;
         movementSpeed = PLAYER_MOVEMENTSPEED;
     }
 
@@ -91,7 +94,15 @@ public class Player extends Character {
 
     @Override
     public void killThis() {
-        Log.d(TAG, "Game Over");
+        Handler handler = new Handler();
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                Sound.stopMusic();
+                Sound.playEffect(R.raw.gameover);
+                new GameOverScene(mainScene).pushScene();
+            }
+        });
     }
 
     public Enemy findNearestEnemy() {
@@ -173,14 +184,13 @@ public class Player extends Character {
 
     public void addWeapon(Weapon.WeaponType type) {
         if (weaponLevel.get(type) == null) {
-            MainScene scene = MainScene.mainScene;
             IGameObject weapon;
             switch (type) {
                 default:
                 case Whip:
                     // 게임 시작 시 Whip은 레벨이 1이기 때문에 코드가 불리지 않지만
                     // 일단 적어 놓는다.
-                    weapon = new WhipController(this, scene);
+                    weapon = new WhipController(this);
                     break;
                 case MagicWand:
                     weapon = new MagicWand(this);
@@ -195,7 +205,7 @@ public class Player extends Character {
                     weapon = new LightningRing(this);
                     break;
             }
-            scene.add(MainScene.Layer.weapon, weapon);
+            mainScene.add(MainScene.Layer.weapon, weapon);
             curWeapons.put(type, (Weapon) weapon);
             weaponLevel.put(type, 1);
             Log.d(TAG, "first added Weapon " + type);
@@ -268,7 +278,7 @@ public class Player extends Character {
                 @Override
                 public void run() {
                     Sound.playEffect(R.raw.levelup);
-                    new LevelUpScene().pushScene();
+                    new LevelUpScene(mainScene).pushScene();
                 }
             });
         }

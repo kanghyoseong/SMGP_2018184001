@@ -17,6 +17,7 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects.Passive;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects.Weapon;
 
 public class LevelUpScene extends BaseScene {
+    private MainScene scene;
     private Random random = new Random();
     public static int numofLevelUpSceneToShow = 0;
     private ArrayList<Enum> addedType = new ArrayList<>();
@@ -25,7 +26,8 @@ public class LevelUpScene extends BaseScene {
         bg, touch, COUNT
     }
 
-    public LevelUpScene() {
+    public LevelUpScene(MainScene scene) {
+        this.scene = scene;
         initLayers(LevelUpScene.Layer.COUNT);
 
         int numofButtons = Math.min(3, MainScene.player.numofItemToUpgrade());
@@ -56,7 +58,7 @@ public class LevelUpScene extends BaseScene {
     private boolean addWeaponButton(int index, float startY, float buttonHeight, float frameHeight) {
         Weapon.WeaponType type = MainScene.player.getRandomWeaponNotMaxLevel(addedType);
         if (type == null) return false;
-        add(LevelUpScene.Layer.touch, new LvUpButton(0.5f,
+        add(LevelUpScene.Layer.touch, new LvUpButton(scene, 0.5f,
                 startY + buttonHeight * index + (Metrics.y_offset / Metrics.scale) - frameHeight / 2f + buttonHeight / 2f,
                 0.9f, buttonHeight, type));
         addedType.add(type);
@@ -66,7 +68,7 @@ public class LevelUpScene extends BaseScene {
     private boolean addPassiveButton(int index, float startY, float buttonHeight, float frameHeight) {
         Passive.PassiveType type = MainScene.player.getRandomPassiveNotMaxLevel(addedType);
         if (type == null) return false;
-        add(LevelUpScene.Layer.touch, new LvUpButton(0.5f,
+        add(LevelUpScene.Layer.touch, new LvUpButton(scene, 0.5f,
                 startY + buttonHeight * index + (Metrics.y_offset / Metrics.scale) - frameHeight / 2f + buttonHeight / 2f,
                 0.9f, buttonHeight, type));
         addedType.add(type);
@@ -77,14 +79,13 @@ public class LevelUpScene extends BaseScene {
     public void draw(Canvas canvas) {
         super.draw(canvas);
         GameView.toScreenScale(canvas);
-        int minute = (int) (MainScene.elapsedTime / 60f);
-        int sec = (int) (MainScene.elapsedTime % 60f);
+        int minute = (int) (scene.elapsedTime / 60f);
+        int sec = (int) (scene.elapsedTime % 60f);
         // 시간 출력
         canvas.drawText(String.format("%02d : %02d", minute, sec),
                 Metrics.screenWidth / 2, Metrics.screenHeight * 0.1f, BaseScene.textPaint);
         // 레벨 출력
         if (MainScene.player == null) return;
-        levelTextPaint.setTextSize(Metrics.screenWidth * 0.05f);
         canvas.drawText(String.format("LV %d", MainScene.player.getLevel()),
                 Metrics.screenWidth * 0.9f, 90f, BaseScene.levelTextPaint);
         GameView.toGameScale(canvas);
@@ -92,7 +93,7 @@ public class LevelUpScene extends BaseScene {
 
     @Override
     public boolean handleBackKey() {
-        new PausedScene().pushScene();
+        new PausedScene(scene).pushScene();
         return true;
     }
 

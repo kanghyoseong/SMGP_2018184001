@@ -20,9 +20,10 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.weapon.WhipControl
 
 public class MainScene extends BaseScene {
     private Joystick joystick;
-    public static float elapsedTime = 0;
+    public float elapsedTime = 0;
     public static Player player;
-    public static MainScene mainScene;
+    public MainScene mainScene;
+    public EnemyGenerator enemyGenerator;
 
     public enum Layer {
         bg, enemy, bullet, weapon, player, item, touch, controller, COUNT
@@ -37,12 +38,12 @@ public class MainScene extends BaseScene {
                 R.mipmap.background);
         add(Layer.bg, background);
 
-        player = new Player(0, 0,
+        player = new Player(this, 0, 0,
                 SpriteSize.PLAYER_SIZE, SpriteSize.PLAYER_SIZE,
                 R.mipmap.player_anim_4x1, 4, 1, 0.2f);
         player.setcolliderSize(SpriteSize.PLAYER_SIZE * 0.6f, SpriteSize.PLAYER_SIZE * 0.8f);
         add(Layer.player, player);
-        WhipController wc = new WhipController(player, this);
+        WhipController wc = new WhipController(player);
         player.init(wc);
         add(Layer.weapon, wc);
 
@@ -53,14 +54,15 @@ public class MainScene extends BaseScene {
                     @Override
                     public boolean onTouch(Button.Action action) {
                         if (action == Button.Action.pressed) {
-                            new PausedScene().pushScene();
+                            new PausedScene(mainScene).pushScene();
                         }
                         return true;
                     }
                 }));
 
         add(Layer.controller, new CollisionChecker());
-        add(Layer.controller, new EnemyGenerator());
+        enemyGenerator = new EnemyGenerator();
+        add(Layer.controller, enemyGenerator);
 
         camera = new Camera(player);
         add(Layer.controller, camera);
@@ -113,7 +115,7 @@ public class MainScene extends BaseScene {
 
     @Override
     public boolean handleBackKey() {
-        new PausedScene().pushScene();
+        new PausedScene(this).pushScene();
         return true;
     }
 

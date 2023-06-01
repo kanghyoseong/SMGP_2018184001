@@ -23,10 +23,9 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.flags.DebugFlag;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects.Object;
 
 public class EnemyGenerator implements IGameObject {
-    private static Handler hander = new Handler();
-    public static int wave = 0;
+    private int wave = 0;
     protected static final float TIME_TO_NEXT_WAVE = 30.0f;
-    public static float elapsedTime = TIME_TO_NEXT_WAVE * 0.9f;
+    private float elapsedTime = TIME_TO_NEXT_WAVE * 0.9f;
     private final int INITIAL_NUM_OF_ENEMY = 15;
     private final int ENEMY_INCREMENT_PER_WAVE = 5;
 
@@ -114,5 +113,13 @@ public class EnemyGenerator implements IGameObject {
 
     @Override
     public void draw(Canvas canvas) {
+    }
+
+    public int getWave() {
+        return wave;
+    }
+
+    public float getElapsedTime() {
+        return elapsedTime;
     }
 }

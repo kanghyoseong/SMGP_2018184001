@@ -84,6 +84,11 @@ public class BaseScene {
         return sceneStack.size();
     }
 
+    public static void restart() {
+        popAll();
+        new MainScene().pushScene();
+    }
+
     public void pauseScene() {
         onPause();
     }

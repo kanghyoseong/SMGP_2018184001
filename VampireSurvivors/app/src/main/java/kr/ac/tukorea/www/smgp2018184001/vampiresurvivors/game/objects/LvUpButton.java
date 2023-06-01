@@ -33,7 +33,7 @@ public class LvUpButton extends Button {
         lvupinfoTextPaint.setTextAlign(Paint.Align.CENTER);
     }
 
-    public LvUpButton(float posX, float posY, float width, float height,
+    public LvUpButton(MainScene scene, float posX, float posY, float width, float height,
                       Weapon.WeaponType weaponType) {
         super(R.mipmap.infoframe, posX, posY, width, height, new Button.Callback() {
             @Override
@@ -52,7 +52,7 @@ public class LvUpButton extends Button {
                     if (LevelUpScene.numofLevelUpSceneToShow > 0) {
                         if (MainScene.player.numofItemToUpgrade() > 0) {
                             Sound.playEffect(R.raw.levelup);
-                            new LevelUpScene().pushScene();
+                            new LevelUpScene(scene).pushScene();
                         }
                     }
                 }
@@ -67,7 +67,7 @@ public class LvUpButton extends Button {
         init();
     }
 
-    public LvUpButton(float posX, float posY, float width, float height,
+    public LvUpButton(MainScene scene, float posX, float posY, float width, float height,
                       Passive.PassiveType passiveType) {
         super(R.mipmap.infoframe, posX, posY, width, height, new Button.Callback() {
             @Override
@@ -86,7 +86,7 @@ public class LvUpButton extends Button {
                     if (LevelUpScene.numofLevelUpSceneToShow > 0) {
                         if (MainScene.player.numofItemToUpgrade() > 0) {
                             Sound.playEffect(R.raw.levelup);
-                            new LevelUpScene().pushScene();
+                            new LevelUpScene(scene).pushScene();
                         }
                     }
                 }

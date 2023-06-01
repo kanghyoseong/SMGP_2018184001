@@ -19,25 +19,25 @@ public class WhipController extends Weapon implements IAttackable {
     protected ArrayList<Whip> whips = new ArrayList<>();
     Player player;
 
-    public WhipController(Player player, BaseScene scene) {
+    public WhipController(Player player) {
         super(WeaponType.Whip, SpriteSize.WHIP_SIZE_X, SpriteSize.WHIP_SIZE_Y,
                 R.mipmap.whipcontroller, 1, 6, 0.01f, player);
         atk = 10;
         projectileCount = 1;
         elapsedCoolTime = maxCoolTime = 1.35f;
         this.player = player;
-        init(scene);
+        init();
     }
 
-    private void init(BaseScene scene) {
+    private void init() {
         Whip whip = new Whip(player, atk);
-        scene.add(MainScene.Layer.weapon, whip);
+        player.mainScene.add(MainScene.Layer.weapon, whip);
         whips.add(whip);
     }
 
     private void addWhip() {
         Whip whip = new Whip(player, atk);
-        MainScene.mainScene.add(MainScene.Layer.weapon, whip);
+        player.mainScene.add(MainScene.Layer.weapon, whip);
         whips.add(whip);
     }
 

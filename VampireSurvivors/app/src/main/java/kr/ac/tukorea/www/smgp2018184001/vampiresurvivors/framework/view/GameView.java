@@ -13,12 +13,12 @@ import android.view.View;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.BuildConfig;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.BaseScene;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.characters.Player;
-import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.controller.EnemyGenerator;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.flags.DebugFlag;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.scene.MainScene;
 
 public class GameView extends View implements Choreographer.FrameCallback {
     private static final String TAG = GameView.class.getSimpleName();
+    public Context context;
     public static Resources res;
     private long previousNanos = 0;
     public static float frameTime = 0;
@@ -31,11 +31,13 @@ public class GameView extends View implements Choreographer.FrameCallback {
 
     public GameView(Context context) {
         super(context);
+        this.context = context;
         init(null, 0);
     }
 
     public GameView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        this.context = context;
         init(attrs, 0);
     }
 
@@ -75,7 +77,7 @@ public class GameView extends View implements Choreographer.FrameCallback {
 
         if (BuildConfig.DEBUG) {
             fpsPaint = new Paint();
-            fpsPaint.setColor(Color.BLACK);
+            fpsPaint.setColor(Color.WHITE);
             fpsPaint.setTextSize(90.0f);
 
             borderPaint = new Paint();
@@ -100,7 +102,7 @@ public class GameView extends View implements Choreographer.FrameCallback {
             if (BuildConfig.DEBUG) {
                 frameTime *= DebugFlag.FRAMETIME_MULTIPLIER;
             }
-            scene.update(frameTime);
+            if (scene != null) scene.update(frameTime);
         }
         previousNanos = curNanos;
         //Log.d(TAG, "FrameTime: " + String.valueOf(frameTime));
@@ -126,28 +128,33 @@ public class GameView extends View implements Choreographer.FrameCallback {
         }
         canvas.restore();
         if (BuildConfig.DEBUG && DebugFlag.DRAW_GAMEINFO && frameTime > 0) {
-            int fps = (int) (1.0f / frameTime);
-            int wave = EnemyGenerator.wave;
-            float time = EnemyGenerator.elapsedTime;
-            canvas.drawText("FPS: " + fps + ", Wave: " + wave + ", Time: " + String.format("%.1f", time)
-                    , 100f, 150f, fpsPaint);
-            canvas.drawText("Obj: " + BaseScene.getTopScene().getObjectCount()
-                    , 100f, 250f, fpsPaint);
-            Player p = MainScene.player;
-            if (p != null) {
-                int curLevel = p.getLevel();
-                int curExp = p.getCurExp();
-                canvas.drawText("Level: " + curLevel + ", Exp: " + curExp
-                        , 100f, 350f, fpsPaint);
+            if (scene instanceof MainScene) {
+                int fps = (int) (1.0f / frameTime);
+                int wave = (((MainScene) scene).enemyGenerator).getWave();
+                float time = (((MainScene) scene).enemyGenerator).getElapsedTime();
+                canvas.drawText("FPS: " + fps + ", Wave: " + wave + ", Time: " + String.format("%.1f", time)
+                        , 100f, 150f, fpsPaint);
+                canvas.drawText("Obj: " + BaseScene.getTopScene().getObjectCount()
+                        , 100f, 250f, fpsPaint);
+                Player p = MainScene.player;
+                if (p != null) {
+                    int curLevel = p.getLevel();
+                    int curExp = p.getCurExp();
+                    canvas.drawText("Level: " + curLevel + ", Exp: " + curExp
+                            , 100f, 350f, fpsPaint);
+                }
             }
         }
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        boolean handled = BaseScene.getTopScene().onTouchEvent(event);
-        if (handled) {
-            return true;
+        BaseScene scene = BaseScene.getTopScene();
+        if (scene != null) {
+            boolean handled = scene.onTouchEvent(event);
+            if (handled) {
+                return true;
+            }
         }
         return super.onTouchEvent(event);
     }
@@ -173,13 +180,13 @@ public class GameView extends View implements Choreographer.FrameCallback {
         Choreographer.getInstance().postFrameCallback(this);
     }
 
-    public static void toGameScale(Canvas canvas){
+    public static void toGameScale(Canvas canvas) {
         // Screen Scale -> Game Scale
         canvas.translate(Metrics.x_offset, Metrics.y_offset);
         canvas.scale(Metrics.scale, Metrics.scale);
     }
 
-    public static void toScreenScale(Canvas canvas){
+    public static void toScreenScale(Canvas canvas) {
         // Game Scale -> Screen Scale
         canvas.scale(1f / Metrics.scale, 1f / Metrics.scale);
         canvas.translate(-Metrics.x_offset, -Metrics.y_offset);

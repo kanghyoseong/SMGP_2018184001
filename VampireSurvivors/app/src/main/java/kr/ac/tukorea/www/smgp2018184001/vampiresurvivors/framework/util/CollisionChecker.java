@@ -11,20 +11,24 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.interfaces.IC
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.interfaces.IGameObject;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.res.Sound;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.characters.Player;
-import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.scene.MainScene;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.enemy.Bullet;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.enemy.Enemy;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects.Exp;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.scene.MainScene;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.weapon.WandBullet;
 
 public class CollisionChecker implements IGameObject {
     private static final String TAG = CollisionChecker.class.getSimpleName();
+    private float elapsedTime = -0.01f;
+    private final float SOUND_INTERVAL = 0.1f;
 
     @Override
     public void update(float eTime) {
         BaseScene scene = BaseScene.getTopScene();
         Player p = MainScene.player;
         if (scene == null || p == null) return;
+
+        if (elapsedTime >= 0) elapsedTime -= eTime;
 
         boolean isEnemyHitSoundPlayed = false;
         boolean isGetExpSoundPlayed = false;
@@ -52,9 +56,10 @@ public class CollisionChecker implements IGameObject {
                     if (w instanceof WandBullet) {
                         ((Bullet) w).remove();
                     }
-                    if (!isEnemyHitSoundPlayed) {
+                    if (!isEnemyHitSoundPlayed && elapsedTime < 0) {
                         Sound.playEffect(R.raw.enemyhit);
                         isEnemyHitSoundPlayed = true;
+                        elapsedTime += SOUND_INTERVAL;
                     }
                 }
             }

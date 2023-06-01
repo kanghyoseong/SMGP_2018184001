@@ -24,4 +24,8 @@ public class TitleActivity extends AppCompatActivity {
         Intent intent = new Intent(this, SettingsActivity.class);
         startActivity(intent);
     }
+
+    public void onBtnExit(View view) {
+        finish();
+    }
 }

@@ -26,4 +26,8 @@
     <string name="item_name_Inc_BulletSpd">팔 보호대</string>
     <string name="title_start">시작</string>
     <string name="title_settings">설정</string>
+    <string name="title_exit">종료</string>
+    <string name="settings_bgm">배경음악</string>
+    <string name="settings_sfx">효과음</string>
+    <string name="settings_back">뒤로가기</string>
 </resources>

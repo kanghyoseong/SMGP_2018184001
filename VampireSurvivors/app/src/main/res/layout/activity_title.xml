@@ -20,13 +20,14 @@
         <ImageView
             android:layout_width="330dp"
             android:layout_height="110dp"
-            android:src="@mipmap/title" />
+            android:src="@mipmap/title"
+            android:layout_marginVertical="20dp" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="100dp"
-            android:layout_marginVertical="50dp"
+            android:layout_marginVertical="20dp"
             android:backgroundTint="@color/button_bg"
             android:onClick="onBtnStart"
             android:text="@string/title_start"
@@ -37,12 +38,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="100dp"
-            android:layout_marginVertical="0dp"
+            android:layout_marginVertical="20dp"
             android:backgroundTint="@color/button_bg"
             android:onClick="onBtnSettings"
             android:text="@string/title_settings"
             android:textColor="@color/white"
             android:textSize="25sp" />
-
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="100dp"
+            android:layout_marginVertical="20dp"
+            android:backgroundTint="@color/button_bg"
+            android:onClick="onBtnExit"
+            android:text="@string/title_exit"
+            android:textColor="@color/white"
+            android:textSize="25sp" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

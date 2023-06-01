@@ -25,4 +25,8 @@
     <string name="item_name_Inc_BulletSpd">Bracer</string>
     <string name="title_start">Start</string>
     <string name="title_settings">Settings</string>
+    <string name="title_exit">Exit</string>
+    <string name="settings_bgm">BGM</string>
+    <string name="settings_sfx">Effect</string>
+    <string name="settings_back">Go Back</string>
 </resources>

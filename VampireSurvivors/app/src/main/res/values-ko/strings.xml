@@ -24,4 +24,6 @@
     <string name="item_name_Inc_Atk">시금치</string>
     <string name="item_name_Dec_Cooltime">빈 책</string>
     <string name="item_name_Inc_BulletSpd">팔 보호대</string>
+    <string name="title_start">시작</string>
+    <string name="title_settings">설정</string>
 </resources>

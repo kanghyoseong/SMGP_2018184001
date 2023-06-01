@@ -24,4 +24,6 @@
     <string name="item_name_Inc_Atk">Spinach</string>
     <string name="item_name_Dec_Cooltime">Empty Tome</string>
     <string name="item_name_Inc_BulletSpd">Bracer</string>
+    <string name="title_start">Start</string>
+    <string name="title_settings">Settings</string>
 </resources>

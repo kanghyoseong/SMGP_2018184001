@@ -6,6 +6,10 @@ android {
     namespace 'kr.ac.tukorea.www.smgp2018184001.vampiresurvivors'
     compileSdk 33
 
+    viewBinding {
+        enabled = true
+    }
+
     defaultConfig {
         applicationId "kr.ac.tukorea.www.smgp2018184001.vampiresurvivors"
         minSdk 24

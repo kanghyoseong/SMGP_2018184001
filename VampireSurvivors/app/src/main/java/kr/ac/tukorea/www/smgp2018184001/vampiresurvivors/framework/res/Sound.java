@@ -1,5 +1,7 @@
 package kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.res;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.media.AudioAttributes;
 import android.media.MediaPlayer;
 import android.media.SoundPool;
@@ -12,6 +14,14 @@ public class Sound {
     private static HashMap<Integer, Integer> soundIdMap = new HashMap<>();
     protected static MediaPlayer mediaPlayer;
     protected static SoundPool soundPool;
+    public static float volume_bgm;
+    public static float volume_sfx;
+
+    static {
+        SharedPreferences preferences = GameView.view.context.getSharedPreferences("settings", Context.MODE_PRIVATE);
+        volume_bgm = (float) preferences.getInt("volume_bgm", 100) / 100.0f;
+        volume_sfx = (float) preferences.getInt("volume_sfx", 100) / 100.0f;
+    }
 
     public static void playMusic(int resId) {
         if (mediaPlayer != null) {
@@ -19,6 +29,7 @@ public class Sound {
         }
         mediaPlayer = MediaPlayer.create(GameView.view.getContext(), resId);
         mediaPlayer.setLooping(true);
+        mediaPlayer.setVolume(volume_bgm, volume_bgm);
         mediaPlayer.start();
     }
 
@@ -49,11 +60,26 @@ public class Sound {
             soundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
                 @Override
                 public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
-                    pool.play(soundId, 1f, 1f, 1, 0, 1f);
+                    pool.play(soundId, volume_sfx, volume_sfx, 1, 0, 1f);
                 }
             });
         }
-        pool.play(soundId, 1f, 1f, 1, 0, 1f);
+        pool.play(soundId, volume_sfx, volume_sfx, 1, 0, 1f);
+    }
+
+    /**
+     * @param progress: 0 ~ 100, integer
+     */
+    public static void setVolume_bgm(int progress) {
+        volume_bgm = (float) progress / 100.0f;
+        mediaPlayer.setVolume(volume_bgm, volume_bgm);
+    }
+
+    /**
+     * @param progress: 0 ~ 100, integer
+     */
+    public static void setVolume_sfx(int progress) {
+        volume_sfx = (float) progress / 100.0f;
     }
 
     private static SoundPool getSoundPool() {

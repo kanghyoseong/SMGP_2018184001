@@ -9,6 +9,7 @@ import android.view.View;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.R;
 
 public class TitleActivity extends AppCompatActivity {
+    public static boolean isSoundClassLoaded = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,6 +19,7 @@ public class TitleActivity extends AppCompatActivity {
 
     public void onBtnStart(View view) {
         startActivity(new Intent(this, MainActivity.class));
+        isSoundClassLoaded = true;
     }
 
     public void onBtnSettings(View view) {

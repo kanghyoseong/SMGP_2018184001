@@ -17,7 +17,7 @@ public class Sound {
     public static float volume_bgm;
     public static float volume_sfx;
 
-    static {
+    public static void initSoundVolume() {
         SharedPreferences preferences = GameView.view.context.getSharedPreferences("settings", Context.MODE_PRIVATE);
         volume_bgm = (float) preferences.getInt("volume_bgm", 100) / 100.0f;
         volume_sfx = (float) preferences.getInt("volume_sfx", 100) / 100.0f;

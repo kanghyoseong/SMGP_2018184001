@@ -11,6 +11,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.BuildConfig;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.res.Sound;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.BaseScene;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.characters.Player;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.flags.DebugFlag;
@@ -91,6 +92,8 @@ public class GameView extends View implements Choreographer.FrameCallback {
             colliderPaint.setStrokeWidth(0.005f);
         }
         Choreographer.getInstance().postFrameCallback(this);
+
+        Sound.initSoundVolume();
     }
 
     @Override

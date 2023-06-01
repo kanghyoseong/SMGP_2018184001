@@ -30,4 +30,6 @@
     <string name="settings_bgm">BGM</string>
     <string name="settings_sfx">Effect</string>
     <string name="settings_back">Go Back</string>
+    <string name="resume">Resume</string>
+    <string name="restart">Restart</string>
 </resources>

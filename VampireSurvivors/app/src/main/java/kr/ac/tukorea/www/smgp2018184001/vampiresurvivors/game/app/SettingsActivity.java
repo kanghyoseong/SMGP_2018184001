@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.R;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.databinding.ActivitySettingsBinding;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.res.Sound;
 
 public class SettingsActivity extends AppCompatActivity {
     private ActivitySettingsBinding binding;
@@ -28,7 +29,6 @@ public class SettingsActivity extends AppCompatActivity {
         binding.seekbarBgm.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                volume_bgm = progress / 100.0f;
             }
 
             @Override
@@ -39,29 +39,37 @@ public class SettingsActivity extends AppCompatActivity {
             public void onStopTrackingTouch(SeekBar seekBar) {
                 preferences = getSharedPreferences("settings", MODE_PRIVATE);
                 SharedPreferences.Editor editor = preferences.edit();
-                editor.putInt("volume_bgm", seekBar.getProgress());
+                int progress = seekBar.getProgress();
+                editor.putInt("volume_bgm", progress);
                 editor.commit();
+                volume_bgm = progress / 100.0f;
                 playEffect(R.raw.getexp, volume_bgm);
+                if (TitleActivity.isSoundClassLoaded) {
+                    Sound.setVolume_bgm(seekBar.getProgress());
+                }
             }
         });
         binding.seekbarSfx.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                volume_sfx = progress / 100.0f;
             }
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-
             }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 preferences = getSharedPreferences("settings", MODE_PRIVATE);
                 SharedPreferences.Editor editor = preferences.edit();
-                editor.putInt("volume_sfx", seekBar.getProgress());
+                int progress = seekBar.getProgress();
+                editor.putInt("volume_sfx", progress);
                 editor.commit();
+                volume_sfx = progress / 100.0f;
                 playEffect(R.raw.getexp, volume_sfx);
+                if (TitleActivity.isSoundClassLoaded) {
+                    Sound.setVolume_sfx(seekBar.getProgress());
+                }
             }
         });
     }

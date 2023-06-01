@@ -34,7 +34,7 @@ public class GameOverScene extends BaseScene {
                     public boolean onTouch(Button.Action action) {
                         if (action == Button.Action.pressed) {
                             if (action == Button.Action.pressed) {
-                                ((Activity)GameView.view.context).finish();
+                                ((Activity) GameView.view.context).finish();
                             }
                         }
                         return false;
@@ -67,10 +67,10 @@ public class GameOverScene extends BaseScene {
         canvas.drawText(String.format("LV %d", level),
                 Metrics.screenWidth * 0.9f, 90f, BaseScene.levelTextPaint);
 
-        canvas.drawText("나가기",
+        canvas.drawText(GameView.res.getString(R.string.title_exit),
                 Metrics.screenWidth * 0.25f, Metrics.y_offset + (Metrics.screenHeight - Metrics.y_offset * 2) * 0.85f + Metrics.y_offset + textPaint.getTextSize() * 0.4f,
                 BaseScene.textPaint);
-        canvas.drawText("다시시작",
+        canvas.drawText(GameView.res.getString(R.string.restart),
                 Metrics.screenWidth * 0.75f, Metrics.y_offset + (Metrics.screenHeight - Metrics.y_offset * 2) * 0.85f + Metrics.y_offset + textPaint.getTextSize() * 0.4f,
                 BaseScene.textPaint);
         GameView.toGameScale(canvas);

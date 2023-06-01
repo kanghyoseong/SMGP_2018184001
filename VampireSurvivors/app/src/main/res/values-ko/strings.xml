@@ -30,4 +30,6 @@
     <string name="settings_bgm">배경음악</string>
     <string name="settings_sfx">효과음</string>
     <string name="settings_back">뒤로가기</string>
+    <string name="resume">계속하기</string>
+    <string name="restart">다시시작</string>
 </resources>

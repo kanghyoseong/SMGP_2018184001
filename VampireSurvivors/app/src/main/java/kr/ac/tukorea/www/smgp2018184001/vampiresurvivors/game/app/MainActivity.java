@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
+        TitleActivity.isSoundClassLoaded = false;
         BaseScene.popAll();
         GameView.clear();
         super.onDestroy();

@@ -3,11 +3,11 @@ package kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects;
 import android.graphics.Canvas;
 import android.graphics.RectF;
 
-import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.BaseScene;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.interfaces.IGameObject;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.interfaces.IRecyclable;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.res.AnimatedSprite;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.res.Sprite;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.BaseScene;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.controller.Camera;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.flags.SpriteSize;
 
@@ -115,6 +115,10 @@ public class Object implements IGameObject, IRecyclable {
 
     public float getSizeY() {
         return sizeY;
+    }
+
+    public RectF getDstRect() {
+        return dstRect;
     }
 
     public void setcolliderSize(float sizeX, float sizeY) {

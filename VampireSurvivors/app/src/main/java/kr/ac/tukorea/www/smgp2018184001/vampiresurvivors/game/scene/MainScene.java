@@ -1,6 +1,7 @@
 package kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.scene;
 
 import android.graphics.Canvas;
+import android.graphics.RectF;
 import android.view.MotionEvent;
 
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.R;
@@ -8,6 +9,7 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.res.Sound;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.BaseScene;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.Button;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.CollisionChecker;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.Gauge;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.view.GameView;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.view.Metrics;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.characters.Player;
@@ -24,6 +26,9 @@ public class MainScene extends BaseScene {
     public static Player player;
     public MainScene mainScene;
     public EnemyGenerator enemyGenerator;
+    private Gauge hpGauge = new Gauge(0.1f, R.color.hp_gauge_fg, R.color.hp_gauge_bg);
+    private Gauge levelGauge = new Gauge(0.08f, R.color.level_gauge_fg, R.color.level_gauge_bg);
+
 
     public enum Layer {
         bg, enemy, bullet, weapon, player, item, touch, controller, COUNT
@@ -82,6 +87,24 @@ public class MainScene extends BaseScene {
     @Override
     protected void draw(Canvas canvas, int index) {
         super.draw(canvas, index);
+
+        float width;
+        // Draw HP Gauge
+        canvas.save();
+        RectF dstRect = player.getDstRect();
+        width = player.getSizeX() * 1.2f;
+        canvas.translate(dstRect.left + dstRect.width() / 2 - width / 2, dstRect.bottom + 0.03f);
+        canvas.scale(width, width);
+        hpGauge.draw(canvas, player.getCurHp() / player.getMaxHp());
+        canvas.restore();
+
+        // Draw Exp Gauge
+        canvas.save();
+        float offsetY = -Metrics.y_offset / Metrics.scale;
+        canvas.translate(0, offsetY + levelGauge.getWidth() / 2.0f);
+        levelGauge.draw(canvas, (float) player.getCurExp() / (float) player.getExpToLevelUp());
+        canvas.restore();
+
         GameView.toScreenScale(canvas);
         int minute = (int) (elapsedTime / 60f);
         int sec = (int) (elapsedTime % 60f);

@@ -1,6 +1,5 @@
 package kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.characters;
 
-import android.graphics.Canvas;
 import android.os.Handler;
 import android.util.Log;
 
@@ -12,7 +11,6 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.R;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.interfaces.IGameObject;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.res.Sound;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.BaseScene;
-import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.Gauge;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.view.Metrics;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.enemy.Enemy;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects.Passive;
@@ -47,8 +45,6 @@ public class Player extends Character {
     private float attackRatio = 1.0f;
     private float coolTimeRatio = 1.0f;
     private float bulletSpeedRatio = 1.0f;
-    private Gauge hpGauge = new Gauge(0.1f, R.color.hp_gauge_fg, R.color.hp_gauge_bg);
-    private Gauge levelGauge = new Gauge(0.08f, R.color.level_gauge_fg, R.color.level_gauge_bg);
     Random random = new Random();
 
     public Player(MainScene scene, float posX, float posY, float sizeX, float sizeY,
@@ -69,27 +65,6 @@ public class Player extends Character {
         for (int i = 0; i < Passive.PassiveType.COUNT.ordinal(); i++) {
             passiveToUpgrade.add(Passive.PassiveType.values()[i]);
         }
-    }
-
-    @Override
-    public void draw(Canvas canvas) {
-        super.draw(canvas);
-
-        float width;
-        // Draw HP Gauge
-        canvas.save();
-        width = dstRect.width() * 1.2f;
-        canvas.translate(dstRect.left + dstRect.width() / 2 - width / 2, dstRect.bottom + 0.03f);
-        canvas.scale(width, width);
-        hpGauge.draw(canvas, curHp / maxHp);
-        canvas.restore();
-
-        // Draw HP Gauge
-        canvas.save();
-        float offsetY = -Metrics.y_offset / Metrics.scale;
-        canvas.translate(0, offsetY + levelGauge.getWidth() / 2.0f);
-        levelGauge.draw(canvas, (float) curExp / (float) expToLevelUp);
-        canvas.restore();
     }
 
     @Override
@@ -380,6 +355,10 @@ public class Player extends Character {
 
     public int getCurExp() {
         return curExp;
+    }
+
+    public int getExpToLevelUp() {
+        return expToLevelUp;
     }
 
     @Override

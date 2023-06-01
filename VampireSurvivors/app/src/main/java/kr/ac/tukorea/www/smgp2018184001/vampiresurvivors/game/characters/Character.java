@@ -4,12 +4,12 @@ import android.graphics.Canvas;
 import android.graphics.RectF;
 
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.BuildConfig;
-import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.BaseScene;
-import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.flags.DebugFlag;
-import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.view.GameView;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.interfaces.ICollidable;
-import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects.Object;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.BaseScene;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.view.GameView;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.controller.Camera;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.flags.DebugFlag;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects.Object;
 
 public class Character extends Object implements ICollidable {
     protected float dx = 0, dy = 0;
@@ -97,5 +97,13 @@ public class Character extends Object implements ICollidable {
     public void setPos(float x, float y) {
         super.setPos(x, y);
         reconstructColliderRect();
+    }
+
+    public float getCurHp() {
+        return curHp;
+    }
+
+    public float getMaxHp() {
+        return maxHp;
     }
 }

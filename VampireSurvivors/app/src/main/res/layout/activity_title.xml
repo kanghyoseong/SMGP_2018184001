@@ -27,18 +27,20 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="100dp"
             android:layout_marginVertical="50dp"
+            android:backgroundTint="@color/button_bg"
+            android:onClick="onBtnStart"
             android:text="@string/title_start"
-            android:textSize="25sp"
-            android:onClick="onBtnStart"/>
+            android:textSize="25sp" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="100dp"
             android:layout_marginVertical="0dp"
+            android:backgroundTint="@color/button_bg"
+            android:onClick="onBtnSettings"
             android:text="@string/title_settings"
-            android:textSize="25sp"
-            android:onClick="onBtnSettings"/>
+            android:textSize="25sp" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

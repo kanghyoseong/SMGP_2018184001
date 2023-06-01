@@ -21,5 +21,7 @@ public class TitleActivity extends AppCompatActivity {
     }
 
     public void onBtnSettings(View view) {
+        Intent intent = new Intent(this, SettingsActivity.class);
+        startActivity(intent);
     }
 }

@@ -11,4 +11,6 @@
     <color name="hp_gauge_fg">#FFCC2222</color>
     <color name="level_gauge_bg">#FF000000</color>
     <color name="level_gauge_fg">#3268D3</color>
+    <color name="settings_bg">#DFDFDF</color>
+    <color name="button_bg">#2740CC</color>
 </resources>

@@ -14,6 +14,7 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.BuildConfig;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.res.Sound;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.BaseScene;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.characters.Player;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.controller.EnemyGenerator;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.flags.DebugFlag;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.scene.MainScene;
 
@@ -143,7 +144,8 @@ public class GameView extends View implements Choreographer.FrameCallback {
                 if (p != null) {
                     int curLevel = p.getLevel();
                     int curExp = p.getCurExp();
-                    canvas.drawText("Level: " + curLevel + ", Exp: " + curExp
+                    int enemyNum = ((MainScene) scene).enemyGenerator.getEnemyNum();
+                    canvas.drawText("Level: " + curLevel + ", Exp: " + curExp + ", Enemy Num: " + enemyNum
                             , 100f, 350f, fpsPaint);
                 }
             }

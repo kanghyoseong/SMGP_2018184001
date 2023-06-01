@@ -56,6 +56,7 @@ public class Enemy extends Character implements IAttackable {
         //Spawn Exp
         Exp e = Exp.get(posX, posY, dropExp);
         scene.add(MainScene.Layer.item, e);
+        ((MainScene)scene).enemyGenerator.enemyDestroyed();
     }
 
     @Override

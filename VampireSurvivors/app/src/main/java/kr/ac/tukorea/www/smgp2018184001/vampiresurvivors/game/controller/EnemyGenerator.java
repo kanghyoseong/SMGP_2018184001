@@ -28,6 +28,7 @@ public class EnemyGenerator implements IGameObject {
     private float elapsedTime = TIME_TO_NEXT_WAVE * 0.9f;
     private final int INITIAL_NUM_OF_ENEMY = 15;
     private final int ENEMY_INCREMENT_PER_WAVE = 5;
+    private int numofSpawnedEnemies = -1;
 
     public EnemyGenerator() {
         if (BuildConfig.DEBUG) {
@@ -38,20 +39,21 @@ public class EnemyGenerator implements IGameObject {
     @Override
     public void update(float eTime) {
         elapsedTime += eTime;
-        if (elapsedTime > TIME_TO_NEXT_WAVE) {
-            elapsedTime -= TIME_TO_NEXT_WAVE;
+        if (elapsedTime > TIME_TO_NEXT_WAVE ||
+                numofSpawnedEnemies == 0) {
+            elapsedTime = 0;
             wave++;
-            BaseScene scene = BaseScene.getTopScene();
-            if (scene != null) {
-                spawnEnemy(scene);
-            }
+            spawnEnemy();
         }
     }
 
-    private void spawnEnemy(BaseScene scene) {
+    private void spawnEnemy() {
+        BaseScene scene = BaseScene.getTopScene();
+        if (scene == null) return;
         Player player = MainScene.player;
         if (player == null) return;
         Random random = new Random();
+        if (numofSpawnedEnemies == -1) numofSpawnedEnemies = 0;
         for (int i = 0; i < EEnemyType.Count.ordinal(); i++) {
             EEnemyType curType = EEnemyType.values()[i];
             int spawnNum = (wave - curType.getWave()) * ENEMY_INCREMENT_PER_WAVE;
@@ -82,6 +84,7 @@ public class EnemyGenerator implements IGameObject {
                         break;
                 }
                 if (e != null) {
+                    numofSpawnedEnemies++;
                     scene.add(MainScene.Layer.enemy, e);
                 }
             }
@@ -109,6 +112,14 @@ public class EnemyGenerator implements IGameObject {
             }
         }
         return pos;
+    }
+
+    public int getEnemyNum() {
+        return numofSpawnedEnemies;
+    }
+
+    public void enemyDestroyed() {
+        numofSpawnedEnemies--;
     }
 
     @Override

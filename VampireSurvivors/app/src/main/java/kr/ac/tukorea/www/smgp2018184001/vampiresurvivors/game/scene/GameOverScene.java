@@ -26,30 +26,28 @@ public class GameOverScene extends BaseScene {
         initLayers(Layer.COUNT);
         add(Layer.bg, new Sprite(R.mipmap.gameover,
                 0.5f, 0.4f, 0.8f, 0.3f));
+        // 나가기
+        add(PausedScene.Layer.touch, new Button(R.mipmap.button, 0.25f, 0.85f + (Metrics.y_offset / Metrics.scale),
+                0.45f, 0.2f,
+                new Button.Callback() {
+                    @Override
+                    public boolean onTouch(Button.Action action) {
+                        if (action == Button.Action.pressed) {
+                            if (action == Button.Action.pressed) {
+                                ((Activity)GameView.view.context).finish();
+                            }
+                        }
+                        return false;
+                    }
+                }));
         // 다시 시작
-        add(PausedScene.Layer.touch, new Button(R.mipmap.button, 0.25f, 0.85f + (Metrics.y_offset / Metrics.scale)
+        add(PausedScene.Layer.touch, new Button(R.mipmap.button, 0.75f, 0.85f + (Metrics.y_offset / Metrics.scale)
                 , 0.45f, 0.2f,
                 new Button.Callback() {
                     @Override
                     public boolean onTouch(Button.Action action) {
                         if (action == Button.Action.pressed) {
                             BaseScene.restart();
-                        }
-                        return false;
-                    }
-                }));
-        // 나가기
-        add(PausedScene.Layer.touch, new Button(R.mipmap.button, 0.75f, 0.85f + (Metrics.y_offset / Metrics.scale),
-                0.45f, 0.2f,
-                new Button.Callback() {
-                    @Override
-                    public boolean onTouch(Button.Action action) {
-                        if (action == Button.Action.pressed) {
-                            popScene();
-                            if (BaseScene.getTopScene() instanceof MainScene) {
-                                MainScene scene = (MainScene) BaseScene.getTopScene();
-                                scene.getJoystick().touchUp();
-                            }
                         }
                         return false;
                     }
@@ -69,10 +67,10 @@ public class GameOverScene extends BaseScene {
         canvas.drawText(String.format("LV %d", level),
                 Metrics.screenWidth * 0.9f, 90f, BaseScene.levelTextPaint);
 
-        canvas.drawText("다시시작",
+        canvas.drawText("나가기",
                 Metrics.screenWidth * 0.25f, Metrics.y_offset + (Metrics.screenHeight - Metrics.y_offset * 2) * 0.85f + Metrics.y_offset + textPaint.getTextSize() * 0.4f,
                 BaseScene.textPaint);
-        canvas.drawText("나가기",
+        canvas.drawText("다시시작",
                 Metrics.screenWidth * 0.75f, Metrics.y_offset + (Metrics.screenHeight - Metrics.y_offset * 2) * 0.85f + Metrics.y_offset + textPaint.getTextSize() * 0.4f,
                 BaseScene.textPaint);
         GameView.toGameScale(canvas);

@@ -92,6 +92,7 @@
             android:backgroundTint="@color/button_bg"
             android:onClick="onBtnBack"
             android:text="뒤로가기"
+            android:textColor="@color/white"
             android:textSize="25sp" />
 
     </LinearLayout>

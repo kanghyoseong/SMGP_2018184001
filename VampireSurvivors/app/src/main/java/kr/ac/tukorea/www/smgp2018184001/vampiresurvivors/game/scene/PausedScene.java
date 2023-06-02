@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.R;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.res.Sound;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.res.Sprite;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.BaseScene;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.Button;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.view.GameView;
@@ -23,6 +24,9 @@ public class PausedScene extends BaseScene {
     public PausedScene(MainScene scene) {
         this.scene = scene;
         initLayers(Layer.COUNT);
+        add(GameOverScene.Layer.bg, new Sprite(R.mipmap.halftransparent_black,
+                0.5f, 0.5f,
+                Metrics.screenWidth / Metrics.scale, Metrics.screenHeight / Metrics.scale));
         // 계속하기
         add(Layer.touch, new Button(R.mipmap.button, 0.5f, 0.4f + (Metrics.y_offset / Metrics.scale)
                 , 0.45f, 0.2f,

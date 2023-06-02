@@ -26,6 +26,9 @@ public class GameOverScene extends BaseScene {
         initLayers(Layer.COUNT);
         add(Layer.bg, new Sprite(R.mipmap.gameover,
                 0.5f, 0.4f, 0.8f, 0.3f));
+        add(Layer.bg, new Sprite(R.mipmap.halftransparent_red,
+                0.5f, 0.5f,
+                Metrics.screenWidth / Metrics.scale, Metrics.screenHeight / Metrics.scale));
         // 나가기
         add(PausedScene.Layer.touch, new Button(R.mipmap.button, 0.25f, 0.85f + (Metrics.y_offset / Metrics.scale),
                 0.45f, 0.2f,

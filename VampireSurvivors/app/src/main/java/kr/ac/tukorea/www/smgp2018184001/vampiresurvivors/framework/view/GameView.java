@@ -14,7 +14,6 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.BuildConfig;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.res.Sound;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.BaseScene;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.characters.Player;
-import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.controller.EnemyGenerator;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.flags.DebugFlag;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.scene.MainScene;
 
@@ -71,30 +70,33 @@ public class GameView extends View implements Choreographer.FrameCallback {
         }
         //Log.d(TAG, "x_offset: "+Metrics.x_offset+", y_offset"+Metrics.y_offset);
         BaseScene.initScenePaints();
+        initPaints();
     }
 
     private void init(AttributeSet attrs, int defStyle) {
         res = getResources();
         view = this;
+        initPaints();
+        Choreographer.getInstance().postFrameCallback(this);
+        Sound.initSoundVolume();
+    }
 
+    private void initPaints() {
         if (BuildConfig.DEBUG) {
-            fpsPaint = new Paint();
+            if (fpsPaint == null) fpsPaint = new Paint();
             fpsPaint.setColor(Color.WHITE);
-            fpsPaint.setTextSize(90.0f);
+            fpsPaint.setTextSize(Metrics.screenWidth * 0.05f);
 
-            borderPaint = new Paint();
+            if (borderPaint == null) borderPaint = new Paint();
             borderPaint.setColor(Color.RED);
             borderPaint.setStyle(Paint.Style.STROKE);
             borderPaint.setStrokeWidth(0.01f);
 
-            colliderPaint = new Paint();
+            if (colliderPaint == null) colliderPaint = new Paint();
             colliderPaint.setColor(Color.YELLOW);
             colliderPaint.setStyle(Paint.Style.STROKE);
             colliderPaint.setStrokeWidth(0.005f);
         }
-        Choreographer.getInstance().postFrameCallback(this);
-
-        Sound.initSoundVolume();
     }
 
     @Override
@@ -147,6 +149,8 @@ public class GameView extends View implements Choreographer.FrameCallback {
                     int enemyNum = ((MainScene) scene).enemyGenerator.getEnemyNum();
                     canvas.drawText("Level: " + curLevel + ", Exp: " + curExp + ", Enemy Num: " + enemyNum
                             , 100f, 350f, fpsPaint);
+                    int killedEnemy = MainScene.player.getNumofKilledEnemies();
+                    canvas.drawText("Killed: " + killedEnemy, 100f, 450f, fpsPaint);
                 }
             }
         }

@@ -45,6 +45,7 @@ public class Player extends Character {
     private float attackRatio = 1.0f;
     private float coolTimeRatio = 1.0f;
     private float bulletSpeedRatio = 1.0f;
+    private int numofKilledEnemies = 0;
     Random random = new Random();
 
     public Player(MainScene scene, float posX, float posY, float sizeX, float sizeY,
@@ -335,6 +336,14 @@ public class Player extends Character {
         if (canUpgrade.size() == 0) return null;
         int id = random.nextInt(canUpgrade.size());
         return (Passive.PassiveType) canUpgrade.get(id);
+    }
+
+    public void increaseKilledEnemies() {
+        numofKilledEnemies++;
+    }
+
+    public int getNumofKilledEnemies() {
+        return numofKilledEnemies;
     }
 
     public float getAttackRatio() {

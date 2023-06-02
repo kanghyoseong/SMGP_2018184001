@@ -27,7 +27,7 @@ public class Bat extends Enemy {
                 R.mipmap.bat, 2, 2, 0.1f, target);
         maxHp = curHp = 1;
         atk = 1;
-        movementSpeed = Player.PLAYER_MOVEMENTSPEED * 0.5f;
+        movementSpeed = Player.PLAYER_MOVEMENTSPEED * 0.2f;
         atkType = AtkType.MELEE;
         dropExp = 1;
         setcolliderSize(SpriteSize.BAT_SIZE * 0.6f, SpriteSize.BAT_SIZE * 0.6f);

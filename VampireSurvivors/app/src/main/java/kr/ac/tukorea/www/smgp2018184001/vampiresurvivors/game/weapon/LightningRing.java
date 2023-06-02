@@ -18,7 +18,7 @@ public class LightningRing extends Weapon {
     public LightningRing(Player player) {
         super(WeaponType.LightningRing, SpriteSize.WHIP_SIZE_X, SpriteSize.WHIP_SIZE_Y,
                 R.mipmap.lightningring, 1, 1, 0.01f, player);
-        atk = 15;
+        atk = 10;
         elapsedCoolTime = maxCoolTime = 4.5f;
         projectileCount = 2;
     }

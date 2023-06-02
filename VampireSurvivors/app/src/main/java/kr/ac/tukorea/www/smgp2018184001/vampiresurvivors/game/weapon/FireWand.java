@@ -21,7 +21,7 @@ public class FireWand extends Weapon {
     public FireWand(Player player) {
         super(WeaponType.FireWand, SpriteSize.WHIP_SIZE_X, SpriteSize.WHIP_SIZE_Y,
                 R.mipmap.firewand, 1, 1, 0.01f, player);
-        atk = 20;
+        atk = 10;
         elapsedCoolTime = maxCoolTime = 3f;
         projectileCount = 3;
     }

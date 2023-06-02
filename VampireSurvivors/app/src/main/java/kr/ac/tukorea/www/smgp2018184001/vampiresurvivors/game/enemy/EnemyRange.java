@@ -7,7 +7,7 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.scene.MainScene;
 
 public class EnemyRange extends Enemy {
     private float elapsedShootTime = 0;
-    private float SHOOT_COOLTIME = 2f;
+    private float SHOOT_COOLTIME = 5f;
     private int bulletResId;
     private int bulletSpriteCountX, bulletSpriteCountY;
 

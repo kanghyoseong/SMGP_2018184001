@@ -32,4 +32,7 @@
     <string name="settings_back">Go Back</string>
     <string name="resume">Resume</string>
     <string name="restart">Restart</string>
+    <string name="gameover_score">Score: %d</string>
+    <string name="gameover_time">Survived %02d : %02d</string>
+    <string name="title_score">Score</string>
 </resources>

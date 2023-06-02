@@ -68,10 +68,10 @@ public class GameOverScene extends BaseScene {
         canvas.drawText(String.format("LV %d", level),
                 Metrics.screenWidth / 2, Metrics.screenHeight * 0.5f, BaseScene.textPaint);
         // 시간 출력
-        canvas.drawText(String.format("Survived %02d : %02d", minute, sec),
+        canvas.drawText(String.format(GameView.res.getString(R.string.gameover_time), minute, sec),
                 Metrics.screenWidth / 2, Metrics.screenHeight * 0.6f, BaseScene.textPaint);
         // 점수 출력
-        canvas.drawText(String.format("Score: %d", score),
+        canvas.drawText(String.format(GameView.res.getString(R.string.gameover_score), score),
                 Metrics.screenWidth / 2, Metrics.screenHeight * 0.7f, BaseScene.textPaint);
 
         canvas.drawText(GameView.res.getString(R.string.title_exit),

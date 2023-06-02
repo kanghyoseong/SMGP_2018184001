@@ -26,8 +26,8 @@ public class EnemyGenerator implements IGameObject {
     private int wave = 0;
     protected static final float TIME_TO_NEXT_WAVE = 30.0f;
     private float elapsedTime = TIME_TO_NEXT_WAVE * 0.9f;
-    private final int INITIAL_NUM_OF_ENEMY = 15;
-    private final int ENEMY_INCREMENT_PER_WAVE = 5;
+    private final int INITIAL_NUM_OF_ENEMY = 20;
+    private final int ENEMY_INCREMENT_PER_WAVE = 10;
     private int numofSpawnedEnemies = -1;
 
     public EnemyGenerator() {

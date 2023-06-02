@@ -28,7 +28,7 @@ public class Ghost extends EnemyRange {
                 R.mipmap.bullet_ghost, 2, 1);
         maxHp = curHp = 10;
         atk = 1;
-        movementSpeed = Player.PLAYER_MOVEMENTSPEED * 0.55f;
+        movementSpeed = Player.PLAYER_MOVEMENTSPEED * 0.3f;
         atkType = AtkType.RANGE;
         dropExp = 5;
         setcolliderSize(SpriteSize.GHOST_SIZE * 0.6f, SpriteSize.GHOST_SIZE * 0.8f);

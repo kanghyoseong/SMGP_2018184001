@@ -30,7 +30,7 @@ public class Player extends Character {
     // Game Information
     private int level = 1;
     private int expToLevelUp = 5;
-    private int expToLevelUp_increment = 10;
+    private int expToLevelUp_increment = 5;
     private int maxHp_increment = 2;
     private int curExp = 0;
     public static float PLAYER_MOVEMENTSPEED = 0.5f;

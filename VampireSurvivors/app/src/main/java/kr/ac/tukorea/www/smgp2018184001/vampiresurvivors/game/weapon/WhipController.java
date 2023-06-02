@@ -22,7 +22,7 @@ public class WhipController extends Weapon implements IAttackable {
     public WhipController(Player player) {
         super(WeaponType.Whip, SpriteSize.WHIP_SIZE_X, SpriteSize.WHIP_SIZE_Y,
                 R.mipmap.whipcontroller, 1, 6, 0.01f, player);
-        atk = 10;
+        atk = 5;
         projectileCount = 1;
         elapsedCoolTime = maxCoolTime = 1.35f;
         this.player = player;

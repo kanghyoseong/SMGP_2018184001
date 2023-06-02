@@ -73,6 +73,12 @@ public class GameView extends View implements Choreographer.FrameCallback {
         initPaints();
     }
 
+    public void setFullScreen() {
+        setSystemUiVisibility(View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY |
+                View.SYSTEM_UI_FLAG_FULLSCREEN |
+                View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
+    }
+
     private void init(AttributeSet attrs, int defStyle) {
         res = getResources();
         view = this;

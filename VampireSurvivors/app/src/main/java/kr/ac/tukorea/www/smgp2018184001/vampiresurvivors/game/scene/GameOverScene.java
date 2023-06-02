@@ -34,10 +34,8 @@ public class GameOverScene extends BaseScene {
                 new Button.Callback() {
                     @Override
                     public boolean onTouch(Button.Action action) {
-                        if (action == Button.Action.pressed) {
-                            if (action == Button.Action.pressed) {
-                                ((Activity) GameView.view.context).finish();
-                            }
+                        if (action == Button.Action.released) {
+                            ((Activity) GameView.view.context).finish();
                         }
                         return false;
                     }
@@ -48,7 +46,7 @@ public class GameOverScene extends BaseScene {
                 new Button.Callback() {
                     @Override
                     public boolean onTouch(Button.Action action) {
-                        if (action == Button.Action.pressed) {
+                        if (action == Button.Action.released) {
                             BaseScene.restart();
                         }
                         return false;

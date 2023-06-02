@@ -24,8 +24,8 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects.Object;
 
 public class EnemyGenerator implements IGameObject {
     private int wave = 0;
-    protected static final float TIME_TO_NEXT_WAVE = 30.0f;
-    private float elapsedTime = TIME_TO_NEXT_WAVE * 0.9f;
+    protected static final float TIME_TO_NEXT_WAVE = 20.0f;
+    private float elapsedTime = TIME_TO_NEXT_WAVE * 0.95f;
     private final int INITIAL_NUM_OF_ENEMY = 20;
     private final int ENEMY_INCREMENT_PER_WAVE = 10;
     private int numofSpawnedEnemies = -1;

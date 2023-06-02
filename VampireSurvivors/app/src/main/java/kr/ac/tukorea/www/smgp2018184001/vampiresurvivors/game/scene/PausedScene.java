@@ -33,7 +33,7 @@ public class PausedScene extends BaseScene {
                 new Button.Callback() {
                     @Override
                     public boolean onTouch(Button.Action action) {
-                        if (action == Button.Action.pressed) {
+                        if (action == Button.Action.released) {
                             popScene();
                             if (BaseScene.getTopScene() instanceof MainScene) {
                                 MainScene scene = (MainScene) BaseScene.getTopScene();
@@ -49,7 +49,7 @@ public class PausedScene extends BaseScene {
                 new Button.Callback() {
                     @Override
                     public boolean onTouch(Button.Action action) {
-                        if (action == Button.Action.pressed) {
+                        if (action == Button.Action.released) {
                             Intent intent = new Intent(GameView.view.context, SettingsActivity.class);
                             GameView.view.context.startActivity(intent);
                         }
@@ -62,7 +62,7 @@ public class PausedScene extends BaseScene {
                 new Button.Callback() {
                     @Override
                     public boolean onTouch(Button.Action action) {
-                        if (action == Button.Action.pressed) {
+                        if (action == Button.Action.released) {
                             ((Activity) GameView.view.context).finish();
                         }
                         return false;

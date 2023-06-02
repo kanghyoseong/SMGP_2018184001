@@ -30,4 +30,12 @@ public class TitleActivity extends AppCompatActivity {
     public void onBtnExit(View view) {
         finish();
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY |
+                View.SYSTEM_UI_FLAG_FULLSCREEN |
+                View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
+    }
 }

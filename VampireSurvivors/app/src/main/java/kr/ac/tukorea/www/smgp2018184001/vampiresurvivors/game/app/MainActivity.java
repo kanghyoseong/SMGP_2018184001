@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         gameView.resumeGame();
+        gameView.setFullScreen();
     }
 
     @Override

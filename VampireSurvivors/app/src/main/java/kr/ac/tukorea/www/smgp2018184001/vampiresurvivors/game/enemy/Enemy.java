@@ -1,19 +1,21 @@
 package kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.enemy;
 
-import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.R;
+import java.util.Random;
+
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.interfaces.IAttackable;
-import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.res.Sound;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.BaseScene;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.characters.Character;
-import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.scene.MainScene;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects.Exp;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects.Object;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects.Recovery;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.scene.MainScene;
 
 public class Enemy extends Character implements IAttackable {
     protected float atk;
     protected AtkType atkType;
     protected int dropExp;
     protected EEnemyType type;
+    public static Random random = new Random();
 
     protected Object target = null;
 
@@ -53,10 +55,15 @@ public class Enemy extends Character implements IAttackable {
         BaseScene scene = BaseScene.getTopScene();
         scene.remove(MainScene.Layer.enemy, this);
 
-        //Spawn Exp
-        Exp e = Exp.get(posX, posY, dropExp);
-        scene.add(MainScene.Layer.item, e);
-        ((MainScene)scene).enemyGenerator.enemyDestroyed();
+        //Spawn Exp or Recovery
+        if (random.nextInt(100) < 1) {
+            Recovery r = Recovery.get(posX, posY);
+            scene.add(MainScene.Layer.item, r);
+        } else {
+            Exp e = Exp.get(posX, posY, dropExp);
+            scene.add(MainScene.Layer.item, e);
+        }
+        ((MainScene) scene).enemyGenerator.enemyDestroyed();
         MainScene.player.increaseKilledEnemies();
     }
 

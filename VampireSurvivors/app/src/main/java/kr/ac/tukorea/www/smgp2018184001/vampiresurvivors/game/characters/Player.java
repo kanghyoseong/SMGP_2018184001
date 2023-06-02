@@ -375,6 +375,13 @@ public class Player extends Character {
         super.getDamage(damage);
     }
 
+    public void heal(int hp) {
+        curHp += hp;
+        if (curHp > maxHp) {
+            curHp = maxHp;
+        }
+    }
+
     public int numofItemToUpgrade() {
         return weaponToUpgrade.size() + passiveToUpgrade.size();
     }

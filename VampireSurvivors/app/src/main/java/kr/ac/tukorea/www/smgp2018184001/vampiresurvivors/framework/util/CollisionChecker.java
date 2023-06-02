@@ -14,6 +14,7 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.characters.Player;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.enemy.Bullet;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.enemy.Enemy;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects.Exp;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects.Recovery;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.scene.MainScene;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.weapon.WandBullet;
 
@@ -32,6 +33,7 @@ public class CollisionChecker implements IGameObject {
 
         boolean isEnemyHitSoundPlayed = false;
         boolean isGetExpSoundPlayed = false;
+        boolean isHealSoundPlayed = false;
         boolean isPlayerHitSoundPlayed = false;
 
         ArrayList<IGameObject> enemies = scene.getObjectsAt(MainScene.Layer.enemy);
@@ -81,11 +83,20 @@ public class CollisionChecker implements IGameObject {
         }
         for (IGameObject i : items) {
             if (collides(p, (ICollidable) i)) {
-                p.addExp(((Exp) i).getExp());
-                ((Exp) i).remove();
-                if (!isGetExpSoundPlayed) {
-                    Sound.playEffect(R.raw.getexp);
-                    isGetExpSoundPlayed = true;
+                if (i instanceof Recovery) {
+                    Recovery.healPlayer();
+                    ((Recovery) i).remove();
+                    if (!isHealSoundPlayed) {
+                        Sound.playEffect(R.raw.heal);
+                        isHealSoundPlayed = true;
+                    }
+                } else {
+                    p.addExp(((Exp) i).getExp());
+                    ((Exp) i).remove();
+                    if (!isGetExpSoundPlayed) {
+                        Sound.playEffect(R.raw.getexp);
+                        isGetExpSoundPlayed = true;
+                    }
                 }
             }
         }

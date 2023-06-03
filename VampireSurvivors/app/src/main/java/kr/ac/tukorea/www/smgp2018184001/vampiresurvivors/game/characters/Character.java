@@ -29,7 +29,9 @@ public class Character extends Object implements ICollidable {
 
     @Override
     public void update(float eTime) {
-        super.update(eTime);
+        if (dx != 0 || dy != 0) {
+            super.update(eTime);
+        }
         if (elapsedInvincibleTime > 0) { // 0보다 크면 무적
             elapsedInvincibleTime -= eTime;
         } else { // 0보다 작거나 같으면 무적 아님
@@ -52,8 +54,7 @@ public class Character extends Object implements ICollidable {
     }
 
     public void move(float dx, float dy) {
-        this.dx = dx;
-        this.dy = dy;
+        setDxDy(dx, dy);
         aSprite.setIsDirLeft(dx < 0);
         float newX = posX + movementSpeed * dx * GameView.frameTime;
         float newY = posY + movementSpeed * dy * GameView.frameTime;
@@ -68,6 +69,11 @@ public class Character extends Object implements ICollidable {
         }
         reconstructRect();
         reconstructColliderRect();
+    }
+
+    public void setDxDy(float dx, float dy) {
+        this.dx = dx;
+        this.dy = dy;
     }
 
     public void recoverHp(float hp) {

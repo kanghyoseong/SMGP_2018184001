@@ -3,8 +3,8 @@ package kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.controller;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 
-import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.BaseScene;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.interfaces.IGameObject;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.BaseScene;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.view.Metrics;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.characters.Player;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.flags.SpriteSize;
@@ -37,6 +37,9 @@ public class Joystick implements IGameObject {
                 float moveY = dirY * speed_multiplier;
                 //Log.d(null, "moveX: " + moveX + ", moveY: " + moveY);
                 player.move(moveX, moveY);
+            }
+            else{
+                player.setDxDy(0, 0);
             }
         }
     }
@@ -71,6 +74,8 @@ public class Joystick implements IGameObject {
     public void touchUp() {
         isTouchDown = false;
         length = 0;
+        dirX = 0;
+        dirY = 0;
     }
 
     public void draw(Canvas canvas) {

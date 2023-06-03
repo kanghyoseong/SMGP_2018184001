@@ -1,8 +1,6 @@
 package kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.controller;
 
 import android.graphics.Canvas;
-import android.os.Handler;
-import android.util.Log;
 
 import java.util.Random;
 
@@ -11,7 +9,6 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.interfaces.IG
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.BaseScene;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.view.Metrics;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.characters.Player;
-import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.scene.MainScene;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.enemy.EEnemyType;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.enemy.Enemy;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.enemy.enemyType.Bat;
@@ -21,13 +18,14 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.enemy.enemyType.Ma
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.enemy.enemyType.Skeleton;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.flags.DebugFlag;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects.Object;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.scene.MainScene;
 
 public class EnemyGenerator implements IGameObject {
     private int wave = 0;
     protected static final float TIME_TO_NEXT_WAVE = 20.0f;
     private float elapsedTime = TIME_TO_NEXT_WAVE * 0.95f;
-    private final int INITIAL_NUM_OF_ENEMY = 20;
-    private final int ENEMY_INCREMENT_PER_WAVE = 10;
+    private final int INITIAL_NUM_OF_ENEMY = 15;
+    private final int ENEMY_INCREMENT_PER_WAVE = 2;
     private int numofSpawnedEnemies = -1;
 
     public EnemyGenerator() {
@@ -92,22 +90,25 @@ public class EnemyGenerator implements IGameObject {
     }
 
     private float getRandomPos(Random rand, boolean isPosX) {
+        BaseScene scene = BaseScene.getTopScene();
         Player player = MainScene.player;
         float pos;
         if (isPosX) {
-            pos = rand.nextFloat() * (Object.boundary.right - Object.boundary.left) + Object.boundary.left;
-            float min = player.getPosX() - Metrics.game_width;
-            float max = player.getPosX() + Metrics.game_width;
+            float width = Object.boundary.right - Object.boundary.left;
+            pos = rand.nextFloat() * (width * 0.8f) + width * 0.1f + Object.boundary.left;
+            float min = scene.getCamera().getPosX() - Metrics.game_width;
+            float max = scene.getCamera().getPosX() + Metrics.game_width;
             if (pos > min && pos < max) {
-                if (pos < player.getPosX()) pos = min;
+                if (pos < player.getPosX() && pos > Object.boundary.top + width * 0.1f) pos = min;
                 else pos = max;
             }
         } else {
-            pos = rand.nextFloat() * (Object.boundary.bottom - Object.boundary.top) + Object.boundary.top;
-            float min = player.getPosY() - Metrics.game_height;
-            float max = player.getPosY() + Metrics.game_height;
+            float height = Object.boundary.bottom - Object.boundary.top;
+            pos = rand.nextFloat() * (height * 0.8f) + height * 0.1f + Object.boundary.top;
+            float min = scene.getCamera().getPosY() - Metrics.game_height;
+            float max = scene.getCamera().getPosY() + Metrics.game_height;
             if (pos > min && pos < max) {
-                if (pos < player.getPosY()) pos = min;
+                if (pos < player.getPosY() && pos > Object.boundary.top + height * 0.1f) pos = min;
                 else pos = max;
             }
         }

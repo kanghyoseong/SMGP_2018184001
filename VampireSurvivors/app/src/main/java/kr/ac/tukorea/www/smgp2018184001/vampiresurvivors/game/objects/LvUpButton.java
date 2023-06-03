@@ -143,6 +143,8 @@ public class LvUpButton extends Button {
             String info = GameView.res.getString(resId);
             canvas.drawText(info, Metrics.screenWidth / 2f, Metrics.toScreenY(posY) + height * Metrics.scale * 0.2f, lvupinfoTextPaint);
         } catch (Exception e) {
+            if (isWeapon) Log.v(TAG, "LvUpButton draw() error, " + weaponType);
+            else Log.v(TAG, "LvUpButton draw() error, " + passiveType);
             canvas.translate(Metrics.x_offset, Metrics.y_offset);
             canvas.scale(Metrics.scale, Metrics.scale);
             return;

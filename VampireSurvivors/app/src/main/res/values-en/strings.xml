@@ -10,11 +10,11 @@
     <string name="item_lv_1_Dec_Cooltime">Cooldowns are reduced by 8%.</string>
     <string name="item_lv_1_Inc_BulletSpd">Increases projectile speed by 10%.</string>
     <string name="item_lv_2">Increase the number of projectiles by 1</string>
-    <string name="item_lv_3">Increases attack damage by 10.</string>
+    <string name="item_lv_3">Increases attack damage by 5.</string>
     <string name="item_lv_4">Increase the number of projectiles by 1</string>
-    <string name="item_lv_5">Increases attack damage by 20.</string>
+    <string name="item_lv_5">Increases attack damage by 5.</string>
     <string name="item_lv_6">Cooldowns are reduced by 25%.</string>
-    <string name="item_lv_7">Increases attack damage by 10.</string>
+    <string name="item_lv_7">Increases attack damage by 5.</string>
     <string name="item_lv_8">Increase the number of projectiles by 1</string>
     <string name="item_name_Whip">Whip</string>
     <string name="item_name_MagicWand">Magic Wand</string>

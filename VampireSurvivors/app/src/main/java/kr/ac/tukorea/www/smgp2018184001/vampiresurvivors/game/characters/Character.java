@@ -4,7 +4,9 @@ import android.graphics.Canvas;
 import android.graphics.RectF;
 
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.BuildConfig;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.R;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.interfaces.ICollidable;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.res.Sound;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.BaseScene;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.view.GameView;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.controller.Camera;
@@ -69,6 +71,7 @@ public class Character extends Object implements ICollidable {
     }
 
     public void recoverHp(float hp) {
+        Sound.playEffect(R.raw.heal);
         this.curHp += hp;
         if (curHp > maxHp) {
             curHp = maxHp;

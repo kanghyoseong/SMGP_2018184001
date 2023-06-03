@@ -31,12 +31,13 @@ public class MainScene extends BaseScene {
 
 
     public enum Layer {
-        bg, enemy, bullet, weapon, player, item, touch, controller, COUNT
+        bg, bullet, weapon, player, item, enemy, touch, controller, COUNT
     }
 
     public MainScene() {
         Metrics.setGameSize(1, 1);
         initLayers(Layer.COUNT);
+        LevelUpScene.numofLevelUpSceneToShow = 0;
 
         Object background = new Object(0, 0,
                 SpriteSize.BACKGROUND_SIZE, SpriteSize.BACKGROUND_SIZE,

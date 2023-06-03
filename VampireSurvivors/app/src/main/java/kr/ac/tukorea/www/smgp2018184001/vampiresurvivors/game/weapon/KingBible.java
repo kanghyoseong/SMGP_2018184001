@@ -18,7 +18,7 @@ public class KingBible extends Weapon {
     public KingBible(Player player) {
         super(WeaponType.KingBible, SpriteSize.WHIP_SIZE_X, SpriteSize.WHIP_SIZE_Y,
                 R.mipmap.kingbible, 1, 1, 0.01f, player);
-        atk = 5;
+        atk = 2;
         elapsedCoolTime = maxCoolTime = 3f;
         duration = 6f;
     }

@@ -25,9 +25,9 @@ public class LizardPawn extends Enemy {
     private LizardPawn(float posX, float posY, Object target) {
         super(posX, posY, SpriteSize.LIZARDPAWN_SIZE, SpriteSize.LIZARDPAWN_SIZE,
                 R.mipmap.lizardpawn, 2, 2, 0.1f, target);
-        maxHp = curHp = 20;
-        atk = 6;
-        movementSpeed = Player.PLAYER_MOVEMENTSPEED * 0.1f;
+        maxHp = curHp = 50;
+        atk = 10;
+        movementSpeed = Player.PLAYER_MOVEMENTSPEED * 0.4f;
         atkType = AtkType.MELEE;
         dropExp = 10;
         setcolliderSize(SpriteSize.LIZARDPAWN_SIZE * 0.6f, SpriteSize.LIZARDPAWN_SIZE * 0.8f);

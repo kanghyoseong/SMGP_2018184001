@@ -63,7 +63,7 @@ public class Recovery extends Object implements ICollidable {
         Player p = MainScene.player;
         if (p != null) {
             int amount = (int) ((float) p.getMaxHp() * HEAL_AMOUNT);
-            p.heal(amount);
+            p.recoverHp(amount);
         }
     }
 

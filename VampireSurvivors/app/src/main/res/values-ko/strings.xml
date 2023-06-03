@@ -10,11 +10,11 @@
     <string name="item_lv_1_Dec_Cooltime">쿨타임 8% 감소</string>
     <string name="item_lv_1_Inc_BulletSpd">투사체 속도가 10% 증가</string>
     <string name="item_lv_2">투사체 수 1 증가</string>
-    <string name="item_lv_3">공격력 10 증가</string>
+    <string name="item_lv_3">공격력 5 증가</string>
     <string name="item_lv_4">투사체 수 1 증가</string>
-    <string name="item_lv_5">공격력 20 증가</string>
+    <string name="item_lv_5">공격력 5 증가</string>
     <string name="item_lv_6">쿨타임 25% 감소</string>
-    <string name="item_lv_7">공격력 10 증가</string>
+    <string name="item_lv_7">공격력 5 증가</string>
     <string name="item_lv_8">투사체 수 1 증가</string>
     <string name="item_name_Whip">채찍</string>
     <string name="item_name_MagicWand">마법 지팡이</string>

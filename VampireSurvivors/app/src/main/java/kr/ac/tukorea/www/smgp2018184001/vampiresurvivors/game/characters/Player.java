@@ -31,7 +31,7 @@ public class Player extends Character {
     private int level = 1;
     private int expToLevelUp = 5;
     private int expToLevelUp_increment = 5;
-    private int maxHp_increment = 2;
+    private int maxHp_increment = 1;
     private int curExp = 0;
     public static float PLAYER_MOVEMENTSPEED = 0.5f;
     ArrayList<IGameObject> enemiesInScreen = new ArrayList<>();
@@ -206,13 +206,13 @@ public class Player extends Character {
                 weapon.addProjectileCount(1);
                 break;
             case 3:
-                weapon.addAtk(10f);
+                weapon.addAtk(5f);
                 break;
             case 4:
                 weapon.addProjectileCount(1);
                 break;
             case 5:
-                weapon.addAtk(20f);
+                weapon.addAtk(5f);
                 break;
             case 6:
                 float coolTime = weapon.getMaxCoolTime();
@@ -220,7 +220,7 @@ public class Player extends Character {
                 Log.d(TAG, "Decrease " + weapon.getClass().getSimpleName() + "'s CoolTime");
                 break;
             case 7:
-                weapon.addAtk(10f);
+                weapon.addAtk(5f);
                 break;
             case 8:
                 weapon.addProjectileCount(1);
@@ -233,7 +233,7 @@ public class Player extends Character {
 
     public void addExp(int exp) {
         this.curExp += exp;
-        if (curExp >= expToLevelUp) {
+        while (curExp >= expToLevelUp) {
             curExp -= expToLevelUp;
             levelUp();
         }
@@ -299,18 +299,19 @@ public class Player extends Character {
         ArrayList<Enum> canUpgrade = new ArrayList<>();
         canUpgrade.addAll(weaponToUpgrade);
         canUpgrade.removeAll(addedType);
-//        Log.v(null, "----get Random Weapon -------");
-//        for (Enum e : addedType) {
-//            Log.v(null, "Added Type: " + e);
-//        }
-//        for (Enum e : weaponToUpgrade) {
-//            Log.v(null, "weaponToUpgrade: " + e);
-//        }
-//        for (Enum e : canUpgrade) {
-//            Log.v(null, "canUpgrade: " + e);
-//        }
+        Log.v(null, "----get Random Weapon -------");
+        for (Enum e : addedType) {
+            Log.v(null, "Added Type: " + e);
+        }
+        for (Enum e : weaponToUpgrade) {
+            Log.v(null, "weaponToUpgrade: " + e);
+        }
+        for (Enum e : canUpgrade) {
+            Log.v(null, "canUpgrade: " + e + ", LV: " + weaponLevel.get(e));
+        }
         if (canUpgrade.size() == 0) return null;
         int id = random.nextInt(canUpgrade.size());
+        Log.v(TAG, "return " + id + ", " + canUpgrade.get(id));
         return (Weapon.WeaponType) canUpgrade.get(id);
     }
 
@@ -323,6 +324,7 @@ public class Player extends Character {
         ArrayList<Enum> canUpgrade = new ArrayList<>();
         canUpgrade.addAll(passiveToUpgrade);
         canUpgrade.removeAll(addedType);
+        Log.v(null, "Get Random Passive");
 //        Log.v(null, "----get Random Passive -------");
 //        for (Enum e : addedType) {
 //            Log.v(null, "Added Type: " + e);
@@ -330,9 +332,9 @@ public class Player extends Character {
 //        for (Enum e : passiveToUpgrade) {
 //            Log.v(null, "passiveToUpgrade: " + e);
 //        }
-//        for (Enum e : canUpgrade) {
-//            Log.v(null, "canUpgrade: " + e);
-//        }
+        for (Enum e : canUpgrade) {
+            Log.v(null, "canUpgrade: " + e);
+        }
         if (canUpgrade.size() == 0) return null;
         int id = random.nextInt(canUpgrade.size());
         return (Passive.PassiveType) canUpgrade.get(id);
@@ -373,13 +375,6 @@ public class Player extends Character {
     @Override
     public void getDamage(float damage) {
         super.getDamage(damage);
-    }
-
-    public void heal(int hp) {
-        curHp += hp;
-        if (curHp > maxHp) {
-            curHp = maxHp;
-        }
     }
 
     public int numofItemToUpgrade() {

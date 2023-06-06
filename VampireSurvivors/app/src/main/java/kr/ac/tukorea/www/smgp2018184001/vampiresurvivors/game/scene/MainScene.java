@@ -31,7 +31,7 @@ public class MainScene extends BaseScene {
 
 
     public enum Layer {
-        bg, bullet, weapon, player, item, enemy, touch, controller, COUNT
+        bg, bullet, weapon, player, item, enemy, effect, touch, controller, COUNT
     }
 
     public MainScene() {

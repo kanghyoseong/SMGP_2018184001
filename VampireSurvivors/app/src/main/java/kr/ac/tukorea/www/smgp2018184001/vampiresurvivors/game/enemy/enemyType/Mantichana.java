@@ -26,7 +26,7 @@ public class Mantichana extends Enemy {
         super(posX, posY, SpriteSize.MANTICHANA_SIZE, SpriteSize.MANTICHANA_SIZE,
                 R.mipmap.mantichana, 2, 2, 0.1f, target);
         maxHp = curHp = 50;
-        atk = 12;
+        atk = 8;
         movementSpeed = Player.PLAYER_MOVEMENTSPEED * 0.2f;
         atkType = AtkType.MELEE;
         dropExp = 10;

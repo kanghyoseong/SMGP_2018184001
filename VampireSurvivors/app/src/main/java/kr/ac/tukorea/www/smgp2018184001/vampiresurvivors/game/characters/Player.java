@@ -12,6 +12,7 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.interfaces.IG
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.res.Sound;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.BaseScene;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.view.Metrics;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.effect.HealEffect;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.enemy.Enemy;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects.Passive;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects.Weapon;
@@ -338,6 +339,12 @@ public class Player extends Character {
         if (canUpgrade.size() == 0) return null;
         int id = random.nextInt(canUpgrade.size());
         return (Passive.PassiveType) canUpgrade.get(id);
+    }
+
+    @Override
+    public void recoverHp(float hp) {
+        super.recoverHp(hp);
+        mainScene.add(MainScene.Layer.effect, HealEffect.get(posX, posY, this));
     }
 
     public void increaseKilledEnemies() {

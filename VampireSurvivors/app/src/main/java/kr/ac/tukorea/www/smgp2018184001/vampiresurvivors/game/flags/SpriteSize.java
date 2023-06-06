@@ -20,6 +20,8 @@ public class SpriteSize {
     public static float PASSIVE_SIZE = 0.1f;
     public static float EXP_SIZEX = 0.06f;
     public static float EXP_SIZEY = 0.08f;
+    public static float HEALEFFECT_SIZEX = 0.1f;
+    public static float HEALEFFECT_SIZEY = 0.3f;
 
 
     // ETC

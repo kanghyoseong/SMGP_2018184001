@@ -71,6 +71,10 @@ public class CollisionChecker implements IGameObject {
             if (collides(p, (ICollidable) b)) {
                 p.getDamage(((IAttackable) b).getAtk());
                 ((Bullet) b).remove();
+                if (!isPlayerHitSoundPlayed) {
+                    Sound.playEffect(R.raw.playerhit);
+                    isPlayerHitSoundPlayed = true;
+                }
             }
             // Weapon <-> Bullet
             for (IGameObject w : weapons) {

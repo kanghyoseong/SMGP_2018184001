@@ -18,14 +18,14 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.scene.MainScene;
 
 public class Recovery extends Object implements ICollidable {
     private static final float HEAL_AMOUNT = 0.1f;
+    private Player player;
 
-    public static Recovery get(float posX, float posY) {
+    public static Recovery get(Player player, float posX, float posY) {
         Recovery obj = (Recovery) RecycleBin.get(Recovery.class);
         if (obj == null) {
             obj = new Recovery(posX, posY);
-        } else {
-            obj.init(posX, posY);
         }
+        obj.init(player, posX, posY);
         return obj;
     }
 
@@ -33,7 +33,6 @@ public class Recovery extends Object implements ICollidable {
         super(posX, posY);
         this.sizeX = SpriteSize.EXP_SIZEX;
         this.sizeY = SpriteSize.EXP_SIZEY;
-        init(posX, posY);
     }
 
     @Override
@@ -48,7 +47,8 @@ public class Recovery extends Object implements ICollidable {
         }
     }
 
-    private void init(float posX, float posY) {
+    private void init(Player player, float posX, float posY) {
+        this.player = player;
         this.posX = posX;
         this.posY = posY;
         sprite = new Sprite(R.mipmap.chicken);
@@ -59,12 +59,9 @@ public class Recovery extends Object implements ICollidable {
         sprite.setDstRect(dstRect);
     }
 
-    public static void healPlayer() {
-        Player p = MainScene.player;
-        if (p != null) {
-            int amount = (int) ((float) p.getMaxHp() * HEAL_AMOUNT);
-            p.recoverHp(amount);
-        }
+    public void healPlayer() {
+        int amount = (int) ((float) player.getMaxHp() * HEAL_AMOUNT);
+        player.recoverHp(amount);
     }
 
     public void remove() {

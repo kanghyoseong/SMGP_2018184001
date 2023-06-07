@@ -30,15 +30,14 @@ public class Joystick implements IGameObject {
     @Override
     public void update(float eTime) {
         if (!(BaseScene.getTopScene() instanceof MainScene)) return;
-        Player player = MainScene.player;
+        Player player = ((MainScene) BaseScene.getTopScene()).getPlayer();
         if (player != null) {
             if (isTouchDown && length > 0.01f) {
                 float moveX = dirX * speed_multiplier;
                 float moveY = dirY * speed_multiplier;
                 //Log.d(null, "moveX: " + moveX + ", moveY: " + moveY);
                 player.move(moveX, moveY);
-            }
-            else{
+            } else {
                 player.setDxDy(0, 0);
             }
         }
@@ -80,7 +79,7 @@ public class Joystick implements IGameObject {
 
     public void draw(Canvas canvas) {
         if (!(BaseScene.getTopScene() instanceof MainScene)) return;
-        Player player = MainScene.player;
+        Player player = ((MainScene) BaseScene.getTopScene()).getPlayer();
         if (player != null && isTouchDown) {
             canvas.drawCircle(posX, posY, SpriteSize.JOYSTICK_BACKGROUND_SIZE, paint_joystickBackground);
             canvas.drawCircle(curX, curY, SpriteSize.JOYSTICK_HANDLE_SIZE, paint_joystickHandle);

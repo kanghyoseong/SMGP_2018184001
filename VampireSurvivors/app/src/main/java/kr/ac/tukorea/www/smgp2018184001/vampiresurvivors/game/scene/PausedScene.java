@@ -15,7 +15,7 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.app.MainActivity;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.app.SettingsActivity;
 
 public class PausedScene extends BaseScene {
-    MainScene scene;
+    private MainScene scene;
 
     public enum Layer {
         bg, touch, COUNT
@@ -80,7 +80,7 @@ public class PausedScene extends BaseScene {
         canvas.drawText(String.format("%02d : %02d", minute, sec),
                 Metrics.screenWidth / 2, Metrics.screenHeight * 0.1f, BaseScene.textPaint);
         // 레벨 출력
-        canvas.drawText(String.format("LV %d", MainScene.player.getLevel()),
+        canvas.drawText(String.format("LV %d", scene.getPlayer().getLevel()),
                 Metrics.screenWidth * 0.9f, 90f, BaseScene.levelTextPaint);
 
         canvas.drawText(GameView.res.getString(R.string.resume),

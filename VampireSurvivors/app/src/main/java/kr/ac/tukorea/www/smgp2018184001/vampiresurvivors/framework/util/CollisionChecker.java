@@ -22,11 +22,15 @@ public class CollisionChecker implements IGameObject {
     private static final String TAG = CollisionChecker.class.getSimpleName();
     private float elapsedTime = -0.01f;
     private final float SOUND_INTERVAL = 0.1f;
+    private MainScene scene;
+
+    public CollisionChecker(MainScene scene) {
+        this.scene = scene;
+    }
 
     @Override
     public void update(float eTime) {
-        BaseScene scene = BaseScene.getTopScene();
-        Player p = MainScene.player;
+        Player p = scene.getPlayer();
         if (scene == null || p == null) return;
 
         if (elapsedTime >= 0) elapsedTime -= eTime;
@@ -88,7 +92,7 @@ public class CollisionChecker implements IGameObject {
         for (IGameObject i : items) {
             if (collides(p, (ICollidable) i)) {
                 if (i instanceof Recovery) {
-                    Recovery.healPlayer();
+                    ((Recovery)i).healPlayer();
                     ((Recovery) i).remove();
                     if (!isHealSoundPlayed) {
                         Sound.playEffect(R.raw.heal);

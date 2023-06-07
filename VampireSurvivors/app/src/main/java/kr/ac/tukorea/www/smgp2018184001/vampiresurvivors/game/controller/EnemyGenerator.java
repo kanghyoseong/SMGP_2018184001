@@ -48,7 +48,8 @@ public class EnemyGenerator implements IGameObject {
     private void spawnEnemy() {
         BaseScene scene = BaseScene.getTopScene();
         if (scene == null) return;
-        Player player = MainScene.player;
+        if (!(BaseScene.getTopScene() instanceof MainScene)) return;
+        Player player = ((MainScene) BaseScene.getTopScene()).getPlayer();
         if (player == null) return;
         Random random = new Random();
         if (numofSpawnedEnemies == -1) numofSpawnedEnemies = 0;
@@ -60,8 +61,8 @@ public class EnemyGenerator implements IGameObject {
             Enemy e = null;
             float posX, posY;
             for (int j = 0; j < spawnNum; j++) {
-                posX = getRandomPos(random, true);
-                posY = getRandomPos(random, false);
+                posX = getRandomPos(random, (MainScene)scene, true);
+                posY = getRandomPos(random, (MainScene)scene, false);
                 switch (curType) {
                     case Bat:
                         e = Bat.get(posX, posY, player);
@@ -89,9 +90,8 @@ public class EnemyGenerator implements IGameObject {
         }
     }
 
-    private float getRandomPos(Random rand, boolean isPosX) {
-        BaseScene scene = BaseScene.getTopScene();
-        Player player = MainScene.player;
+    private float getRandomPos(Random rand, MainScene scene, boolean isPosX) {
+        Player player = scene.getPlayer();
         float pos;
         if (isPosX) {
             float width = Object.boundary.right - Object.boundary.left;

@@ -16,14 +16,16 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.characters.Player;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.controller.Camera;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.controller.EnemyGenerator;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.controller.Joystick;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.enemy.Enemy;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.flags.SpriteSize;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects.Object;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects.Recovery;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.weapon.WhipController;
 
 public class MainScene extends BaseScene {
     private Joystick joystick;
     public float elapsedTime = 0;
-    public static Player player;
+    public Player player;
     public MainScene mainScene;
     public EnemyGenerator enemyGenerator;
     private Gauge hpGauge = new Gauge(0.1f, R.color.hp_gauge_fg, R.color.hp_gauge_bg);
@@ -66,11 +68,12 @@ public class MainScene extends BaseScene {
                     }
                 }));
 
-        add(Layer.controller, new CollisionChecker());
+        add(Layer.controller, new CollisionChecker(this));
         enemyGenerator = new EnemyGenerator();
         add(Layer.controller, enemyGenerator);
+        Enemy.setPlayer(player);
 
-        camera = new Camera(player);
+        camera = new Camera(this, player);
         add(Layer.controller, camera);
 
         joystick = new Joystick();
@@ -150,6 +153,10 @@ public class MainScene extends BaseScene {
 
     public Joystick getJoystick() {
         return joystick;
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 
     @Override

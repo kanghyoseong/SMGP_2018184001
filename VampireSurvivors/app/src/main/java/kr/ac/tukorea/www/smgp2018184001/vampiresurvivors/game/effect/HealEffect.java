@@ -12,17 +12,17 @@ public class HealEffect extends Object {
     private Player player;
     private static float OFFSETY = -0.05f;
 
-    public static HealEffect get(float x, float y, Player player) {
+    public static HealEffect get(Player player) {
         HealEffect obj = (HealEffect) RecycleBin.get(HealEffect.class);
         if (obj == null) {
-            obj = new HealEffect(x, y, player);
+            obj = new HealEffect(player);
         }
-        obj.init(x, y);
+        obj.init(player);
         return obj;
     }
 
-    private HealEffect(float x, float y, Player player) {
-        super(x, y + OFFSETY, SpriteSize.HEALEFFECT_SIZEX, SpriteSize.HEALEFFECT_SIZEY, R.mipmap.healeffect,
+    private HealEffect(Player player) {
+        super(player.getPosX(), player.getPosY() + OFFSETY, SpriteSize.HEALEFFECT_SIZEX, SpriteSize.HEALEFFECT_SIZEY, R.mipmap.healeffect,
                 5, 1, 0.08f);
         this.player = player;
     }
@@ -37,9 +37,10 @@ public class HealEffect extends Object {
         this.posY = player.getPosY() + OFFSETY;
     }
 
-    private void init(float x, float y) {
-        this.posX = x;
-        this.posY = y;
+    private void init(Player player) {
+        this.player = player;
+        this.posX = player.getPosX();
+        this.posY = player.getPosY();
         aSprite.setCurFrame(1);
     }
 }

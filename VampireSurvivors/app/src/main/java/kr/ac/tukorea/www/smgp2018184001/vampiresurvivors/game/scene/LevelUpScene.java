@@ -30,7 +30,7 @@ public class LevelUpScene extends BaseScene {
         this.scene = scene;
         initLayers(LevelUpScene.Layer.COUNT);
 
-        int numofButtons = Math.min(3, MainScene.player.numofItemToUpgrade());
+        int numofButtons = Math.min(3, scene.getPlayer().numofItemToUpgrade());
         //Log.v(null, "itemToUpgrade: " + MainScene.player.numofItemToUpgrade());
         //Log.v(null, "numofButtons: " + numofButtons);
         float buttonHeight = 0.3f;
@@ -56,7 +56,7 @@ public class LevelUpScene extends BaseScene {
     }
 
     private boolean addWeaponButton(int index, float startY, float buttonHeight, float frameHeight) {
-        Weapon.WeaponType type = MainScene.player.getRandomWeaponNotMaxLevel(addedType);
+        Weapon.WeaponType type = scene.getPlayer().getRandomWeaponNotMaxLevel(addedType);
         if (type == null) return false;
         add(LevelUpScene.Layer.touch, new LvUpButton(scene, 0.5f,
                 startY + buttonHeight * index + (Metrics.y_offset / Metrics.scale) - frameHeight / 2f + buttonHeight / 2f,
@@ -66,7 +66,7 @@ public class LevelUpScene extends BaseScene {
     }
 
     private boolean addPassiveButton(int index, float startY, float buttonHeight, float frameHeight) {
-        Passive.PassiveType type = MainScene.player.getRandomPassiveNotMaxLevel(addedType);
+        Passive.PassiveType type = scene.getPlayer().getRandomPassiveNotMaxLevel(addedType);
         if (type == null) return false;
         add(LevelUpScene.Layer.touch, new LvUpButton(scene, 0.5f,
                 startY + buttonHeight * index + (Metrics.y_offset / Metrics.scale) - frameHeight / 2f + buttonHeight / 2f,
@@ -85,8 +85,8 @@ public class LevelUpScene extends BaseScene {
         canvas.drawText(String.format("%02d : %02d", minute, sec),
                 Metrics.screenWidth / 2, Metrics.screenHeight * 0.1f, BaseScene.textPaint);
         // 레벨 출력
-        if (MainScene.player == null) return;
-        canvas.drawText(String.format("LV %d", MainScene.player.getLevel()),
+        if (scene.getPlayer() == null) return;
+        canvas.drawText(String.format("LV %d", scene.getPlayer().getLevel()),
                 Metrics.screenWidth * 0.9f, 90f, BaseScene.levelTextPaint);
         GameView.toGameScale(canvas);
     }

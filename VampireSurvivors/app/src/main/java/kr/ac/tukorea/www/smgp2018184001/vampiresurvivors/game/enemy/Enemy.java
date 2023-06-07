@@ -5,6 +5,7 @@ import java.util.Random;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.interfaces.IAttackable;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.BaseScene;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.characters.Character;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.characters.Player;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects.Exp;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects.Object;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects.Recovery;
@@ -18,6 +19,7 @@ public class Enemy extends Character implements IAttackable {
     public static Random random = new Random();
 
     protected Object target = null;
+    protected static Player player;
 
     public Enemy(float posX, float posY, float sizeX, float sizeY,
                  int resId, int spriteCountX, int spriteCountY, float secToNextFrame, Object target) {
@@ -29,6 +31,10 @@ public class Enemy extends Character implements IAttackable {
 
     public void setTarget(Object target) {
         this.target = target;
+    }
+
+    public static void setPlayer(Player player) {
+        Enemy.player = player;
     }
 
     @Override
@@ -57,14 +63,14 @@ public class Enemy extends Character implements IAttackable {
 
         //Spawn Exp or Recovery
         if (random.nextInt(100) < 1) {
-            Recovery r = Recovery.get(posX, posY);
+            Recovery r = Recovery.get(player, posX, posY);
             scene.add(MainScene.Layer.item, r);
         } else {
             Exp e = Exp.get(posX, posY, dropExp);
             scene.add(MainScene.Layer.item, e);
         }
         ((MainScene) scene).enemyGenerator.enemyDestroyed();
-        MainScene.player.increaseKilledEnemies();
+        player.increaseKilledEnemies();
     }
 
     @Override
@@ -75,10 +81,5 @@ public class Enemy extends Character implements IAttackable {
     @Override
     public boolean isAttacking() {
         return true;
-    }
-
-    @Override
-    public void getDamage(float damage) {
-        super.getDamage(damage);
     }
 }

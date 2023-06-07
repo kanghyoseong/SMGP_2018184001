@@ -53,7 +53,7 @@ public class GameOverScene extends BaseScene {
                     }
                 }));
 
-        score = MainScene.player.getNumofKilledEnemies() * 10 + (int) (time * 5);
+        score = scene.getPlayer().getNumofKilledEnemies() * 10 + (int) (time * 5);
     }
 
     @Override

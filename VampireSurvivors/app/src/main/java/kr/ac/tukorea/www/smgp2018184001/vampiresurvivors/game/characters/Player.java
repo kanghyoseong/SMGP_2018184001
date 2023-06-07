@@ -35,12 +35,12 @@ public class Player extends Character {
     private int maxHp_increment = 1;
     private int curExp = 0;
     public static float PLAYER_MOVEMENTSPEED = 0.5f;
-    ArrayList<IGameObject> enemiesInScreen = new ArrayList<>();
-    HashMap<Passive.PassiveType, Integer> passiveLevel = new HashMap<>();
-    HashMap<Weapon.WeaponType, Integer> weaponLevel = new HashMap<>();
-    HashMap<Weapon.WeaponType, Weapon> curWeapons = new HashMap<>();
-    private static ArrayList<Enum> weaponToUpgrade = new ArrayList<>();
-    private static ArrayList<Enum> passiveToUpgrade = new ArrayList<>();
+    private ArrayList<IGameObject> enemiesInScreen = new ArrayList<>();
+    private HashMap<Passive.PassiveType, Integer> passiveLevel = new HashMap<>();
+    private HashMap<Weapon.WeaponType, Integer> weaponLevel = new HashMap<>();
+    private HashMap<Weapon.WeaponType, Weapon> curWeapons = new HashMap<>();
+    private ArrayList<Enum> weaponToUpgrade = new ArrayList<>();
+    private ArrayList<Enum> passiveToUpgrade = new ArrayList<>();
     public static final int MAX_WEAPON_LEVEL = 8;
     public static final int MAX_PASSIVE_LEVEL = 5;
     private float attackRatio = 1.0f;
@@ -344,7 +344,7 @@ public class Player extends Character {
     @Override
     public void recoverHp(float hp) {
         super.recoverHp(hp);
-        mainScene.add(MainScene.Layer.effect, HealEffect.get(posX, posY, this));
+        mainScene.add(MainScene.Layer.effect, HealEffect.get(this));
     }
 
     public void increaseKilledEnemies() {

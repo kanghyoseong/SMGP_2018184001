@@ -11,14 +11,16 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.scene.MainScene;
 
 public class Camera extends Object implements IGameObject {
     private static final String TAG = Camera.class.getSimpleName();
+    private MainScene scene;
 
-    public Camera(Player player) {
+    public Camera(MainScene scene, Player player) {
         super(player.getPosX(), player.getPosY());
+        this.scene = scene;
     }
 
     @Override
     public void update(float eTime) {
-        Player player = MainScene.player;
+        Player player = scene.getPlayer();
         if (player != null) {
             float newX = player.getPosX() - Metrics.game_width * 0.5f;
             float newY = player.getPosY() - Metrics.game_height * 0.5f;

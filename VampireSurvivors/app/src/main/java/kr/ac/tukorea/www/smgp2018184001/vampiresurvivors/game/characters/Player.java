@@ -53,6 +53,7 @@ public class Player extends Character {
                   int resId, int spriteCountX, int spriteCountY, float secToNextFrame) {
         super(posX, posY, sizeX, sizeY,
                 resId, spriteCountX, spriteCountY, secToNextFrame);
+        maxHp = curHp = 20;
         this.mainScene = scene;
         movementSpeed = PLAYER_MOVEMENTSPEED;
     }

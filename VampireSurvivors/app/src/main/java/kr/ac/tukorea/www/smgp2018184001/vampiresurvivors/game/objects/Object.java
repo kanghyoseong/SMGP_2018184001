@@ -28,6 +28,9 @@ public class Object implements IGameObject, IRecyclable {
                 SpriteSize.BACKGROUND_SIZE / 2);
     }
 
+    public Object() {
+    }
+
     public Object(float posX, float posY) {
         this.posX = posX;
         this.posY = posY;

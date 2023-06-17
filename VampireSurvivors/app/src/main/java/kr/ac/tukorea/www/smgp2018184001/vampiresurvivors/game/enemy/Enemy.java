@@ -6,6 +6,8 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.interfaces.IA
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.BaseScene;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.characters.Character;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.characters.Player;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.effect.DeathEffect;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.effect.HealEffect;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects.Exp;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects.Object;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects.Recovery;
@@ -71,6 +73,7 @@ public class Enemy extends Character implements IAttackable {
         }
         ((MainScene) scene).enemyGenerator.enemyDestroyed();
         player.increaseKilledEnemies();
+        BaseScene.getTopScene().add(MainScene.Layer.effect, DeathEffect.get(posX, posY, type, aSprite.getIsDirLeft()));
     }
 
     @Override

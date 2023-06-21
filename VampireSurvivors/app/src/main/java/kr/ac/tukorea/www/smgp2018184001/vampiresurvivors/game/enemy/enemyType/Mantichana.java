@@ -15,9 +15,7 @@ public class Mantichana extends Enemy {
         if (m == null) {
             m = new Mantichana(posX, posY, target);
         } else {
-            m.posX = posX;
-            m.posY = posY;
-            m.target = target;
+            m.init(posX, posY, target);
         }
         return m;
     }

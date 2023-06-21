@@ -15,9 +15,7 @@ public class Ghost extends EnemyRange {
         if (ghost == null) {
             ghost = new Ghost(posX, posY, target);
         } else {
-            ghost.posX = posX;
-            ghost.posY = posY;
-            ghost.target = target;
+            ghost.init(posX, posY, target);
         }
         return ghost;
     }

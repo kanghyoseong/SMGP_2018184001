@@ -15,9 +15,7 @@ public class Skeleton extends EnemyRange {
         if (sk == null) {
             sk = new Skeleton(posX, posY, target);
         } else {
-            sk.posX = posX;
-            sk.posY = posY;
-            sk.target = target;
+            sk.init(posX, posY, target);
         }
         return sk;
     }

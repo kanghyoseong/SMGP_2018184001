@@ -31,6 +31,14 @@ public class Enemy extends Character implements IAttackable {
         INVINCIBLETIME = 0.5f;
     }
 
+    protected void init(float posX, float posY, Object target){
+        this.posX = posX;
+        this.posY = posY;
+        this.target = target;
+        this.elapsedInvincibleTime = 0;
+        this.curHp = maxHp;
+    }
+
     public void setTarget(Object target) {
         this.target = target;
     }

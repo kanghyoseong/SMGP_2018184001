@@ -15,9 +15,7 @@ public class LizardPawn extends Enemy {
         if (lp == null) {
             lp = new LizardPawn(posX, posY, target);
         } else {
-            lp.posX = posX;
-            lp.posY = posY;
-            lp.target = target;
+            lp.init(posX, posY, target);
         }
         return lp;
     }

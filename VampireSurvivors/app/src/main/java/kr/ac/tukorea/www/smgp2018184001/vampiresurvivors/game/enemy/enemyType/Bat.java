@@ -15,9 +15,7 @@ public class Bat extends Enemy {
         if (bat == null) {
             bat = new Bat(posX, posY, target);
         } else {
-            bat.posX = posX;
-            bat.posY = posY;
-            bat.target = target;
+            bat.init(posX, posY, target);
         }
         return bat;
     }

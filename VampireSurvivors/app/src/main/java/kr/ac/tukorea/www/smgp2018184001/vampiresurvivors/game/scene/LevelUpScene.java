@@ -1,7 +1,6 @@
 package kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.scene;
 
 import android.graphics.Canvas;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -43,7 +42,7 @@ public class LevelUpScene extends BaseScene {
 
         // add buttons
         for (int i = 0; i < numofButtons; i++) {
-            if (random.nextBoolean()) {
+            if (isWeapon(random, 8, 10)) {
                 if (!addWeaponButton(i, startY, buttonHeight, frameHeight)) {
                     addPassiveButton(i, startY, buttonHeight, frameHeight);
                 }
@@ -53,6 +52,11 @@ public class LevelUpScene extends BaseScene {
                 }
             }
         }
+    }
+
+    private boolean isWeapon(Random random, int weaponChance, int totalChance) {
+        int chance = random.nextInt(totalChance);
+        return chance < weaponChance;
     }
 
     private boolean addWeaponButton(int index, float startY, float buttonHeight, float frameHeight) {

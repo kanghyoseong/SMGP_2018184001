@@ -11,11 +11,12 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.BaseScen
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.Button;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.view.GameView;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.view.Metrics;
-import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.app.MainActivity;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.app.SettingsActivity;
 
 public class PausedScene extends BaseScene {
+    private static final String TAG = PausedScene.class.getSimpleName();
     private MainScene scene;
+    private float touchCount = 0;
 
     public enum Layer {
         bg, touch, COUNT
@@ -66,6 +67,25 @@ public class PausedScene extends BaseScene {
                             ((Activity) GameView.view.context).finish();
                         }
                         return false;
+                    }
+                }));
+
+        // Spawn DebugScene
+        add(Layer.touch, new Button(R.mipmap.transparent, 0.5f, 0.4f,
+                0.5f, 0.5f,
+                new Button.Callback() {
+                    @Override
+                    public boolean onTouch(Button.Action action) {
+                        if (action == Button.Action.pressed) {
+                            touchCount++;
+                            //Log.v(TAG, "Touch " + touchCount);
+                            if (touchCount >= 5) {
+                                //Log.v(TAG, "Spawn Debug Scene");
+                                touchCount = 0;
+                                new DebugScene(scene).pushScene();
+                            }
+                        }
+                        return true;
                     }
                 }));
     }

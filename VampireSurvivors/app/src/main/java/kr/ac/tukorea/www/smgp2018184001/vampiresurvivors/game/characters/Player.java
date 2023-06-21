@@ -301,16 +301,16 @@ public class Player extends Character {
         ArrayList<Enum> canUpgrade = new ArrayList<>();
         canUpgrade.addAll(weaponToUpgrade);
         canUpgrade.removeAll(addedType);
-        Log.v(null, "----get Random Weapon -------");
-        for (Enum e : addedType) {
-            Log.v(null, "Added Type: " + e);
-        }
-        for (Enum e : weaponToUpgrade) {
-            Log.v(null, "weaponToUpgrade: " + e);
-        }
-        for (Enum e : canUpgrade) {
-            Log.v(null, "canUpgrade: " + e + ", LV: " + weaponLevel.get(e));
-        }
+//        Log.v(null, "----get Random Weapon -------");
+//        for (Enum e : addedType) {
+//            Log.v(null, "Added Type: " + e);
+//        }
+//        for (Enum e : weaponToUpgrade) {
+//            Log.v(null, "weaponToUpgrade: " + e);
+//        }
+//        for (Enum e : canUpgrade) {
+//            Log.v(null, "canUpgrade: " + e + ", LV: " + weaponLevel.get(e));
+//        }
         if (canUpgrade.size() == 0) return null;
         int id = random.nextInt(canUpgrade.size());
         Log.v(TAG, "return " + id + ", " + canUpgrade.get(id));
@@ -326,7 +326,7 @@ public class Player extends Character {
         ArrayList<Enum> canUpgrade = new ArrayList<>();
         canUpgrade.addAll(passiveToUpgrade);
         canUpgrade.removeAll(addedType);
-        Log.v(null, "Get Random Passive");
+//        Log.v(null, "Get Random Passive");
 //        Log.v(null, "----get Random Passive -------");
 //        for (Enum e : addedType) {
 //            Log.v(null, "Added Type: " + e);
@@ -334,9 +334,9 @@ public class Player extends Character {
 //        for (Enum e : passiveToUpgrade) {
 //            Log.v(null, "passiveToUpgrade: " + e);
 //        }
-        for (Enum e : canUpgrade) {
-            Log.v(null, "canUpgrade: " + e);
-        }
+//        for (Enum e : canUpgrade) {
+//            Log.v(null, "canUpgrade: " + e);
+//        }
         if (canUpgrade.size() == 0) return null;
         int id = random.nextInt(canUpgrade.size());
         return (Passive.PassiveType) canUpgrade.get(id);

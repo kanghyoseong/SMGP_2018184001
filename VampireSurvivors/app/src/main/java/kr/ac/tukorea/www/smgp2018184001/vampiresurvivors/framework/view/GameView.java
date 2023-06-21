@@ -29,7 +29,6 @@ public class GameView extends View implements Choreographer.FrameCallback {
     private boolean isRunning = true;
     public static GameView view;
     public static String packageName;
-    private MainScene mainScene;
 
     public GameView(Context context) {
         super(context);
@@ -86,7 +85,6 @@ public class GameView extends View implements Choreographer.FrameCallback {
         initPaints();
         Choreographer.getInstance().postFrameCallback(this);
         Sound.initSoundVolume();
-        mainScene = (MainScene) BaseScene.getTopScene();
     }
 
     private void initPaints() {
@@ -150,14 +148,14 @@ public class GameView extends View implements Choreographer.FrameCallback {
                         , 100f, 150f, fpsPaint);
                 canvas.drawText("Obj: " + BaseScene.getTopScene().getObjectCount()
                         , 100f, 250f, fpsPaint);
-                Player p = mainScene.getPlayer();
+                Player p = ((MainScene)scene).getPlayer();
                 if (p != null) {
                     int curLevel = p.getLevel();
                     int curExp = p.getCurExp();
                     int enemyNum = ((MainScene) scene).enemyGenerator.getEnemyNum();
                     canvas.drawText("Level: " + curLevel + ", Exp: " + curExp + ", Enemy Num: " + enemyNum
                             , 100f, 350f, fpsPaint);
-                    int killedEnemy = mainScene.getPlayer().getNumofKilledEnemies();
+                    int killedEnemy = p.getNumofKilledEnemies();
                     canvas.drawText("Killed: " + killedEnemy, 100f, 450f, fpsPaint);
                 }
             }

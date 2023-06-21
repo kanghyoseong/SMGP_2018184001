@@ -6,12 +6,14 @@ import android.graphics.ColorFilter;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
+import android.util.Log;
 
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.RecycleBin;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.flags.SpriteSize;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.weapon.Lightning;
 
 public class AnimatedSprite extends Sprite {
+    private static final String TAG = AnimatedSprite.class.getSimpleName();
     private Bitmap bitmapFrame[];
     private Bitmap bitmapFrame_inverted[];
     private int curFrame = 1; // starts from 1
@@ -63,6 +65,7 @@ public class AnimatedSprite extends Sprite {
 
     @Override
     public void draw(Canvas canvas) {
+        if (dstRect == null) return;
         if (isDirLeft) {
             if (isInvincible)
                 canvas.drawBitmap(bitmapFrame[curFrame - 1], null, dstRect, PaintHit);

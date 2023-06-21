@@ -1,13 +1,15 @@
 package kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.enemy;
 
+import android.graphics.RectF;
+
 import java.util.Random;
 
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.interfaces.IAttackable;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.BaseScene;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.view.GameView;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.characters.Character;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.characters.Player;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.effect.DeathEffect;
-import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.effect.HealEffect;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects.Exp;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects.Object;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects.Recovery;
@@ -31,12 +33,21 @@ public class Enemy extends Character implements IAttackable {
         INVINCIBLETIME = 0.5f;
     }
 
-    protected void init(float posX, float posY, Object target){
+    protected void init(float posX, float posY, Object target) {
         this.posX = posX;
         this.posY = posY;
         this.target = target;
         this.elapsedInvincibleTime = 0;
         this.curHp = maxHp;
+        this.movementSpeed = type.getSpeed();
+        if (dstRect == null) {
+            dstRect = new RectF();
+            reconstructRect();
+        }
+        if (colliderRect == null) {
+            colliderRect = new RectF();
+            reconstructColliderRect();
+        }
     }
 
     public void setTarget(Object target) {
@@ -50,19 +61,35 @@ public class Enemy extends Character implements IAttackable {
     @Override
     public void update(float eTime) {
         super.update(eTime);
-        followTarget();
+        if (target != null) {
+            followTarget();
+        } else {
+            move();
+        }
     }
 
     private void followTarget() {
-        if (target != null) {
-            float dx = target.getPosX() - posX;
-            float dy = target.getPosY() - posY;
-            float length = (float) Math.sqrt(dx * dx + dy * dy);
-            if (length > 0.01f) {
-                dx = dx / length;
-                dy = dy / length;
-                move(dx, dy);
-            }
+        float dx = target.getPosX() - posX;
+        float dy = target.getPosY() - posY;
+        float length = (float) Math.sqrt(dx * dx + dy * dy);
+        if (length > 0.01f) {
+            dx = dx / length;
+            dy = dy / length;
+            move(dx, dy);
+        }
+    }
+
+    public void move() {
+        aSprite.setIsDirLeft(dx < 0);
+        posX = posX + movementSpeed * dx * GameView.frameTime;
+        posY = posY + movementSpeed * dy * GameView.frameTime;
+        reconstructRect();
+        reconstructColliderRect();
+
+        if (!boundary.contains(colliderRect)) {
+            BaseScene scene = BaseScene.getTopScene();
+            ((MainScene) scene).enemyGenerator.enemyDestroyed();
+            scene.remove(MainScene.Layer.enemy, this);
         }
     }
 

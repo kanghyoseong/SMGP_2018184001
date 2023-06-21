@@ -313,7 +313,7 @@ public class Player extends Character {
 //        }
         if (canUpgrade.size() == 0) return null;
         int id = random.nextInt(canUpgrade.size());
-        Log.v(TAG, "return " + id + ", " + canUpgrade.get(id));
+        //Log.v(TAG, "return " + id + ", " + canUpgrade.get(id));
         return (Weapon.WeaponType) canUpgrade.get(id);
     }
 

@@ -108,6 +108,10 @@ public class Character extends Object implements ICollidable {
         reconstructColliderRect();
     }
 
+    public void setMovementSpeed(float movementSpeed) {
+        this.movementSpeed = movementSpeed;
+    }
+
     public float getCurHp() {
         return curHp;
     }

@@ -1,12 +1,21 @@
 package kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.enemy;
 
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.R;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.characters.Player;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.flags.SpriteSize;
 
 public enum EEnemyType {
     Bat, Skeleton, Ghost, Mantichana, LizardPawn, Count;
 
     int[] wave = {1, 4, 7, 10, 13};
+    float[] speed = {
+            Player.PLAYER_MOVEMENTSPEED * 0.4f,
+            Player.PLAYER_MOVEMENTSPEED * 0.3f,
+            Player.PLAYER_MOVEMENTSPEED * 0.3f,
+            Player.PLAYER_MOVEMENTSPEED * 0.2f,
+            Player.PLAYER_MOVEMENTSPEED * 0.4f,
+    };
+
     int[] resIdsLeft = {
             R.mipmap.batdeathleft,
             R.mipmap.skeletondeathleft,
@@ -34,6 +43,9 @@ public enum EEnemyType {
 
     public int getWave() {
         return wave[this.ordinal()];
+    }
+    public float getSpeed() {
+        return speed[this.ordinal()];
     }
 
     public int getResId(boolean isLeft) {

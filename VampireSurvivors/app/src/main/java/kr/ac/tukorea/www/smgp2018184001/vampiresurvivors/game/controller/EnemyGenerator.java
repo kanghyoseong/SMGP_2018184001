@@ -106,7 +106,7 @@ public class EnemyGenerator implements IGameObject {
     }
 
     private enum Pattern {
-        BatCircle, COUNT;
+        BatCircle, Crowd, COUNT;
 
         public static Pattern getRandomPattern(Random random) {
             return Pattern.values()[random.nextInt(Pattern.COUNT.ordinal())];
@@ -127,6 +127,9 @@ public class EnemyGenerator implements IGameObject {
             case BatCircle:
                 patternBatCircle(scene, player);
                 break;
+            case Crowd:
+                patternCrowd(scene, player);
+                break;
             default:
                 break;
         }
@@ -136,7 +139,7 @@ public class EnemyGenerator implements IGameObject {
         Log.v(TAG, "patternBatCircle");
         Bat enemy;
         float posX, posY;
-        final float COUNT = 15;
+        final float COUNT = 20;
         final float RADIUS = 1.5f;
 
         float div = 2 * (float) Math.PI / (float) COUNT;
@@ -145,7 +148,6 @@ public class EnemyGenerator implements IGameObject {
             float offset = div * (float) i;
             posX = player.getPosX() + (float) Math.cos(offset) * RADIUS;
             posY = player.getPosY() + (float) Math.sin(offset) * RADIUS;
-            enemy = Bat.get(posX, posY, player);
 
             // Boundary 안에 있는지 체크
             RectF collider = new RectF();
@@ -155,12 +157,109 @@ public class EnemyGenerator implements IGameObject {
             float bottom = posY + SpriteSize.BAT_SIZE / 2;
             collider.set(left, top, right, bottom);
             if (Object.boundary.contains(collider)) {
-                numofSpawnedEnemies++;
-                Log.v(TAG, "Spawn Enemy (" + posX + ", " + posY + ")");
+                enemy = Bat.get(posX, posY, player);
+                enemy.setMovementSpeed(EEnemyType.Bat.getSpeed() * 0.5f);
+                //Log.v(TAG, "Spawn Enemy (" + posX + ", " + posY + ")");
                 scene.add(MainScene.Layer.enemy, enemy);
-            } else {
-                Log.v(TAG, "Enemy is out of bound");
+                numofSpawnedEnemies++;
             }
+//            else {
+//                Log.v(TAG, "Enemy is out of bound");
+//            }
+        }
+    }
+
+    private void patternCrowd(BaseScene scene, Player player) {
+        Log.v(TAG, "patternCrowd");
+        Bat enemy;
+        float posX, posY;
+        final int COUNT_X = 3;
+        final float GAP = 0.06f;
+
+        float offsetX, offsetY;
+        float distance = 1.0f;
+
+        int direction = random.nextInt(8);
+        Log.v(TAG, "Dir: " + direction);
+        switch (direction) {
+            default:
+            case 0:
+                offsetX = -distance;
+                offsetY = distance;
+                break;
+            case 1:
+                offsetX = 0;
+                offsetY = distance;
+                break;
+            case 2:
+                offsetX = distance;
+                offsetY = distance;
+                break;
+            case 3:
+                offsetX = -distance;
+                offsetY = 0;
+                break;
+            case 4:
+                offsetX = distance;
+                offsetY = 0;
+                break;
+            case 5:
+                offsetX = -distance;
+                offsetY = -distance;
+                break;
+            case 6:
+                offsetX = 0;
+                offsetY = -distance * -1.0f;
+                break;
+            case 7:
+                offsetX = distance;
+                offsetY = -distance * -1.0f;
+                break;
+        }
+
+        if (!Object.boundary.contains(player.getPosX() + offsetX, player.getPosY() + offsetY)) {
+            offsetX *= -1;
+            offsetY *= -1;
+        }
+
+        float width, height;
+        width = height = SpriteSize.BAT_SIZE * COUNT_X + GAP * (COUNT_X - 1);
+        for (int i = 0; i < COUNT_X * COUNT_X; i++) {
+            int x = i % COUNT_X;
+            int y = i / COUNT_X;
+            posX = offsetX + player.getPosX() + x * (SpriteSize.BAT_SIZE + random.nextFloat() * GAP);
+            posY = offsetY + player.getPosY() + y * (SpriteSize.BAT_SIZE + random.nextFloat() * GAP);
+
+            // Boundary 안에 있는지 체크
+            RectF collider = new RectF();
+            float left = posX - SpriteSize.BAT_SIZE / 2;
+            float top = posY - SpriteSize.BAT_SIZE / 2;
+            float right = posX + SpriteSize.BAT_SIZE / 2;
+            float bottom = posY + SpriteSize.BAT_SIZE / 2;
+            collider.set(left, top, right, bottom);
+            if (Object.boundary.contains(collider)) {
+                enemy = Bat.get(posX, posY, null);
+
+                enemy.setMovementSpeed(EEnemyType.Bat.getSpeed() * 2.0f);
+                float dx = player.getPosX() - (offsetX + width * 0.5f);
+                float dy = player.getPosY() - (offsetY + height * 0.5f);
+                float length = (float) Math.sqrt(dx * dx + dy * dy);
+                if (length > 0.01f) {
+                    dx = dx / length;
+                    dy = dy / length;
+                } else {
+                    dx = 1.0f;
+                    dy = 0;
+                }
+                enemy.setDxDy(dx, dy);
+
+                //Log.v(TAG, "Spawn Enemy (" + posX + ", " + posY + ")");
+                scene.add(MainScene.Layer.enemy, enemy);
+                numofSpawnedEnemies++;
+            }
+//            else {
+//                Log.v(TAG, "Enemy is out of bound");
+//            }
         }
     }
 

@@ -32,6 +32,7 @@ public class EnemyGenerator implements IGameObject {
     private final int ENEMY_INCREMENT_PER_WAVE = 2; // 0보다 커야함
     private int numofSpawnedEnemies = -1;
     protected static final float TIME_TO_NEXT_PATTERN = 15.0f;
+    private float elapsedPatternTime = 0;
     private static Random random = new Random();
 
 
@@ -44,10 +45,9 @@ public class EnemyGenerator implements IGameObject {
     @Override
     public void update(float eTime) {
         elapsedTime += eTime;
-        float mod = elapsedTime % TIME_TO_NEXT_PATTERN;
-        //Log.v(TAG, "frameTime: " + eTime + ", elapsedTime: " + elapsedTime + ", mod: " + mod);
-        if (wave > 1 && mod > TIME_TO_NEXT_PATTERN * 0.5 - 0.01f && mod < TIME_TO_NEXT_PATTERN * 0.5f + 0.01f) {
-            //Log.v(TAG, "frameTime: " + eTime + ", elapsedTime: " + elapsedTime + ", mod: " + mod);
+        elapsedPatternTime += eTime;
+        if (elapsedPatternTime > TIME_TO_NEXT_PATTERN) {
+            elapsedPatternTime = 0;
             spawnPattern();
         }
         if (elapsedTime > TIME_TO_NEXT_WAVE ||
@@ -136,7 +136,7 @@ public class EnemyGenerator implements IGameObject {
         Log.v(TAG, "patternBatCircle");
         Bat enemy;
         float posX, posY;
-        final float COUNT = 20;
+        final float COUNT = 15;
         final float RADIUS = 1.5f;
 
         float div = 2 * (float) Math.PI / (float) COUNT;

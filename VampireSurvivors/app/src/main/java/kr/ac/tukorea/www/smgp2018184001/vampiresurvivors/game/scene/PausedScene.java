@@ -11,6 +11,8 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.BaseScen
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.Button;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.view.GameView;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.view.Metrics;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.app.Score;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.app.ScoreActivity;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.app.SettingsActivity;
 
 public class PausedScene extends BaseScene {
@@ -64,6 +66,7 @@ public class PausedScene extends BaseScene {
                     @Override
                     public boolean onTouch(Button.Action action) {
                         if (action == Button.Action.released) {
+                            ScoreActivity.saveScore();
                             ((Activity) GameView.view.context).finish();
                         }
                         return false;
@@ -99,6 +102,10 @@ public class PausedScene extends BaseScene {
         // 시간 출력
         canvas.drawText(String.format("%02d : %02d", minute, sec),
                 Metrics.screenWidth / 2, Metrics.screenHeight * 0.1f, BaseScene.textPaint);
+
+        // 점수 출력
+        canvas.drawText(String.format(GameView.res.getString(R.string.gameover_score), Score.curScore),
+                Metrics.screenWidth / 2, Metrics.screenHeight * 0.2f, BaseScene.textPaint);
         // 레벨 출력
         canvas.drawText(String.format("LV %d", scene.getPlayer().getLevel()),
                 Metrics.screenWidth * 0.9f, 90f, BaseScene.levelTextPaint);

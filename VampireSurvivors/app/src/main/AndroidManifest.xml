@@ -12,6 +12,9 @@
         android:theme="@style/Theme.VampireSurvivors"
         tools:targetApi="31">
         <activity
+            android:name=".game.app.ScoreActivity"
+            android:exported="false" />
+        <activity
             android:name=".game.app.SettingsActivity"
             android:exported="false" />
         <activity

@@ -7,6 +7,7 @@ import java.util.Random;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.interfaces.IAttackable;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.BaseScene;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.view.GameView;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.app.Score;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.characters.Character;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.characters.Player;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.effect.DeathEffect;
@@ -95,6 +96,10 @@ public class Enemy extends Character implements IAttackable {
 
     @Override
     public void killThis() {
+        //Add Score
+        Score.curScore += dropExp;
+
+        // Remove From Scene
         BaseScene scene = BaseScene.getTopScene();
         scene.remove(MainScene.Layer.enemy, this);
 

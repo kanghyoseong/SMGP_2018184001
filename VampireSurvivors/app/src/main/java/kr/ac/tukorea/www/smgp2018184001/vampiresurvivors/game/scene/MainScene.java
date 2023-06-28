@@ -12,6 +12,7 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.Collisio
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.Gauge;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.view.GameView;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.view.Metrics;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.app.Score;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.characters.Player;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.controller.Camera;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.controller.EnemyGenerator;
@@ -38,6 +39,7 @@ public class MainScene extends BaseScene {
 
     public MainScene() {
         Metrics.setGameSize(1, 1);
+        Score.curScore = 0;
         initLayers(Layer.COUNT);
         LevelUpScene.numofLevelUpSceneToShow = 0;
 
@@ -115,6 +117,9 @@ public class MainScene extends BaseScene {
         // 시간 출력
         canvas.drawText(String.format("%02d : %02d", minute, sec),
                 Metrics.screenWidth / 2, Metrics.screenHeight * 0.1f, BaseScene.textPaint);
+        // 점수 출력
+        canvas.drawText(String.format(GameView.res.getString(R.string.gameover_score), Score.curScore),
+                Metrics.screenWidth / 2, Metrics.screenHeight * 0.2f, BaseScene.textPaint);
         // 레벨 출력
         levelTextPaint.setTextSize(Metrics.screenWidth * 0.05f);
         canvas.drawText(String.format("LV %d", player.getLevel()),

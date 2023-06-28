@@ -1,6 +1,7 @@
 package kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.scene;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.graphics.Canvas;
 
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.R;
@@ -9,11 +10,13 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.BaseScen
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.Button;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.view.GameView;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.view.Metrics;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.app.Score;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.app.ScoreActivity;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.app.TitleActivity;
 
 public class GameOverScene extends BaseScene {
     private float time;
     private int level;
-    private int score;
 
     public enum Layer {
         bg, touch, COUNT
@@ -52,8 +55,7 @@ public class GameOverScene extends BaseScene {
                         return false;
                     }
                 }));
-
-        score = scene.getPlayer().getNumofKilledEnemies() * 10 + (int) (time * 5);
+        ScoreActivity.saveScore();
     }
 
     @Override
@@ -62,15 +64,18 @@ public class GameOverScene extends BaseScene {
         GameView.toScreenScale(canvas);
         int minute = (int) (time / 60f);
         int sec = (int) (time % 60f);
+        // 닉네임 출력
+        canvas.drawText(String.format(TitleActivity.name),
+                Metrics.screenWidth / 2, Metrics.screenHeight * 0.45f, BaseScene.textPaint);
         // 레벨 출력
         canvas.drawText(String.format("LV %d", level),
-                Metrics.screenWidth / 2, Metrics.screenHeight * 0.5f, BaseScene.textPaint);
+                Metrics.screenWidth / 2, Metrics.screenHeight * 0.55f, BaseScene.textPaint);
         // 시간 출력
         canvas.drawText(String.format(GameView.res.getString(R.string.gameover_time), minute, sec),
-                Metrics.screenWidth / 2, Metrics.screenHeight * 0.6f, BaseScene.textPaint);
+                Metrics.screenWidth / 2, Metrics.screenHeight * 0.65f, BaseScene.textPaint);
         // 점수 출력
-        canvas.drawText(String.format(GameView.res.getString(R.string.gameover_score), score),
-                Metrics.screenWidth / 2, Metrics.screenHeight * 0.7f, BaseScene.textPaint);
+        canvas.drawText(String.format(GameView.res.getString(R.string.gameover_score), Score.curScore),
+                Metrics.screenWidth / 2, Metrics.screenHeight * 0.75f, BaseScene.textPaint);
 
         canvas.drawText(GameView.res.getString(R.string.title_exit),
                 Metrics.screenWidth * 0.25f, Metrics.y_offset + (Metrics.screenHeight - Metrics.y_offset * 2) * 0.85f + Metrics.y_offset + textPaint.getTextSize() * 0.4f,

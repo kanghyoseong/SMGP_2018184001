@@ -100,7 +100,7 @@ public class Enemy extends Character implements IAttackable {
     @Override
     public void killThis() {
         //Add Score
-        Score.curScore += dropExp;
+        Score.curScore += maxHp;
 
         // Remove From Scene
         BaseScene scene = BaseScene.getTopScene();

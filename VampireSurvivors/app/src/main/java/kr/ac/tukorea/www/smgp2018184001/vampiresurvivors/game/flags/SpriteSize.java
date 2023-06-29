@@ -28,4 +28,5 @@ public class SpriteSize {
     public static float BACKGROUND_SIZE = 8.0f;
     public static float JOYSTICK_BACKGROUND_SIZE = 0.1f;
     public static float JOYSTICK_HANDLE_SIZE = 0.05f;
+    public static float DAMAGE_SIZE = 0.05f;
 }

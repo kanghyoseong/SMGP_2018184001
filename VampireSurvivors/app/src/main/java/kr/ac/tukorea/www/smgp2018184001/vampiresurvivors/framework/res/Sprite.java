@@ -9,7 +9,7 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.framework.util.BaseScen
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.controller.Camera;
 
 public class Sprite implements IGameObject {
-    private Bitmap bitmap;
+    protected Bitmap bitmap;
     protected RectF dstRect;
 
     public Sprite() {
@@ -34,6 +34,10 @@ public class Sprite implements IGameObject {
 
     public void setBitmap(int resId) {
         bitmap = BitmapPool.get(resId, false);
+    }
+
+    public Bitmap getBitmap() {
+        return bitmap;
     }
 
     public void setDstRect(RectF rect) {

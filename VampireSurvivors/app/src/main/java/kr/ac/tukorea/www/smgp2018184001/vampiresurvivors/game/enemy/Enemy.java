@@ -1,6 +1,7 @@
 package kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.enemy;
 
 import android.graphics.RectF;
+import android.util.Log;
 
 import java.util.Random;
 
@@ -11,12 +12,14 @@ import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.app.Score;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.characters.Character;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.characters.Player;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.effect.DeathEffect;
+import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects.Damage;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects.Exp;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects.Object;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.objects.Recovery;
 import kr.ac.tukorea.www.smgp2018184001.vampiresurvivors.game.scene.MainScene;
 
 public class Enemy extends Character implements IAttackable {
+    private static final String TAG = Enemy.class.getSimpleName();
     protected float atk;
     protected AtkType atkType;
     protected int dropExp;
@@ -114,6 +117,13 @@ public class Enemy extends Character implements IAttackable {
         ((MainScene) scene).enemyGenerator.enemyDestroyed();
         player.increaseKilledEnemies();
         BaseScene.getTopScene().add(MainScene.Layer.effect, DeathEffect.get(posX, posY, type, aSprite.getIsDirLeft()));
+    }
+
+    @Override
+    public void getDamage(float damage) {
+        super.getDamage(damage);
+        Damage dmg = Damage.get(posX, posY, (int) damage);
+        BaseScene.getTopScene().add(MainScene.Layer.effect, dmg);
     }
 
     @Override
